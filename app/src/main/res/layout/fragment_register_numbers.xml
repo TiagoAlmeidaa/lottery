@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="minimum"
+            type="String" />
+
+        <variable
+            name="maximum"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDefault"
+        android:orientation="vertical"
+        tools:context=".ui.register.game.GameRegisterActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/main_content_padding_top_bottom" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/main_content_padding_top_bottom" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/main_content_padding_start_end" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/main_content_padding_start_end" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_different_fields"
+            android:text="@string/pick_numbers"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/game_register_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/card_view_information"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toTopOf="@id/guide_top"
+            app:textAllCaps="true" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            android:layout_marginStart="@dimen/game_register_header_margin_start_end"
+            android:layout_marginEnd="@dimen/game_register_header_margin_start_end"
+            app:layout_constraintBottom_toTopOf="@id/grid_view_numbers"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_minimum_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minimum"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/game_register_header_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_minimum"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_maximum_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_minimum"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@{minimum}"
+                    android:textSize="@dimen/game_register_header_subtitle_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_maximum_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_selected" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_maximum_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/maximum"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/game_register_header_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_maximum"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_selected_title"
+                    app:layout_constraintStart_toEndOf="@id/text_view_minimum_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_maximum"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@{maximum}"
+                    android:textSize="@dimen/game_register_header_subtitle_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_selected"
+                    app:layout_constraintStart_toEndOf="@id/text_view_minimum"
+                    app:layout_constraintTop_toTopOf="@id/text_view_selected" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_selected_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/selected"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/game_register_header_title_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_selected"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_view_maximum_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_selected"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/game_register_header_subtitle_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_view_maximum"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_selected_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grid_view_numbers"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/game_register_numbers_grid_padding_start_end"
+            android:paddingTop="@dimen/game_register_numbers_grid_padding_top_bottom"
+            android:paddingEnd="@dimen/game_register_numbers_grid_padding_start_end"
+            android:paddingBottom="@dimen/game_register_numbers_grid_padding_top_bottom"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/button_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_view_information"
+            app:spanCount="7" />
+
+        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            android:id="@+id/button_back"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_vertical_button"
+            app:backColor="@android:color/white"
+            app:icon="@drawable/icon_chevron_left"
+            app:layout_constraintBottom_toBottomOf="@id/guide_bottom"
+            app:layout_constraintEnd_toStartOf="@id/space_between_buttons"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/grid_view_numbers"
+            app:title="@string/back"
+            app:titleColor="@android:color/tab_indicator_text" />
+
+        <Space
+            android:id="@+id/space_between_buttons"
+            android:layout_width="@dimen/double_buttons_spacing"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/grid_view_numbers"
+            app:layout_constraintStart_toEndOf="@id/button_back"
+            app:layout_constraintEnd_toStartOf="@id/button_save"
+            app:layout_constraintBottom_toTopOf="@id/guide_bottom"/>
+
+        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_vertical_button"
+            app:backColor="@color/colorAccent"
+            app:icon="@drawable/icon_check"
+            app:layout_constraintBottom_toBottomOf="@id/guide_bottom"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toEndOf="@id/space_between_buttons"
+            app:layout_constraintTop_toBottomOf="@id/grid_view_numbers"
+            app:title="@string/save_game"
+            app:titleColor="@android:color/white" />
+
+        <com.tiagoalmeida.lottery.util.view.LoadingOrErrorView
+            android:id="@+id/loading_or_error_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/guide_bottom"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toTopOf="@id/guide_top"
+            android:visibility="gone"
+            android:translationZ="2dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

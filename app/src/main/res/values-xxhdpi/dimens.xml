@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- This file contains only the different sizes compared to the xhdpi folder, which is the default -->
+
+    <!-- Default Values -->
+    <dimen name="height_adapter_card">70dp</dimen>
+    <dimen name="height_horizontal_button">50dp</dimen>
+    <dimen name="height_vertical_button">100dp</dimen>
+
+    <dimen name="size_icons">24dp</dimen>
+
+    <dimen name="dialog_margin_start_end">25dp</dimen>
+
+    <!-- Spinner Item -->
+    <dimen name="spinner_item_text_size">@dimen/text_size_default</dimen>
+
+    <!-- Button Card View -->
+    <dimen name="button_card_view_text_size">@dimen/text_size_small</dimen>
+
+    <!-- Numbers Adapter -->
+    <dimen name="adapter_number_size">28dp</dimen>
+    <dimen name="adapter_number_text_size">@dimen/text_size_default</dimen>
+
+    <!-- Results Adapter -->
+    <dimen name="adapter_result_contest_title_width">115dp</dimen>
+    <dimen name="adapter_results_title_text_size">@dimen/text_size_default</dimen>
+    <dimen name="adapter_results_subtitle_text_size">@dimen/text_size_small</dimen>
+
+    <!-- Add Game and Filter Layout -->
+    <dimen name="add_and_filter_game_text_size">@dimen/text_size_small</dimen>
+
+    <!-- Games Adapter -->
+    <dimen name="adapter_games_chevron_margin">5dp</dimen>
+    <dimen name="adapter_games_subtitle_text_size">@dimen/text_size_small</dimen>
+
+    <!-- Login Bottom Sheet -->
+
+    <!-- Detail Game Activity -->
+    <dimen name="detail_game_title_text_size">@dimen/text_size_big</dimen>
+    <dimen name="detail_game_subtitle_text_size">@dimen/text_size_medium</dimen>
+    <dimen name="detail_game_recycler_view_numbers_margin_top_bottom">24dp</dimen>
+    <dimen name="detail_game_recycler_view_numbers_margin_start_end">72dp</dimen>
+    <dimen name="detail_game_recycler_view_results_padding_start_end">15dp</dimen>
+    <dimen name="detail_game_button_search_text_size">@dimen/text_size_small</dimen>
+    <dimen name="detail_game_button_search_icon_size">12dp</dimen>
+    <dimen name="detail_game_button_search_height">40dp</dimen>
+
+    <!--- Detail Game Adapter -->
+    <dimen name="adapter_detail_game_height">80dp</dimen>
+    <dimen name="adapter_detail_game_title_text_size">@dimen/text_size_big</dimen>
+    <dimen name="adapter_detail_game_subtitle_text_size">@dimen/text_size_very_small</dimen>
+
+    <!-- Game Register -->
+    <dimen name="game_register_title_text_size">@dimen/text_size_medium</dimen>
+    <dimen name="game_register_header_title_text_size">@dimen/text_size_small</dimen>
+    <dimen name="game_register_header_subtitle_text_size">@dimen/text_size_default</dimen>
+    <dimen name="game_register_check_text_size">@dimen/text_size_default</dimen>
+    <dimen name="game_register_edit_text_text_size">@dimen/text_size_default</dimen>
+
+    <!-- Grid Numbers -->
+    <dimen name="adapter_grid_numbers_size">40dp</dimen>
+    <dimen name="adapter_grid_numbers_text_size">@dimen/text_size_default</dimen>
+
+    <!-- Awaiting Response Layout -->
+    <dimen name="awaiting_response_icon_size">48dp</dimen>
+    <dimen name="awaiting_response_title_text_size">@dimen/text_size_medium</dimen>
+    <dimen name="awaiting_response_subtitle_text_size">@dimen/text_size_small</dimen>
+
+    <!-- Games Filter Bottom Sheet -->
+    <dimen name="bottom_sheet_games_filter_edit_text_text_size">@dimen/text_size_default</dimen>
+
+</resources>

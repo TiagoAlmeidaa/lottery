@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="colorId"
+            type="Integer" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/card_corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+            tools:background="@android:color/black">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_header"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_adapter_card"
+                app:layout_constraintBottom_toTopOf="@id/expandable_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image_view_clover"
+                    android:layout_width="@dimen/size_icons"
+                    android:layout_height="@dimen/size_icons"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_contest"
+                    app:layout_constraintEnd_toEndOf="@id/text_view_contest"
+                    app:layout_constraintStart_toStartOf="@id/text_view_contest"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/icon_clover" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_contest"
+                    android:layout_width="@dimen/adapter_result_contest_title_width"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/adapter_results_subtitle_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_contest_number"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_clover"
+                    tools:text="LOTOMANIA" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_contest_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/adapter_results_title_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_contest_winners"
+                    app:layout_constraintEnd_toStartOf="@id/view_separator"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_contest"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="CONCURSO 2222" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_contest_winners"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/adapter_results_subtitle_text_size"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_contest_date"
+                    app:layout_constraintEnd_toStartOf="@id/view_separator"
+                    app:layout_constraintStart_toStartOf="@id/text_view_contest_number"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_contest_number"
+                    tools:text="Ganhadores: 1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_contest_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/adapter_results_subtitle_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/view_separator"
+                    app:layout_constraintStart_toStartOf="@id/text_view_contest_number"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_contest_winners"
+                    tools:text="01/01/2020" />
+
+                <View
+                    android:id="@+id/view_separator"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:background="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/image_view_chevron"
+                    app:layout_constraintStart_toEndOf="@id/text_view_contest_number"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image_view_chevron"
+                    android:layout_width="@dimen/size_icons"
+                    android:layout_height="@dimen/size_icons"
+                    android:layout_marginStart="@dimen/adapter_result_chevron_margin"
+                    android:layout_marginEnd="@dimen/adapter_result_chevron_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/view_separator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_chevron_down" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandable_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_header">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_numbers"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/adapter_results_numbers_margin_start_end"
+                    android:layout_marginTop="@dimen/adapter_results_default_margin_top_bottom"
+                    android:layout_marginEnd="@dimen/adapter_results_numbers_margin_start_end"
+                    app:layout_constraintBottom_toTopOf="@id/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/adapter_results_default_margin_top_bottom"
+                    android:alpha="0.5"
+                    android:background="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_next_contest"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_numbers" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_next_contest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/adapter_results_default_margin_start_end"
+                    android:layout_marginTop="@dimen/adapter_results_default_margin_top_bottom"
+                    android:text="@string/next_contest"
+                    android:textAllCaps="true"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+                    android:textSize="@dimen/adapter_results_subtitle_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_next_contest_date"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_next_contest_prize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_next_contest_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/adapter_results_default_margin_top_bottom"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+                    android:textSize="@dimen/adapter_results_subtitle_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/text_view_next_contest"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@id/text_view_next_contest"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_next_contest"
+                    tools:text="02/01/2020" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_next_contest_prize"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/adapter_results_default_margin_start_end"
+                    android:gravity="center"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+                    android:textSize="@dimen/adapter_results_title_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_next_contest_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_view_next_contest"
+                    app:layout_constraintTop_toTopOf="@id/text_view_next_contest"
+                    tools:text="R$ 10.000.000" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

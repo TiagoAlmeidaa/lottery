@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="userGame"
+            type="com.tiagoalmeida.lottery.model.vo.UserGame" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{ContextCompat.getColor(context, safeUnbox(userGame.type.color))}"
+            android:transitionName="background"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view_contests"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            tools:background="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view_back"
+                android:layout_width="@dimen/detail_game_search_icon_size"
+                android:layout_height="@dimen/detail_game_search_icon_size"
+                android:layout_marginStart="@dimen/detail_game_top_icons_margin_start_end"
+                android:layout_marginTop="@dimen/detail_game_top_icons_margin_top_bottom"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toTopOf="@id/image_view_clover"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/button_compare"
+                android:layout_marginEnd="@dimen/detail_game_button_compare_margin_end"
+                android:layout_width="@dimen/detail_game_search_icon_size"
+                android:layout_height="@dimen/detail_game_search_icon_size"
+                android:layout_marginStart="@dimen/detail_game_top_icons_margin_start_end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_delete"
+                app:layout_constraintEnd_toStartOf="@id/image_view_delete"
+                app:layout_constraintTop_toTopOf="@id/image_view_delete"
+                app:srcCompat="@drawable/icon_search" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view_delete"
+                android:layout_width="@dimen/detail_game_search_icon_size"
+                android:layout_height="@dimen/detail_game_search_icon_size"
+                android:layout_marginEnd="@dimen/detail_game_top_icons_margin_start_end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_view_back"
+                app:srcCompat="@drawable/icon_delete" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view_clover"
+                android:layout_width="@dimen/detail_game_clover_icon_size"
+                android:layout_height="@dimen/detail_game_clover_icon_size"
+                app:layout_constraintBottom_toTopOf="@id/text_view_lottery_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_back"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/icon_clover" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view_lottery_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{userGame.type.toString()}"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/detail_game_title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/text_view_contest_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_clover"
+                tools:text="MEGASENA" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view_contest_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/detail_game_subtitle_text_size"
+                app:layout_constraintBottom_toTopOf="@id/recycler_view_numbers"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_lottery_type"
+                tools:text="1111" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_numbers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/detail_game_recycler_view_numbers_margin_start_end"
+                android:layout_marginTop="@dimen/detail_game_recycler_view_numbers_margin_top_bottom"
+                android:layout_marginEnd="@dimen/detail_game_recycler_view_numbers_margin_start_end"
+                android:layout_marginBottom="@dimen/detail_game_recycler_view_numbers_margin_top_bottom"
+                app:layout_constraintBottom_toTopOf="@id/button_clear_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_contest_number" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_clear_filter"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/detail_game_button_search_height"
+                android:text="@string/clear_filter"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/detail_game_button_search_text_size"
+                android:visibility="invisible"
+                app:icon="@drawable/icon_close"
+                app:iconSize="@dimen/detail_game_button_search_icon_size"
+                app:iconTint="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@id/space_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_numbers"
+                app:strokeColor="@android:color/white" />
+
+            <View
+                android:id="@+id/space_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_clear_filter" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_contests"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/detail_game_recycler_view_results_padding_start_end"
+            android:paddingTop="@dimen/detail_game_recycler_view_results_padding_top_bottom"
+            android:paddingEnd="@dimen/detail_game_recycler_view_results_padding_start_end"
+            android:paddingBottom="@dimen/detail_game_recycler_view_results_padding_top_bottom"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_header" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

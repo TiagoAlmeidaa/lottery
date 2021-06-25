@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "193950884198",
+    "firebase_url": "https://lottery-95042.firebaseio.com",
+    "project_id": "lottery-95042",
+    "storage_bucket": "lottery-95042.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193950884198:android:ce688e52b8f1da22aae8a7",
+        "android_client_info": {
+          "package_name": "com.tiagoalmeida.lottery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193950884198-l3j0cnmcbof2ot0jhh38h5mm6kp07ppr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9Oayv82tpiPFPEXSI6NGEJv8jPVYKxf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193950884198-l3j0cnmcbof2ot0jhh38h5mm6kp07ppr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

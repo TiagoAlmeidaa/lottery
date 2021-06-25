@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="gameRegisterViewModel"
+            type="com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundDefault"
+            android:orientation="vertical"
+            tools:context=".ui.register.game.GameRegisterActivity">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/main_content_padding_top_bottom" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/main_content_padding_top_bottom" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/main_content_padding_start_end" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/main_content_padding_start_end" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_between_different_fields"
+                android:text="@string/pick_contest"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/game_register_title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/input_layout_spinner"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toTopOf="@id/guide_top"
+                app:textAllCaps="true" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_between_different_fields"
+                android:hint="@string/contest"
+                app:layout_constraintBottom_toTopOf="@id/input_layout_start_contest_number"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/text_view_title"
+                app:startIconDrawable="@drawable/icon_clover">
+
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_lottery_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/game_register_edit_text_text_size"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textPhonetic"
+                    tools:ignore="LabelFor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_start_contest_number"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_between_fields"
+                app:boxStrokeColor="@color/colorAccent"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
+                app:hintTextColor="@color/colorAccent"
+                app:layout_constraintBottom_toTopOf="@id/input_layout_end_contest_number"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/input_layout_spinner"
+                app:startIconDrawable="@drawable/icon_numbers">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_start_contest_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/start_contest"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:nextFocusRight="@id/edit_text_end_contest_number"
+                    android:singleLine="true"
+                    android:text="@={gameRegisterViewModel.userGame.startContestNumber}"
+                    android:textCursorDrawable="@drawable/cursor_edit_text"
+                    android:textSize="@dimen/game_register_edit_text_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_end_contest_number"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/colorAccent"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
+                app:hintTextColor="@color/colorAccent"
+                app:layout_constraintBottom_toTopOf="@id/check_box_unlimited_contests"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/input_layout_start_contest_number"
+                app:startIconDrawable="@drawable/icon_numbers">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_end_contest_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/end_contest"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:text="@={gameRegisterViewModel.userGame.endContestNumber}"
+                    android:textCursorDrawable="@drawable/cursor_edit_text"
+                    android:textSize="@dimen/game_register_edit_text_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/check_box_unlimited_contests"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_between_different_fields"
+                android:layout_marginBottom="@dimen/space_between_different_fields"
+                android:checked="@={gameRegisterViewModel.validForAllFutureContests}"
+                android:text="@string/join_all_future_contests"
+                android:textSize="@dimen/game_register_check_text_size"
+                app:layout_constraintBottom_toTopOf="@id/view_empty"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/input_layout_end_contest_number" />
+
+            <View
+                android:id="@+id/view_empty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/button_back"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/check_box_unlimited_contests" />
+
+            <com.tiagoalmeida.lottery.util.view.ButtonCardView
+                android:id="@+id/button_back"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_vertical_button"
+                app:backColor="@android:color/white"
+                app:icon="@drawable/icon_chevron_left"
+                app:layout_constraintBottom_toBottomOf="@id/guide_bottom"
+                app:layout_constraintEnd_toStartOf="@id/space_between_buttons"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/view_empty"
+                app:title="@string/back"
+                app:titleColor="@android:color/tab_indicator_text" />
+
+            <Space
+                android:id="@+id/space_between_buttons"
+                android:layout_width="@dimen/double_buttons_spacing"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/view_empty"
+                app:layout_constraintStart_toEndOf="@id/button_back"
+                app:layout_constraintEnd_toStartOf="@id/button_next"
+                app:layout_constraintBottom_toTopOf="@id/guide_bottom"/>
+
+            <com.tiagoalmeida.lottery.util.view.ButtonCardView
+                android:id="@+id/button_next"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_vertical_button"
+                app:backColor="@color/colorAccent"
+                app:icon="@drawable/icon_chevron_right"
+                app:layout_constraintBottom_toBottomOf="@id/guide_bottom"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toEndOf="@id/space_between_buttons"
+                app:layout_constraintTop_toBottomOf="@id/view_empty"
+                app:title="@string/numbers"
+                app:titleColor="@android:color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

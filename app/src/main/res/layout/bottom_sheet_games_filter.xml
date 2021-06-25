@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/bottom_sheet_login_padding_top" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/bottom_sheet_login_padding_bottom" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/bottom_sheet_login_padding_start_end" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/bottom_sheet_login_padding_start_end" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_different_fields"
+            android:hint="@string/contest"
+            app:layout_constraintBottom_toTopOf="@id/input_layout_contest_number"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toTopOf="@id/guide_top"
+            app:startIconDrawable="@drawable/icon_clover">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinner_lottery_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:inputType="textPhonetic"
+                android:textSize="@dimen/bottom_sheet_games_filter_edit_text_text_size"
+                tools:ignore="LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_contest_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_fields"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/button_filter"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_spinner"
+            app:startIconDrawable="@drawable/icon_numbers">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_contest_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/contest_number"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/cursor_edit_text"
+                android:textSize="@dimen/bottom_sheet_games_filter_edit_text_text_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            android:id="@+id/button_filter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_horizontal_button"
+            android:layout_marginTop="@dimen/space_between_different_fields"
+            android:elevation="@dimen/elevation_button"
+            app:backColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/button_clear_filter"
+            app:layout_constraintEnd_toStartOf="@id/guide_end"
+            app:layout_constraintStart_toEndOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_contest_number"
+            app:setCenter="true"
+            app:setHorizontal="true"
+            app:title="@string/filter"
+            app:titleColor="@android:color/white" />
+
+        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            android:id="@+id/button_clear_filter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_horizontal_button"
+            android:layout_marginTop="@dimen/space_between_fields"
+            android:elevation="@dimen/elevation_button"
+            app:backColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/guide_bottom"
+            app:layout_constraintEnd_toStartOf="@id/guide_end"
+            app:layout_constraintStart_toEndOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/button_filter"
+            app:setCenter="true"
+            app:setHorizontal="true"
+            app:title="@string/clear_filter"
+            app:titleColor="@color/colorAccent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="colorId"
+            type="Integer" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="background"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/elevation_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_adapter_card"
+            android:background="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+            tools:background="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view_clover"
+                android:layout_width="@dimen/size_icons"
+                android:layout_height="@dimen/size_icons"
+                app:layout_constraintBottom_toTopOf="@id/text_view_contest"
+                app:layout_constraintEnd_toEndOf="@id/view_separator"
+                app:layout_constraintStart_toStartOf="@id/text_view_contest"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/icon_clover" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view_contest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/adapter_games_subtitle_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/text_view_contest_number"
+                app:layout_constraintEnd_toStartOf="@id/view_separator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_clover"
+                tools:text="LOTOMANIA" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view_contest_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/adapter_games_subtitle_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/text_view_contest"
+                app:layout_constraintStart_toStartOf="@id/text_view_contest"
+                app:layout_constraintTop_toBottomOf="@id/text_view_contest"
+                tools:text="CONCURSO 9999" />
+
+            <View
+                android:id="@+id/view_separator"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:alpha="0.5"
+                android:background="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/image_view_chevron"
+                app:layout_constraintStart_toEndOf="@id/text_view_contest"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view_chevron"
+                android:layout_width="@dimen/size_icons"
+                android:layout_height="@dimen/size_icons"
+                android:layout_marginStart="@dimen/adapter_games_chevron_margin"
+                android:layout_marginEnd="@dimen/adapter_games_chevron_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/view_separator"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_chevron_right" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

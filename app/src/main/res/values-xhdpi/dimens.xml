@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default Values -->
+    <dimen name="height_adapter_card">60dp</dimen>
+    <dimen name="height_horizontal_button">45dp</dimen>
+    <dimen name="height_vertical_button">90dp</dimen>
+
+    <dimen name="width_divider">1dp</dimen>
+
+    <dimen name="elevation_card">4dp</dimen>
+    <dimen name="elevation_button">4dp</dimen>
+
+    <dimen name="space_between_fields">5dp</dimen>
+    <dimen name="space_between_different_fields">15dp</dimen>
+
+    <dimen name="text_size_very_very_small">10sp</dimen>
+    <dimen name="text_size_very_small">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_default">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_big">18sp</dimen>
+
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="card_margin">2dp</dimen>
+
+    <dimen name="size_icons">20dp</dimen>
+
+    <dimen name="dialog_margin_start_end">15dp</dimen>
+
+    <dimen name="double_buttons_spacing">8dp</dimen>
+
+    <dimen name="loading_size">36dp</dimen>
+
+    <!-- Spinner Item -->
+    <dimen name="spinner_item_text_size">@dimen/text_size_small</dimen>
+    <dimen name="spinner_item_padding_start_end">16dp</dimen>
+    <dimen name="spinner_item_padding_top_bottom">8dp</dimen>
+
+    <!-- Numbers Adapter -->
+    <dimen name="adapter_number_size">24dp</dimen>
+    <dimen name="adapter_number_text_size">@dimen/text_size_small</dimen>
+    <dimen name="adapter_number_margin">1dp</dimen>
+
+    <!-- Button Card View -->
+    <dimen name="button_card_view_text_size">@dimen/text_size_very_small</dimen>
+    <dimen name="button_card_view_margin_top">5dp</dimen>
+    <dimen name="button_card_view_padding_content">15dp</dimen>
+    <dimen name="button_card_view_margin_start_end_top">1dp</dimen>
+
+    <!-- Main Activity -->
+    <dimen name="main_view_margin">5dp</dimen>
+    <dimen name="main_content_padding_start_end">36dp</dimen>
+    <dimen name="main_content_padding_top_bottom">24dp</dimen>
+
+    <!-- Results Adapter -->
+    <dimen name="adapter_result_contest_title_width">100dp</dimen>
+    <dimen name="adapter_results_default_margin_top_bottom">10dp</dimen>
+    <dimen name="adapter_results_default_margin_start_end">15dp</dimen>
+    <dimen name="adapter_results_numbers_margin_start_end">40dp</dimen>
+    <dimen name="adapter_results_title_text_size">@dimen/text_size_small</dimen>
+    <dimen name="adapter_results_subtitle_text_size">@dimen/text_size_very_small</dimen>
+    <dimen name="adapter_result_chevron_margin">5dp</dimen>
+
+    <!-- Games Adapter-->
+    <dimen name="adapter_games_chevron_margin">2dp</dimen>
+    <dimen name="adapter_games_subtitle_text_size">@dimen/text_size_very_small</dimen>
+
+    <!-- Login Bottom Sheet -->
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_login_padding_top">36dp</dimen>
+    <dimen name="bottom_sheet_login_padding_bottom">24dp</dimen>
+    <dimen name="bottom_sheet_login_padding_start_end">36dp</dimen>
+
+    <!-- Games Fragment -->
+    <dimen name="games_fragment_margin_bottom_between_toolbar_and_list">5dp</dimen>
+
+    <!-- Add Game and Filter Layout -->
+    <dimen name="add_and_filter_game_margin_outside">3dp</dimen>
+    <dimen name="add_and_filter_game_margin_start_end">15dp</dimen>
+    <dimen name="add_and_filter_game_button_filter_width">50dp</dimen>
+    <dimen name="add_and_filter_game_text_size">@dimen/text_size_very_small</dimen>
+
+    <!-- Detail Game Activity -->
+    <dimen name="detail_game_clover_icon_size">24dp</dimen>
+    <dimen name="detail_game_search_icon_size">24dp</dimen>
+    <dimen name="detail_game_title_text_size">@dimen/text_size_default</dimen>
+    <dimen name="detail_game_subtitle_text_size">@dimen/text_size_small</dimen>
+    <dimen name="detail_game_recycler_view_numbers_margin_top_bottom">12dp</dimen>
+    <dimen name="detail_game_recycler_view_numbers_margin_start_end">60dp</dimen>
+    <dimen name="detail_game_recycler_view_results_padding_start_end">15dp</dimen>
+    <dimen name="detail_game_recycler_view_results_padding_top_bottom">12dp</dimen>
+    <dimen name="detail_game_top_icons_margin_start_end">20dp</dimen>
+    <dimen name="detail_game_top_icons_margin_top_bottom">20dp</dimen>
+    <dimen name="detail_game_button_search_height">35dp</dimen>
+    <dimen name="detail_game_button_search_text_size">@dimen/text_size_very_small</dimen>
+    <dimen name="detail_game_button_search_icon_size">10dp</dimen>
+    <dimen name="detail_game_button_compare_margin_end">10dp</dimen>
+
+    <!--- Detail Game Adapter -->
+    <dimen name="adapter_detail_game_height">70dp</dimen>
+    <dimen name="adapter_detail_game_text_width">100dp</dimen>
+    <dimen name="adapter_detail_game_margin_end">20dp</dimen>
+    <dimen name="adapter_detail_game_height_space_bottom">15dp</dimen>
+    <dimen name="adapter_detail_game_results_margin_top_bottom">15dp</dimen>
+    <dimen name="adapter_detail_game_results_margin_start_end">40dp</dimen>
+    <dimen name="adapter_detail_game_title_text_size">@dimen/text_size_default</dimen>
+    <dimen name="adapter_detail_game_subtitle_text_size">@dimen/text_size_very_very_small</dimen>
+
+    <!-- Detail Game Search Dialog -->
+    <dimen name="dialog_detail_game_search_margin">30dp</dimen>
+
+    <!-- Game Register -->
+    <dimen name="game_register_title_text_size">@dimen/text_size_default</dimen>
+    <dimen name="game_register_header_title_text_size">@dimen/text_size_very_small</dimen>
+    <dimen name="game_register_header_subtitle_text_size">@dimen/text_size_small</dimen>
+    <dimen name="game_register_header_margin_start_end">4dp</dimen>
+    <dimen name="game_register_check_text_size">@dimen/text_size_small</dimen>
+    <dimen name="game_register_edit_text_text_size">@dimen/text_size_small</dimen>
+    <dimen name="game_register_numbers_grid_padding_start_end">44dp</dimen>
+    <dimen name="game_register_numbers_grid_padding_top_bottom">10dp</dimen>
+
+    <!-- Grid Numbers -->
+    <dimen name="adapter_grid_numbers_size">35dp</dimen>
+    <dimen name="adapter_grid_numbers_text_size">@dimen/text_size_small</dimen>
+
+    <!-- Awaiting Response Layout -->
+    <dimen name="awaiting_response_icon_size">36dp</dimen>
+    <dimen name="awaiting_response_title_text_size">@dimen/text_size_small</dimen>
+    <dimen name="awaiting_response_subtitle_text_size">@dimen/text_size_very_small</dimen>
+
+    <!-- Games Filter Bottom Sheet -->
+    <dimen name="bottom_sheet_games_filter_edit_text_text_size">@dimen/text_size_small</dimen>
+
+</resources>

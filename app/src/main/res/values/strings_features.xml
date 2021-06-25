@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- Results -->
+    <string name="results_fragment_download_error">Sorry, could not fetch the latest results, please try again later.</string>
+    <string name="results_adapter_without_next_prize">Prize not available yet</string>
+
+    <!-- Games -->
+    <string name="games_removing_timeout">Your connection is unstable, the game is being removed and will no longer appear once the internet returns.</string>
+    <string name="games_removing_internal_error">Sorry, an error occurred while trying to delete the game, please try again later.</string>
+
+    <!-- Game Register -->
+    <string name="game_register_error_minimum">Minimum number limit not reached</string>
+    <string name="game_register_error_maximum">Maximum number limit already reached</string>
+    <string name="game_register_error_contest_not_selected">Select a contest</string>
+    <string name="game_register_error_start_contest_empty">Enter the initial contest number</string>
+    <string name="game_register_error_end_contest_empty">Enter the final contest number</string>
+    <string name="game_register_error_start_bigger_than_end">Should not be bigger than the final contest.</string>
+    <string name="game_register_error_internal">Sorry, could not create a new game, please try again later</string>
+    <string name="game_register_error_timeout">Your connection is unstable, the game is being saved and will appear as soon as the internet returns.</string>
+    <string name="game_register_back_in">Back in</string>
+    <string name="game_register_finishing_in">Ending in</string>
+    <string name="game_register_error_timer_format">%s %d seconds</string>
+
+    <!-- Remove Game -->
+    <string name="remove_game_dialog_title">Remove Game</string>
+    <string name="remove_game_dialog_subtitle">Do you want to remove this game?</string>
+    
+    <!-- Detail Game -->
+    <string name="detail_game_dialog_search_title">Compare Results</string>
+    <string name="detail_game_dialog_search_subtitle">Compare your game with a result other than those listed above.</string>
+    <string name="detail_game_adapter_no_hits">No hits</string>
+    <string name="detail_game_adapter_one_hit">1 hit</string>
+    <string name="detail_game_adapter_hits">%d hits</string>
+    <string name="detail_game_adapter_without_earnings">No participation</string>
+    <string name="detail_game_adapter_ghost_text">No results found</string>
+
+    <!-- Save Game In Preferences -->
+    <string name="save_games_in_preferences_dialog_title">There are saved games</string>
+
+    <!-- Notification Channel -->
+    <string name="channel_name">New games</string>
+    <string name="channel_description">It is used to notify you when new games are available.</string>
+
+    <!-- Notification -->
+    <string name="notification_title_single">New results available!</string>
+    <string name="notification_content">Click to check it out</string>
+
+    <!-- Filter -->
+    <string name="filter_text">Showing filter for: %s</string>
+
+</resources>

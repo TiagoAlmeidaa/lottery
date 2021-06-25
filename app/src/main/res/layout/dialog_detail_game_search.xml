@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_detail_game_search_margin">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_different_fields"
+            android:text="@string/detail_game_dialog_search_title"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_big"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/text_view_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textAllCaps="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_different_fields"
+            android:text="@string/detail_game_dialog_search_subtitle"
+            app:layout_constraintBottom_toTopOf="@id/input_layout_contest_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_contest_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_fields"
+            app:boxStrokeColor="@color/colorAccent"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/button_compare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_subtitle"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:startIconDrawable="@drawable/icon_numbers">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/contest_number"
+                android:inputType="number"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/cursor_edit_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            android:id="@+id/button_compare"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_horizontal_button"
+            android:layout_marginTop="@dimen/space_between_different_fields"
+            android:elevation="@dimen/elevation_button"
+            app:backColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/button_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_contest_number"
+            app:setCenter="true"
+            app:setHorizontal="true"
+            app:title="@string/compare"
+            app:titleColor="@android:color/white" />
+
+        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            android:id="@+id/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_horizontal_button"
+            android:layout_marginTop="@dimen/space_between_fields"
+            android:elevation="@dimen/elevation_button"
+            app:backColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_compare"
+            app:setCenter="true"
+            app:setHorizontal="true"
+            app:title="@string/cancel"
+            app:titleColor="@color/colorAccent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

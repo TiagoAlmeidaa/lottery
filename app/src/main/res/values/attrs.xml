@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ButtonCardView">
+        <attr name="backColor" format="color" />
+        <attr name="icon" format="reference" />
+        <attr name="setCenter" format="boolean" />
+        <attr name="setHorizontal" format="boolean" />
+        <attr name="title" format="string" />
+        <attr name="titleColor" format="color" />
+    </declare-styleable>
+</resources>

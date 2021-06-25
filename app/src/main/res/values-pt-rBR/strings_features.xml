@@ -1,0 +1,51 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt-br">
+
+    <!-- Results -->
+    <string name="results_fragment_download_error">Desculpe, não foi possível buscar os últimos resultados, tente novamente mais tarde.</string>
+    <string name="results_adapter_without_next_prize">Prêmio indisponível no momento</string>
+
+    <!-- Games -->
+    <string name="games_removing_timeout">Sua conexão está instável, o jogo está sendo removido e não aparecerá mais assim que a internet voltar.</string>
+    <string name="games_removing_internal_error">Desculpe, ocorreu um erro ao tentar excluir o jogo, tente novamente mais tarde.</string>
+
+    <!-- Game Register -->
+    <string name="game_register_error_minimum">Limite mínimo de números não foi alcançado</string>
+    <string name="game_register_error_maximum">Limite máximo de números já foi alcançado</string>
+    <string name="game_register_error_contest_not_selected">Selecione um concurso</string>
+    <string name="game_register_error_start_contest_empty">Informe o número do concurso inicial</string>
+    <string name="game_register_error_end_contest_empty">Informe o número do concurso final</string>
+    <string name="game_register_error_start_bigger_than_end">Não deve ser maior que o concurso final</string>
+    <string name="game_register_error_internal">Desculpe, não foi possível criar um novo jogo, tente novamente mais tarde</string>
+    <string name="game_register_error_timeout">Sua conexão está instável, o jogo está sendo salvo e aparecerá assim que a internet voltar.</string>
+    <string name="game_register_back_in">Voltando em</string>
+    <string name="game_register_finishing_in">Finalizando em</string>
+    <string name="game_register_error_timer_format">%s %d segundos</string>
+
+    <!-- Remove Game -->
+    <string name="remove_game_dialog_title">Remover Jogo</string>
+    <string name="remove_game_dialog_subtitle">Você deseja remover este jogo?</string>
+
+    <!-- Detail Game -->
+    <string name="detail_game_dialog_search_title">Compare Resultados</string>
+    <string name="detail_game_dialog_search_subtitle">Compare o seu jogo com outro resultado além dos listados anteriormente.</string>
+    <string name="detail_game_adapter_no_hits">0 acertos</string>
+    <string name="detail_game_adapter_one_hit">1 acerto</string>
+    <string name="detail_game_adapter_hits">%d acertos</string>
+    <string name="detail_game_adapter_without_earnings">Sem participação</string>
+    <string name="detail_game_adapter_ghost_text">Nenhum resultado encontrado</string>
+
+    <!-- Save Game In Preferences -->
+    <string name="save_games_in_preferences_dialog_title">Existem jogos salvos</string>
+
+    <!-- Notification Channel -->
+    <string name="channel_name">Novos jogos</string>
+    <string name="channel_description">É utilizado para notificar quando novos jogos estão disponíveis</string>
+
+    <!-- Notification -->
+    <string name="notification_title_single">Novos resultados disponíveis!</string>
+    <string name="notification_content">Clique para vê-los</string>
+
+    <!-- Filter -->
+    <string name="filter_text">Mostrando filtro para: %s</string>
+
+</resources>

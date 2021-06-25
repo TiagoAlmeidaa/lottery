@@ -1,3 +1,83 @@
 <resources>
-    <string name="app_name">lottery</string>
+
+    <!-- A -->
+    <string name="add_game">Add Game</string>
+    <string name="app_name">Lotteries</string>
+
+    <!-- B -->
+    <string name="back">Back</string>
+
+    <!-- C -->
+    <string name="cancel">Cancel</string>
+    <string name="clear_filter">Clear filter</string>
+    <string name="compare">Compare</string>
+    <string name="contest">Contest</string>
+    <string name="contest_number">Contest number</string>
+    <string name="contest_start_to_end">%s - %s</string>
+
+    <!-- D -->
+    <string name="do_not_save">Dont save</string>
+
+    <!-- E -->
+    <string name="end_contest">End contest</string>
+
+    <!-- F -->
+    <string name="filter">Filter</string>
+
+    <!-- G -->
+    <string name="game_title">Contest %s</string>
+
+    <!-- H -->
+
+    <!-- I -->
+
+    <!-- J -->
+    <string name="join_all_future_contests">Participate in all future contests</string>
+
+    <!-- K -->
+
+    <!-- L -->
+
+    <!-- M -->
+    <string name="maximum">Maximum</string>
+    <string name="minimum">Minimum</string>
+    <string name="my_games">My games</string>
+
+    <!-- N -->
+    <string name="next_contest">Next contest</string>
+    <string name="numbers">Numbers</string>
+
+    <!-- O -->
+
+    <!-- P -->
+    <string name="pick_contest">Pick contest</string>
+    <string name="pick_numbers">Pick numbers</string>
+
+    <!-- Q -->
+
+    <!-- R -->
+    <string name="remove">Remove</string>
+    <string name="results">Results</string>
+
+    <!-- S -->
+    <string name="save">Save</string>
+    <string name="save_game">Save game</string>
+    <string name="selected">selected</string>
+    <string name="start_contest">Start contest</string>
+
+    <!-- T -->
+
+    <!-- U -->
+
+    <!-- V -->
+
+    <!-- W -->
+    <string name="winners">Winners: %d</string>
+
+    <!-- X -->
+
+    <!-- Y -->
+
+    <!-- Z -->
+
 </resources>
