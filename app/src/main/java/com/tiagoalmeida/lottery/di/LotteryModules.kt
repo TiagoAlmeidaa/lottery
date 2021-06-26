@@ -39,7 +39,7 @@ object LotteryModules {
     }
 
     val viewModel: Module = module {
-        viewModel { (userGame: UserGame) -> DetailGameViewModel(get(), userGame, get()) }
+        viewModel { params -> DetailGameViewModel(get(), params.get(), get()) }
         viewModel { GameRegisterViewModel(get(), get()) }
         viewModel { MainViewModel(get(), get(), get()) }
         viewModel { GamesViewModel(get(), get()) }
