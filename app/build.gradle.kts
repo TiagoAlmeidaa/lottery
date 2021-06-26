@@ -62,7 +62,6 @@ dependencies {
     implementation(Android.lifecycleExtensions)
     implementation(Android.viewModelKtx)
     implementation(Android.swipeRefreshLayout)
-    implementation(Android.paging)
     implementation(Android.workManager)
 
     implementation(Navigation.ui)
@@ -70,7 +69,6 @@ dependencies {
 
     kapt(Android.dataBinding)
 
-    implementation(Firebase.core)
     implementation(Firebase.analytics)
     implementation(Firebase.crashlytics)
 

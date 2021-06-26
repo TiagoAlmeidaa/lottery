@@ -34,7 +34,6 @@ object Google {
 }
 
 object Firebase {
-    const val core = "com.google.firebase:firebase-core:19.0.0"
     const val analytics = "com.google.firebase:firebase-analytics:19.0.0"
     const val crashlytics = "com.google.firebase:firebase-crashlytics:18.0.1"
 }

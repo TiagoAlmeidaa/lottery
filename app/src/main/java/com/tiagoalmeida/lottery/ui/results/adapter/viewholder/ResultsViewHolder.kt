@@ -41,7 +41,7 @@ class ResultsViewHolder(
             recyclerViewNumbers.layoutManager = getFlexBoxLayoutManager()
 
             layoutHeader.setOnClickListener {
-                onHeaderClick(bindingAdapterPosition)
+                onHeaderClick(adapterPosition)
             }
         }
     }
