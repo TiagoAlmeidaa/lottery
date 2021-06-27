@@ -74,6 +74,7 @@ class CheckGamesWorker(
             .setContentTitle(applicationContext.getString(R.string.notification_title_single))
             .setContentText(applicationContext.getString(R.string.notification_content))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
             .build()
 
         NotificationManagerCompat
