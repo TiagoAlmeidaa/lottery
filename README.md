@@ -1,5 +1,7 @@
 ## Lottery
 
+[Google Play](https://play.google.com/store/apps/details?id=com.tiagoalmeida.lottery)
+
 A simple lottery app which you can check your games with the results to see if you won some cash. 
 
 <b>This lottery if from Brazil</b>.
