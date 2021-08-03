@@ -2,11 +2,11 @@
 
 A simple lottery app which you can check your games with the results to see if you won some cash. 
 
-<b>This lottery if from Brazil</b>.
+<b>A lottery from Brazil</b>.
 
 Some of the features are:
 
-- It shows the lastest results in a simple list
+- It shows the latest results in a simple list
 - It shows the user registered games in a list with GridLayoutManager with 2 columns.
 - The games are saved in SharedPreferences.
 - It has a filter in the user games.
