@@ -3,9 +3,9 @@ package com.tiagoalmeida.lottery.di
 import android.content.SharedPreferences
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.model.mapper.LotteryResultParser
-import com.tiagoalmeida.lottery.model.vo.UserGame
 import com.tiagoalmeida.lottery.network.AppRetrofit
 import com.tiagoalmeida.lottery.network.datasource.ConsultDataSource
+import com.tiagoalmeida.lottery.network.datasource.ConsultDataSourceImpl
 import com.tiagoalmeida.lottery.network.repository.ConsultRepository
 import com.tiagoalmeida.lottery.network.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.viewmodel.MainViewModel
@@ -31,7 +31,7 @@ object LotteryModules {
     }
 
     val dataSource: Module = module {
-        single { ConsultDataSource(get()) }
+        single<ConsultDataSource> { ConsultDataSourceImpl(get()) }
     }
 
     val repository: Module = module {

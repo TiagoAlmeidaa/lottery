@@ -3,6 +3,7 @@ package com.tiagoalmeida.lottery.network.repository
 import com.tiagoalmeida.lottery.model.mapper.LotteryResultParser
 import com.tiagoalmeida.lottery.model.vo.LotteryResult
 import com.tiagoalmeida.lottery.network.datasource.ConsultDataSource
+import com.tiagoalmeida.lottery.network.datasource.ConsultDataSourceImpl
 import com.tiagoalmeida.lottery.util.enums.LotteryType
 import retrofit2.Response
 

@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -22,7 +23,7 @@ import retrofit2.Response
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class ConsultDataSourceTest {
+class ConsultDataSourceImplTest {
 
     // region variables
 
@@ -36,7 +37,7 @@ class ConsultDataSourceTest {
 
     private lateinit var fakeToken: String
 
-    private lateinit var dataSource: ConsultDataSource
+    private lateinit var dataSource: ConsultDataSourceImpl
 
     // endregion
 
@@ -46,15 +47,13 @@ class ConsultDataSourceTest {
     fun setup() {
         MockKAnnotations.init(this)
 
-        Dispatchers.setMain(dispatcher)
-
         every {
             retrofit.getService()
         }.returns(service)
 
         fakeToken = "fakeToken"
 
-        dataSource = ConsultDataSource(retrofit, fakeToken)
+        dataSource = ConsultDataSourceImpl(retrofit, fakeToken, dispatcher)
     }
 
     // endregion
@@ -62,7 +61,7 @@ class ConsultDataSourceTest {
     // region method: consultContest
 
     @Test
-    fun `consultContest should be executed successfully`() = runBlocking {
+    fun `consultContest should be executed successfully`() = runBlockingTest {
         // Given
         val lotteryType = LotteryType.MEGASENA
         val expectedResult = mockk<Response<String>>()
@@ -83,7 +82,7 @@ class ConsultDataSourceTest {
     // region method: consultContestByNumber
 
     @Test
-    fun `consultContestByNumber should be executed successfully`() = runBlocking {
+    fun `consultContestByNumber should be executed successfully`() = runBlockingTest {
         // Given
         val contestNumber = 1234
         val lotteryType = LotteryType.MEGASENA
