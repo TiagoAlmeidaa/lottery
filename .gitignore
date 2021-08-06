@@ -60,3 +60,6 @@ app/src/main/cpp/native-lib.cpp
 
 # google.services.json
 app/google-services.json
+
+#Jacoco
+jacoco/

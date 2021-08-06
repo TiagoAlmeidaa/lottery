@@ -23,7 +23,7 @@ import retrofit2.Response
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class ConsultRepositoryTest {
+class ConsultRepositoryImplTest {
 
     // region variables
 
@@ -35,7 +35,7 @@ class ConsultRepositoryTest {
     @MockK
     lateinit var parser: LotteryResultParser
 
-    private lateinit var repository: ConsultRepository
+    private lateinit var repository: ConsultRepositoryImpl
 
     // endregion
 
@@ -47,7 +47,7 @@ class ConsultRepositoryTest {
 
         Dispatchers.setMain(dispatcher)
 
-        repository = ConsultRepository(parser, dataSource)
+        repository = ConsultRepositoryImpl(parser, dataSource)
     }
 
     // endregion

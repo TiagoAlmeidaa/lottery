@@ -1,8 +1,8 @@
 name: DEV-Workflow
 
 on:
-  push:
-    branches: [ dev ]
+  pull_request:
+    branches: [ dev, main ]
 
 jobs:
   build:
@@ -16,6 +16,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '1.8'
+        
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Decode google-services.json
+      env:
+        GOOGLE_JSON: ${{ secrets.GOOGLE_JSON }}
+      run: echo $GOOGLE_JSON > app/google-services.json
 
     - name: Build with Gradle
       run: ./gradlew testDebugUnitTest

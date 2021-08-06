@@ -21,7 +21,7 @@ import org.junit.runners.JUnit4
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class PreferencesRepositoryTest {
+class PreferencesRepositoryImplTest {
 
     // region variables
 
@@ -36,7 +36,7 @@ class PreferencesRepositoryTest {
     @MockK(relaxed = true)
     lateinit var editor: SharedPreferences.Editor
 
-    private lateinit var repository: PreferencesRepository
+    private lateinit var repository: PreferencesRepositoryImpl
 
     private val userGameOne = UserGame(
         startContestNumber = "1000",
@@ -69,7 +69,7 @@ class PreferencesRepositoryTest {
 
         Dispatchers.setMain(dispatcher)
 
-        repository = PreferencesRepository(sharedPreferences, crashlytics)
+        repository = PreferencesRepositoryImpl(sharedPreferences, crashlytics)
     }
 
     // endregion

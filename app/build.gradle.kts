@@ -13,11 +13,11 @@ jacoco {
 }
 
 android {
-    compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
+    compileSdk = AndroidConfig.COMPILE_SDK_VERSION
     defaultConfig {
-        applicationId(AndroidConfig.APPLICATION_ID)
-        minSdkVersion(AndroidConfig.MIN_SDK_VERSION)
-        targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
+        applicationId = AndroidConfig.APPLICATION_ID
+        minSdk = AndroidConfig.MIN_SDK_VERSION
+        targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
         versionCode = AndroidConfig.VERSION_CODE
         versionName = AndroidConfig.VERSION_NAME
@@ -37,13 +37,6 @@ android {
     }
     testOptions {
         unitTests.isReturnDefaultValues = true
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
     externalNativeBuild {
         cmake {
@@ -66,8 +59,6 @@ dependencies {
 
     implementation(Navigation.ui)
     implementation(Navigation.ktx)
-
-    kapt(Android.dataBinding)
 
     implementation(Firebase.analytics)
     implementation(Firebase.crashlytics)

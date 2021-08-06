@@ -9,7 +9,11 @@ import com.tiagoalmeida.lottery.network.repository.ConsultRepository
 import com.tiagoalmeida.lottery.util.enums.LotteryType
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -24,6 +28,11 @@ class DetailGameViewModelTest {
 
     // region variables
 
+    private val dispatcher = TestCoroutineDispatcher()
+
+    @get:Rule
+    val executorRule = InstantTaskExecutorRule()
+
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
 
@@ -32,9 +41,6 @@ class DetailGameViewModelTest {
 
     @MockK(relaxed = true)
     lateinit var observerState: Observer<DetailGameState>
-
-    @get:Rule
-    val executorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: DetailGameViewModel
 
@@ -53,6 +59,8 @@ class DetailGameViewModelTest {
     fun setup() {
         MockKAnnotations.init(this)
 
+        Dispatchers.setMain(dispatcher)
+
         viewModel = DetailGameViewModel(
             crashlytics,
             userGame,
@@ -65,6 +73,10 @@ class DetailGameViewModelTest {
     @After
     fun finish() {
         viewModel.viewState.removeObserver(observerState)
+
+        Dispatchers.resetMain()
+
+        dispatcher.cleanupTestCoroutines()
     }
 
     // endregion
