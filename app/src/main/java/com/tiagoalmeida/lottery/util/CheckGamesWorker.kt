@@ -8,7 +8,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.network.repository.ConsultRepository
+import com.tiagoalmeida.lottery.network.repository.ConsultRepositoryImpl
 import com.tiagoalmeida.lottery.network.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.ui.MainActivity
 import com.tiagoalmeida.lottery.util.enums.LotteryType
@@ -26,7 +26,7 @@ class CheckGamesWorker(
         const val NOTIFICATION_REQUEST_CODE = 101
     }
 
-    private val consultRepository: ConsultRepository by inject()
+    private val consultRepository: ConsultRepositoryImpl by inject()
 
     private val preferencesRepository: PreferencesRepository by inject()
 

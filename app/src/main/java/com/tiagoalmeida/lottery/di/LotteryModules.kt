@@ -7,7 +7,9 @@ import com.tiagoalmeida.lottery.network.AppRetrofit
 import com.tiagoalmeida.lottery.network.datasource.ConsultDataSource
 import com.tiagoalmeida.lottery.network.datasource.ConsultDataSourceImpl
 import com.tiagoalmeida.lottery.network.repository.ConsultRepository
+import com.tiagoalmeida.lottery.network.repository.ConsultRepositoryImpl
 import com.tiagoalmeida.lottery.network.repository.PreferencesRepository
+import com.tiagoalmeida.lottery.network.repository.PreferencesRepositoryImpl
 import com.tiagoalmeida.lottery.viewmodel.MainViewModel
 import com.tiagoalmeida.lottery.viewmodel.detail.DetailGameViewModel
 import com.tiagoalmeida.lottery.viewmodel.games.GamesViewModel
@@ -35,7 +37,7 @@ object LotteryModules {
     }
 
     val repository: Module = module {
-        single { ConsultRepository(get(), get()) }
+        single<ConsultRepository> { ConsultRepositoryImpl(get(), get()) }
     }
 
     val viewModel: Module = module {
@@ -50,7 +52,7 @@ object LotteryModules {
     }
 
     fun sharedPreferences(preferences: SharedPreferences): Module = module {
-        single { PreferencesRepository(preferences, get()) }
+        single<PreferencesRepository> { PreferencesRepositoryImpl(preferences, get()) }
     }
 
     private fun createRetrofit(): Retrofit {
