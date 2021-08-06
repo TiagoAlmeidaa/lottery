@@ -20,5 +20,10 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Decode google-services.json
+      env:
+        GOOGLE_JSON: ${{ secrets.GOOGLE_JSON }}
+      run echo $GOOGLE_JSON > lottery/app/google-services.json
+
     - name: Build with Gradle
       run: ./gradlew testDebugUnitTest
