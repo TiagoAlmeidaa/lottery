@@ -38,6 +38,10 @@ internal class PreferencesRepositoryImpl(
 
     override fun getGames(): List<UserGame> {
         val json = sharedPreferences.getString(Constants.SHARED_PREFERENCES_GAMES)
+
+        if (json.isEmpty())
+            return listOf()
+
         return try {
             val type = object: TypeToken<List<UserGame>>(){}.type
             Gson().fromJson(json, type)

@@ -3,7 +3,7 @@ package com.tiagoalmeida.lottery.di
 import android.content.SharedPreferences
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.model.mapper.LotteryResultParser
-import com.tiagoalmeida.lottery.network.AppRetrofit
+import com.tiagoalmeida.lottery.network.LotteryApi
 import com.tiagoalmeida.lottery.network.datasource.ConsultDataSource
 import com.tiagoalmeida.lottery.network.datasource.ConsultDataSourceImpl
 import com.tiagoalmeida.lottery.network.repository.ConsultRepository
@@ -48,7 +48,7 @@ object LotteryModules {
     }
 
     val retrofit: Module = module {
-        single { AppRetrofit(createRetrofit()) }
+        single { LotteryApi(createRetrofit()) }
     }
 
     fun sharedPreferences(preferences: SharedPreferences): Module = module {

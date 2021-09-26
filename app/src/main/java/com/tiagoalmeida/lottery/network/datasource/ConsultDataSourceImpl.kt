@@ -1,6 +1,6 @@
 package com.tiagoalmeida.lottery.network.datasource
 
-import com.tiagoalmeida.lottery.network.AppRetrofit
+import com.tiagoalmeida.lottery.network.LotteryApi
 import com.tiagoalmeida.lottery.util.Keys
 import com.tiagoalmeida.lottery.util.enums.LotteryType
 import kotlinx.coroutines.CoroutineDispatcher
@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 internal class ConsultDataSourceImpl(
-    private val retrofit: AppRetrofit,
+    private val retrofit: LotteryApi,
     private val token: String = Keys.apiKey(),
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ConsultDataSource {

@@ -19,7 +19,7 @@ class AppRetrofitTest {
     @MockK(relaxed = true)
     lateinit var retrofit: Retrofit
 
-    private lateinit var appRetrofit: AppRetrofit
+    private lateinit var appRetrofit: LotteryApi
 
     // endregion
 
@@ -29,7 +29,7 @@ class AppRetrofitTest {
     fun setup() {
         MockKAnnotations.init(this)
 
-        appRetrofit = AppRetrofit(retrofit)
+        appRetrofit = LotteryApi(retrofit)
     }
 
     // endregion
@@ -39,10 +39,10 @@ class AppRetrofitTest {
     @Test
     fun `getService should return the correct service`() {
         // Given
-        val expectedService = mockk<AppRetrofitService>()
+        val expectedService = mockk<LotteryApiService>()
 
         every {
-            retrofit.create(AppRetrofitService::class.java)
+            retrofit.create(LotteryApiService::class.java)
         }.returns(expectedService)
 
         // When

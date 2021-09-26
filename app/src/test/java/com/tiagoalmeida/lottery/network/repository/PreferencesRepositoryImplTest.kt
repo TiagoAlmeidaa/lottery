@@ -12,12 +12,16 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mock
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
@@ -70,6 +74,13 @@ class PreferencesRepositoryImplTest {
         Dispatchers.setMain(dispatcher)
 
         repository = PreferencesRepositoryImpl(sharedPreferences, crashlytics)
+    }
+
+    @After
+    fun finish() {
+        Dispatchers.resetMain()
+
+        dispatcher.cleanupTestCoroutines()
     }
 
     // endregion
@@ -170,11 +181,28 @@ class PreferencesRepositoryImplTest {
     }
 
     @Test
-    fun `getGames should thrown an exception with empty json`() {
+    fun `getGames should return empty list with empty json`() {
         // Given
         every {
             sharedPreferences.getString(Constants.SHARED_PREFERENCES_GAMES)
         }.returns("")
+
+        // When
+        val result = repository.getGames()
+
+        // Then
+        assertEquals(0, result.size)
+
+        coVerify(exactly = 0) { crashlytics.recordException(any()) }
+        verify(exactly = 1) { sharedPreferences.getString(Constants.SHARED_PREFERENCES_GAMES) }
+    }
+
+    @Test
+    fun `getGames should throw an exception with invalid json`() {
+        // Given
+        every {
+            sharedPreferences.getString(Constants.SHARED_PREFERENCES_GAMES)
+        }.returns("1234")
 
         // When
         val result = repository.getGames()
