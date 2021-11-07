@@ -113,6 +113,7 @@ class DetailGameActivity : AppCompatActivity(R.layout.activity_detail_game) {
             is DetailGameState.ContestsReceived -> adapter.addAll(state.results)
             is DetailGameState.ContestFiltered -> checkFilter(result = state.lotteryResult)
             is DetailGameState.ContestNotFound -> checkFilterNotFound()
+            is DetailGameState.NoResultsYet -> adapter.showEmpty()
         }
     }
 

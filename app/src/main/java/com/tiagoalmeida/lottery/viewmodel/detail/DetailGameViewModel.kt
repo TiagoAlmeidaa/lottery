@@ -29,24 +29,27 @@ class DetailGameViewModel(
             val results = mutableListOf<LotteryResult>()
 
             with(userGame) {
-                val lastContest = if (getEndContestInt() == 0) {
+                if (isValidForFutureContests()) {
                     consultRepository.consultLatestContest(type)
                 } else {
                     consultRepository.consultContest(type, getEndContestInt())
-                }
+                }?.let { contest ->
+                    val contestNumber = contest.contestNumber.toInt()
 
-                lastContest?.let { safeLastContest ->
-                    results.add(safeLastContest)
+                    if (isNotValidContestForThisGame(contestNumber)) {
+                        return@let
+                    }
 
-                    val lastContestNumber = safeLastContest.contestNumber.toInt()
-                    val difference = lastContestNumber - getStartContestInt()
+                    results.add(contest)
+
+                    val difference = contestNumber - getStartContestInt()
 
                     if (difference > 0) {
-                        val end = lastContestNumber - 1
+                        val end = contestNumber - 1
                         lastDownloadedContestNumber = if (difference > 10) {
                             end - 9
                         } else {
-                            lastContestNumber - difference
+                            contestNumber - difference
                         }
 
                         consultRepository
@@ -55,7 +58,13 @@ class DetailGameViewModel(
                     }
                 }
 
-                _viewState.postValue(DetailGameState.ContestsReceived(results))
+                val state = if (results.isEmpty()) {
+                    DetailGameState.NoResultsYet
+                } else {
+                    DetailGameState.ContestsReceived(results)
+                }
+
+                _viewState.postValue(state)
             }
         },
         doWhenErrorOccurs = { exception ->
