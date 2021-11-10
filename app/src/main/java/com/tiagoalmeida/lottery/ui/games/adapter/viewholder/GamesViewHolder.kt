@@ -17,10 +17,14 @@ class GamesViewHolder(
         with(binding) {
             colorId = type.color
             textViewContest.text = type.toString()
-            textViewContestNumber.text = formatContestNumber(
-                userGame.startContestNumber,
-                userGame.endContestNumber
-            )
+            textViewContestNumber.text = if (userGame.isSingleGame()) {
+                userGame.startContestNumber
+            } else {
+                formatContestNumber(
+                    userGame.startContestNumber,
+                    userGame.endContestNumber
+                )
+            }
 
             root.setOnClickListener { events.onGameClicked(userGame, binding.card) }
             root.setOnLongClickListener { events.onGameLongClicked(userGame) }

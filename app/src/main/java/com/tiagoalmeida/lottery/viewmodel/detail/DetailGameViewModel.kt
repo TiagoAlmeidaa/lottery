@@ -150,8 +150,12 @@ class DetailGameViewModel(
     }
 
     fun getContestNumber(): String = with(userGame) {
-        val endNumber = if (endContestNumber.isEmpty()) "∞" else endContestNumber
-        "$startContestNumber - $endNumber"
+        if (isSingleGame()) {
+            startContestNumber
+        } else {
+            val endNumber = if (endContestNumber.isEmpty()) "∞" else endContestNumber
+            "$startContestNumber - $endNumber"
+        }
     }
 
     fun getColorId(): Int = userGame.type.color

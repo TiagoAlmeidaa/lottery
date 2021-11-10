@@ -33,4 +33,6 @@ data class UserGame(
 
     fun isNotValidContestForThisGame(contestNumber: Int) = contestNumber < getStartContestInt()
             || (endContestNumber.isNotEmpty() && contestNumber > getEndContestInt())
+
+    fun isSingleGame() = getStartContestInt() == getEndContestInt()
 }

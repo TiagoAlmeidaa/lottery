@@ -31,6 +31,7 @@ class GameRegisterContestFragment : Fragment(R.layout.fragment_register_contest)
     private fun initializeObservers() = with(viewModel) {
         viewState.observe(viewLifecycleOwner, observeViewState())
         validForAllFutureContests.observe(viewLifecycleOwner, observeValidForAllFutureContests())
+        singleGame.observe(viewLifecycleOwner, observeSingleGame())
     }
 
     private fun initializeEvents() {
@@ -73,11 +74,29 @@ class GameRegisterContestFragment : Fragment(R.layout.fragment_register_contest)
     }
 
     private fun observeValidForAllFutureContests() = Observer<Boolean> { hide ->
-        if (hide) {
-            binding.inputLayoutEndContestNumber.gone()
-            binding.editTextEndContestNumber.text?.clear()
-        } else
-            binding.inputLayoutEndContestNumber.visible()
+        with(binding) {
+            if (hide) {
+                checkBoxSingleGame.gone()
+                inputLayoutEndContestNumber.gone()
+                editTextEndContestNumber.text?.clear()
+            } else {
+                checkBoxSingleGame.visible()
+                inputLayoutEndContestNumber.visible()
+            }
+        }
+    }
+
+    private fun observeSingleGame() = Observer<Boolean> { hide ->
+        with(binding) {
+            if (hide) {
+                checkBoxUnlimitedContests.gone()
+                inputLayoutEndContestNumber.gone()
+                editTextEndContestNumber.text?.clear()
+            } else {
+                checkBoxUnlimitedContests.visible()
+                inputLayoutEndContestNumber.visible()
+            }
+        }
     }
 
     private fun setErrorInSpinnerContest() = with(binding) {
