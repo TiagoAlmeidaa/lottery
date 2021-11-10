@@ -399,6 +399,21 @@ class DetailGameViewModelTest {
         assertEquals(expectedString, result)
     }
 
+    @Test
+    fun `getContestNumber should return a the startContestNumber when singleGame returns true`() {
+        // Given
+        userGame.startContestNumber = "1000"
+        userGame.endContestNumber = "1000"
+
+        val expectedString = "1000"
+
+        // When
+        val result = viewModel.getContestNumber()
+
+        // Then
+        assertEquals(expectedString, result)
+    }
+
     // endregion
 
     // region method: getColorId
