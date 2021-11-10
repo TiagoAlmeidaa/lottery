@@ -3,6 +3,7 @@ package com.tiagoalmeida.lottery.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.tiagoalmeida.lottery.BuildConfig
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.ActivityMainBinding
 import com.tiagoalmeida.lottery.ui.adapter.MainPagerAdapter
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 if (binding.buttonResults.isSelected)
                     binding.pager.setCurrentItem(1, true)
             }
+            textViewVersion.text = String.format(
+                getString(R.string.version),
+                BuildConfig.VERSION_NAME
+            )
         }
     }
 
