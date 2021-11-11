@@ -2,15 +2,14 @@ package com.tiagoalmeida.lottery.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.ActivityDetailGameBinding
 import com.tiagoalmeida.lottery.model.mapper.UserGameParser
 import com.tiagoalmeida.lottery.model.vo.LotteryResult
@@ -27,9 +26,10 @@ import com.tiagoalmeida.lottery.viewmodel.detail.DetailGameViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class DetailGameActivity : AppCompatActivity(R.layout.activity_detail_game) {
+class DetailGameActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivityDetailGameBinding::bind)
+    private var _binding: ActivityDetailGameBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: DetailGameViewModel by viewModel(parameters = {
         parametersOf(UserGameParser.from(getUserGameJson()))
@@ -41,9 +41,17 @@ class DetailGameActivity : AppCompatActivity(R.layout.activity_detail_game) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _binding = ActivityDetailGameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         initializeEvents()
         initializeObservers()
         initializeUI()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     private fun getUserGameJson(): String = intent.getStringExtra(Constants.BUNDLE_GAME_JSON) ?: ""

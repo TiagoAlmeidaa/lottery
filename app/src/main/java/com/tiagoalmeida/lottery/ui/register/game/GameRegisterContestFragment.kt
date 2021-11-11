@@ -1,11 +1,12 @@
 package com.tiagoalmeida.lottery.ui.register.game
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.FragmentRegisterContestBinding
 import com.tiagoalmeida.lottery.ui.adapter.LotteryTypeAdapter
@@ -15,17 +16,34 @@ import com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterState
 import com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class GameRegisterContestFragment : Fragment(R.layout.fragment_register_contest) {
+class GameRegisterContestFragment : Fragment() {
 
-    private val binding by viewBinding(FragmentRegisterContestBinding::bind)
+    private var _binding: FragmentRegisterContestBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: GameRegisterViewModel by sharedViewModel()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRegisterContestBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@GameRegisterContestFragment
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeEvents()
         initializeObservers()
         initializeUI()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initializeObservers() = with(viewModel) {
@@ -43,7 +61,7 @@ class GameRegisterContestFragment : Fragment(R.layout.fragment_register_contest)
             buttonNext.setOnClickListener {
                 clearErrors()
                 hideKeyboard()
-                viewModel.validateLotteryType(binding.spinnerLotteryType.getLotteryType())
+                viewModel.validateLotteryType(spinnerLotteryType.getLotteryType())
             }
             checkBoxUnlimitedContests.setOnClickListener {
                 hideKeyboard()
@@ -104,15 +122,15 @@ class GameRegisterContestFragment : Fragment(R.layout.fragment_register_contest)
         inputLayoutSpinner.error = getString(R.string.game_register_error_contest_not_selected)
     }
 
-    private fun handleError(messageId: Int) {
+    private fun handleError(messageId: Int) = with(binding) {
         when {
             isMessageFromStartContest(messageId) -> {
-                binding.inputLayoutStartContestNumber.isErrorEnabled = true
-                binding.inputLayoutStartContestNumber.error = getString(messageId)
+                inputLayoutStartContestNumber.isErrorEnabled = true
+                inputLayoutStartContestNumber.error = getString(messageId)
             }
             isMessageFromEndContest(messageId) -> {
-                binding.inputLayoutEndContestNumber.isErrorEnabled = true
-                binding.inputLayoutEndContestNumber.error = getString(messageId)
+                inputLayoutEndContestNumber.isErrorEnabled = true
+                inputLayoutEndContestNumber.error = getString(messageId)
             }
             else -> showToast(messageId)
         }

@@ -2,13 +2,14 @@ package com.tiagoalmeida.lottery.ui.register.game
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.FragmentRegisterNumbersBinding
 import com.tiagoalmeida.lottery.ui.register.game.adapter.GridNumbersAdapter
@@ -21,17 +22,34 @@ import com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterState
 import com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class GameRegisterNumbersFragment : Fragment(R.layout.fragment_register_numbers), GridNumberPickedEvents {
+class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
 
-    private val binding by viewBinding(FragmentRegisterNumbersBinding::bind)
+    private var _binding: FragmentRegisterNumbersBinding? = null
+    private val binding get() = _binding!!
 
     private val sharedViewModel: GameRegisterViewModel by sharedViewModel()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRegisterNumbersBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@GameRegisterNumbersFragment
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeEvents()
         initializeObservers()
         initializeUI()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onNumberPicked(number: Int) {
@@ -77,8 +95,8 @@ class GameRegisterNumbersFragment : Fragment(R.layout.fragment_register_numbers)
             )
         }
 
-        updateSelectedCounter()
         sharedViewModel.clearNumbers()
+        updateSelectedCounter()
     }
 
     private fun getOnBackPressedCallback(): OnBackPressedCallback {

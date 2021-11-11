@@ -81,7 +81,7 @@ dependencies {
 
     implementation(Koin.android)
 
-    implementation(ViewBinding.propertyDelegate)
+    debugImplementation(LeakCanary.core)
 
     testImplementation(Tests.jUnit)
     testImplementation(Tests.coreTesting)

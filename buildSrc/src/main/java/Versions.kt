@@ -25,5 +25,5 @@ object Versions {
     const val runner = "1.4.0"
     const val espresso = "3.4.0"
     const val koin = "3.1.2"
-    const val viewBindingPropertyDelegate = "1.4.7"
+    const val leakCanary = "2.7"
 }

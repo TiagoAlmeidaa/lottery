@@ -20,8 +20,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
