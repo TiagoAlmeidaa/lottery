@@ -28,4 +28,11 @@ data class UserGame(
     fun getStartContestInt() = if (startContestNumber.isEmpty()) 0 else startContestNumber.toInt()
 
     fun getEndContestInt() = if (endContestNumber.isEmpty()) 0 else endContestNumber.toInt()
+
+    fun isValidForFutureContests() = startContestNumber != endContestNumber && endContestNumber.isEmpty()
+
+    fun isNotValidContestForThisGame(contestNumber: Int) = contestNumber < getStartContestInt()
+            || (endContestNumber.isNotEmpty() && contestNumber > getEndContestInt())
+
+    fun isSingleGame() = getStartContestInt() == getEndContestInt()
 }

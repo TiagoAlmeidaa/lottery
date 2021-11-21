@@ -23,7 +23,6 @@ class GamesFilterBottomSheet(
 ) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetGamesFilterBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(

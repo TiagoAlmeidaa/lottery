@@ -43,6 +43,13 @@ android {
             path(AndroidConfig.CMAKE_PATH)
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -74,7 +81,7 @@ dependencies {
 
     implementation(Koin.android)
 
-    implementation(ViewBinding.propertyDelegate)
+    debugImplementation(LeakCanary.core)
 
     testImplementation(Tests.jUnit)
     testImplementation(Tests.coreTesting)

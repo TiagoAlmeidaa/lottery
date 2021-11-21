@@ -9,6 +9,4 @@ object Keys {
     }
 
     external fun apiKey(): String
-
-    external fun googleKey(): String
 }

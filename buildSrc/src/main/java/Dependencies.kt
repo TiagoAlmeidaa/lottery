@@ -59,6 +59,6 @@ object Koin {
     const val android = "io.insert-koin:koin-android:${Versions.koin}"
 }
 
-object ViewBinding {
-    const val propertyDelegate = "com.github.kirich1409:viewbindingpropertydelegate:${Versions.viewBindingPropertyDelegate}"
+object LeakCanary {
+    const val core = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
 }
