@@ -30,9 +30,10 @@ import com.tiagoalmeida.lottery.viewmodel.games.GamesState
 import com.tiagoalmeida.lottery.viewmodel.games.GamesViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class GamesFragment : Fragment(R.layout.fragment_games), GamesAdapterEvents {
+class GamesFragment : Fragment(), GamesAdapterEvents {
 
-    private val binding: FragmentGamesBinding by lazy { initializeBinding() }
+    private var _binding: FragmentGamesBinding? = null
+    private val binding get() = _binding!!
 
     private val gamesViewModel: GamesViewModel by sharedViewModel()
 
@@ -44,13 +45,23 @@ class GamesFragment : Fragment(R.layout.fragment_games), GamesAdapterEvents {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = binding.root
+    ): View {
+        _binding = FragmentGamesBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeEvents()
         initializeObservers()
         initializeUI()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,11 +101,6 @@ class GamesFragment : Fragment(R.layout.fragment_games), GamesAdapterEvents {
         return true
     }
 
-    private fun initializeBinding() = FragmentGamesBinding.inflate(layoutInflater).apply {
-        lifecycleOwner = viewLifecycleOwner
-        recyclerViewGames.addItemDecoration(GamesItemDecoration())
-    }
-
     private fun initializeEvents() {
         with(binding.layoutAddGame) {
             cardAddGame.setOnClickListener {
@@ -115,8 +121,10 @@ class GamesFragment : Fragment(R.layout.fragment_games), GamesAdapterEvents {
         }
     }
 
-    private fun initializeUI() {
-        binding.recyclerViewGames.adapter = gamesAdapter
+    private fun initializeUI() = with(binding) {
+        recyclerViewGames.addItemDecoration(GamesItemDecoration())
+        recyclerViewGames.adapter = gamesAdapter
+
         gamesViewModel.findGames()
     }
 

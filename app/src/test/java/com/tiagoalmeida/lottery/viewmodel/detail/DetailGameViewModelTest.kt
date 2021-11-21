@@ -84,19 +84,20 @@ class DetailGameViewModelTest {
     // region method: consultContestsForGame
 
     @Test
-    fun `consultContestsForGame when the last contestNumber is the same of UserGame startContestNumber it should add only the last LotteryResult`() {
+    fun `consultContestsForGame when the game is valid for future contest it should call consultLatestContest`() {
         // Given
         userGame.startContestNumber = "1000"
+        userGame.endContestNumber = ""
 
-        val lastLotteryResult = mockk<LotteryResult>()
+        val lotteryResult = mockk<LotteryResult>()
 
         every {
-            lastLotteryResult.contestNumber
+            lotteryResult.contestNumber
         }.returns(userGame.startContestNumber)
 
         coEvery {
             consultRepository.consultLatestContest(userGame.type)
-        }.returns(lastLotteryResult)
+        }.returns(lotteryResult)
 
         // When
         viewModel.consultContestsForGame()
@@ -105,9 +106,116 @@ class DetailGameViewModelTest {
         val state = viewModel.viewState.value as DetailGameState.ContestsReceived
 
         assertEquals(1, state.results.size)
-        assertEquals(lastLotteryResult, state.results[0])
+        assertEquals(lotteryResult, state.results[0])
 
         coVerify(exactly = 1) { consultRepository.consultLatestContest(userGame.type) }
+    }
+
+    @Test
+    fun `consultContestsForGame when the game has same values for start and end it should call consultContest`() {
+        // Given
+        userGame.startContestNumber = "1000"
+        userGame.endContestNumber = "1000"
+
+        val lotteryResult = mockk<LotteryResult>()
+
+        every {
+            lotteryResult.contestNumber
+        }.returns(userGame.startContestNumber)
+
+        coEvery {
+            consultRepository.consultContest(userGame.type, 1000)
+        }.returns(lotteryResult)
+
+        // When
+        viewModel.consultContestsForGame()
+
+        // Then
+        val state = viewModel.viewState.value as DetailGameState.ContestsReceived
+
+        assertEquals(1, state.results.size)
+        assertEquals(lotteryResult, state.results[0])
+
+        coVerify(exactly = 1) { consultRepository.consultContest(userGame.type, 1000) }
+    }
+
+    @Test
+    fun `consultContestsForGame when the game start is different from end but end is not zero it should call consultContest`() {
+        // Given
+        userGame.startContestNumber = "1000"
+        userGame.endContestNumber = "1001"
+
+        val firstLotteryResult = mockk<LotteryResult>()
+        val secondLotteryResult = mockk<LotteryResult>()
+
+        every {
+            firstLotteryResult.contestNumber
+        }.returns("1001")
+
+        every {
+            secondLotteryResult.contestNumber
+        }.returns("1000")
+
+        coEvery {
+            consultRepository.consultContest(userGame.type, 1001)
+        }.returns(firstLotteryResult)
+
+        coEvery {
+            consultRepository.consultContests(userGame.type, 1000, 1000)
+        }.returns(listOf(secondLotteryResult))
+
+        // When
+        viewModel.consultContestsForGame()
+
+        // Then
+        val state = viewModel.viewState.value as DetailGameState.ContestsReceived
+
+        assertEquals(2, state.results.size)
+        assertEquals(firstLotteryResult, state.results[0])
+        assertEquals(secondLotteryResult, state.results[1])
+
+        coVerify(exactly = 1) { consultRepository.consultContest(userGame.type, 1001) }
+        coVerify(exactly = 1) { consultRepository.consultContests(userGame.type, 1000, 1000) }
+    }
+
+    @Test
+    fun `consultContestsForGame when calling consultLatestContest returns null it should set state to NoResultsYet`() {
+        // Given
+        userGame.startContestNumber = "1000"
+        userGame.endContestNumber = ""
+
+        val expectedState = DetailGameState.NoResultsYet
+
+        coEvery {
+            consultRepository.consultLatestContest(userGame.type)
+        }.returns(null)
+
+        // When
+        viewModel.consultContestsForGame()
+
+        // Then
+        verify(exactly = 1) { observerState.onChanged(expectedState) }
+        coVerify(exactly = 1) { consultRepository.consultLatestContest(userGame.type) }
+    }
+
+    @Test
+    fun `consultContestsForGame when calling consultContest returns null it should set state to NoResultsYet`() {
+        // Given
+        userGame.startContestNumber = "1000"
+        userGame.endContestNumber = "1000"
+
+        val expectedState = DetailGameState.NoResultsYet
+
+        coEvery {
+            consultRepository.consultContest(userGame.type, 1000)
+        }.returns(null)
+
+        // When
+        viewModel.consultContestsForGame()
+
+        // Then
+        verify(exactly = 1) { observerState.onChanged(expectedState) }
+        coVerify(exactly = 1) { consultRepository.consultContest(userGame.type, 1000) }
     }
 
     @Test
@@ -283,6 +391,21 @@ class DetailGameViewModelTest {
         userGame.endContestNumber = "1001"
 
         val expectedString = "1000 - 1001"
+
+        // When
+        val result = viewModel.getContestNumber()
+
+        // Then
+        assertEquals(expectedString, result)
+    }
+
+    @Test
+    fun `getContestNumber should return a the startContestNumber when singleGame returns true`() {
+        // Given
+        userGame.startContestNumber = "1000"
+        userGame.endContestNumber = "1000"
+
+        val expectedString = "1000"
 
         // When
         val result = viewModel.getContestNumber()

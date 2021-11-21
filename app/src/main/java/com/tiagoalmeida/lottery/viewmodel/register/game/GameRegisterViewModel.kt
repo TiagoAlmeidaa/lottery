@@ -20,7 +20,9 @@ class GameRegisterViewModel(
 
     val userGame = MutableLiveData<UserGame>().apply { value = UserGame() }
 
-    val validForAllFutureContests = MutableLiveData<Boolean>()
+    val validForAllFutureContests = MutableLiveData<Boolean>().apply { value = false }
+
+    val singleGame = MutableLiveData<Boolean>().apply { value = false }
 
     fun validateLotteryType(type: LotteryType?) {
         val state = if (type == null) {
@@ -38,8 +40,8 @@ class GameRegisterViewModel(
             val state = when {
                 this == null -> GameRegisterState.ContestWithError()
                 startContestNumber.isEmpty() -> GameRegisterState.ContestWithError(R.string.game_register_error_start_contest_empty)
-                endContestNumber.isEmpty() && !hasEndContest() -> GameRegisterState.ContestWithError(R.string.game_register_error_end_contest_empty)
-                !hasEndContest() && startContestNumber.toInt() > endContestNumber.toInt() -> GameRegisterState.ContestWithError(R.string.game_register_error_start_bigger_than_end)
+                shouldValidateEndContest() && endContestNumber.isEmpty() -> GameRegisterState.ContestWithError(R.string.game_register_error_end_contest_empty)
+                shouldValidateEndContest() && startContestNumber.toInt() > endContestNumber.toInt() -> GameRegisterState.ContestWithError(R.string.game_register_error_start_bigger_than_end)
                 else -> GameRegisterState.ContestOk
             }
 
@@ -47,8 +49,8 @@ class GameRegisterViewModel(
         }
     }
 
-    fun hasEndContest(): Boolean {
-        return validForAllFutureContests.value == true
+    fun shouldValidateEndContest(): Boolean {
+        return validForAllFutureContests.value == false && singleGame.value == false
     }
 
     fun clearNumbers() {
@@ -98,6 +100,10 @@ class GameRegisterViewModel(
     fun saveNumbers(game: UserGame) {
         startLoading()
         try {
+            if (singleGame.value == true) {
+                game.endContestNumber = game.startContestNumber
+            }
+
             preferencesRepository.saveGame(game)
 
             _viewState.postValue(GameRegisterState.GameUpdated)

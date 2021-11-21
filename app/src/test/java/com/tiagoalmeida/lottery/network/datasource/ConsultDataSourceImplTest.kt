@@ -1,7 +1,7 @@
 package com.tiagoalmeida.lottery.network.datasource
 
-import com.tiagoalmeida.lottery.network.AppRetrofit
-import com.tiagoalmeida.lottery.network.AppRetrofitService
+import com.tiagoalmeida.lottery.network.LotteryApi
+import com.tiagoalmeida.lottery.network.LotteryApiService
 import com.tiagoalmeida.lottery.util.enums.LotteryType
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -10,10 +10,10 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -30,10 +30,10 @@ class ConsultDataSourceImplTest {
     private val dispatcher = TestCoroutineDispatcher()
 
     @MockK
-    lateinit var retrofit: AppRetrofit
+    internal lateinit var retrofit: LotteryApi
 
     @MockK
-    lateinit var service: AppRetrofitService
+    internal lateinit var service: LotteryApiService
 
     private lateinit var fakeToken: String
 
@@ -54,6 +54,13 @@ class ConsultDataSourceImplTest {
         fakeToken = "fakeToken"
 
         dataSource = ConsultDataSourceImpl(retrofit, fakeToken, dispatcher)
+    }
+
+    @After
+    fun finish() {
+        Dispatchers.resetMain()
+
+        dispatcher.cleanupTestCoroutines()
     }
 
     // endregion

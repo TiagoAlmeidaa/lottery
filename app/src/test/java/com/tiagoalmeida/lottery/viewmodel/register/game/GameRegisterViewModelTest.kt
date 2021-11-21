@@ -200,30 +200,39 @@ class GameRegisterViewModelTest {
 
     // endregion
 
-    // region method: hasEndContest
+    // region method: shouldValidateEndContest
 
     @Test
-    fun `hasEndContest should be true`() {
+    fun `shouldValidateEndContest should be false when validForAllFutureContest is true`() {
         // Given
         viewModel.validForAllFutureContests.postValue(true)
 
         // When
-        val result = viewModel.hasEndContest()
-
-        //
-        assertTrue(result)
-    }
-
-    @Test
-    fun `hasEndContest should be false`() {
-        // Given
-        viewModel.validForAllFutureContests.postValue(false)
-
-        // When
-        val result = viewModel.hasEndContest()
+        val result = viewModel.shouldValidateEndContest()
 
         //
         assertFalse(result)
+    }
+
+    @Test
+    fun `shouldValidateEndContest should be false when singleGame is true`() {
+        // Given
+        viewModel.singleGame.postValue(true)
+
+        // When
+        val result = viewModel.shouldValidateEndContest()
+
+        //
+        assertFalse(result)
+    }
+
+    @Test
+    fun `shouldValidateEndContest should be true in natural state`() {
+        // When
+        val result = viewModel.shouldValidateEndContest()
+
+        //
+        assertTrue(result)
     }
 
     // endregion
@@ -502,6 +511,37 @@ class GameRegisterViewModelTest {
         // Then
         verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
         verify(exactly = 1) { observer.onChanged(state) }
+    }
+
+    @Test
+    fun `saveNumbers should set the startNumberContest as endNumberContest when singleGame is true`() {
+        // Given
+        val contestNumber = "1001"
+        val expectedUserGame = UserGame(
+            contestNumber,
+            contestNumber
+        )
+
+        val state = GameRegisterState.GameUpdated
+        val userGame = UserGame(
+            startContestNumber = contestNumber
+        )
+
+
+        every {
+            preferencesRepository.saveGame(userGame)
+        }.just(runs)
+
+        viewModel.singleGame.postValue(true)
+
+        // When
+        viewModel.saveNumbers(userGame)
+
+        // Then
+        verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
+        verify(exactly = 1) { observer.onChanged(state) }
+
+        assertEquals(expectedUserGame, userGame)
     }
 
     // endregion

@@ -33,7 +33,9 @@ internal class ConsultRepositoryImpl(
     override suspend fun consultLatestContest(type: LotteryType): LotteryResult? {
         var contest: LotteryResult? = null
 
-        executeParse(dataSource.consultContest(type)) { response -> contest = response }
+        executeParse(dataSource.consultContest(type)) {
+                response -> contest = response
+        }
 
         return contest
     }

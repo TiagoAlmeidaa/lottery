@@ -1,11 +1,11 @@
 package com.tiagoalmeida.lottery.ui.results
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.FragmentResultsBinding
 import com.tiagoalmeida.lottery.model.vo.LotteryResult
 import com.tiagoalmeida.lottery.ui.results.adapter.ResultsAdapter
@@ -15,19 +15,36 @@ import com.tiagoalmeida.lottery.util.extensions.visible
 import com.tiagoalmeida.lottery.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class ResultsFragment : Fragment(R.layout.fragment_results) {
+class ResultsFragment : Fragment() {
 
-    private val binding by viewBinding(FragmentResultsBinding::bind)
+    private var _binding: FragmentResultsBinding? = null
+    private val binding get() = _binding!!
 
     private val mainViewModel: MainViewModel by sharedViewModel()
 
     private val resultsAdapter: ResultsAdapter by lazy { ResultsAdapter() }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentResultsBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@ResultsFragment
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeEvents()
         initializeObservers()
         initializeUI()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initializeEvents() {

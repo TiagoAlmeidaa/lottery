@@ -1,5 +1,5 @@
 object Versions {
-    const val gradle = "4.2.2"
+    const val gradle = "7.0.3"
     const val kotlin = "1.5.21"
     const val navigation = "2.3.5"
     const val crashlyticsGradle = "2.7.1"
@@ -25,5 +25,5 @@ object Versions {
     const val runner = "1.4.0"
     const val espresso = "3.4.0"
     const val koin = "3.1.2"
-    const val viewBindingPropertyDelegate = "1.4.7"
+    const val leakCanary = "2.7"
 }
