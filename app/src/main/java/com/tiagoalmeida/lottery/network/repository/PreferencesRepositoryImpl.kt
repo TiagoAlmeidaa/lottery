@@ -13,8 +13,8 @@ import com.tiagoalmeida.lottery.util.extensions.putInt
 import com.tiagoalmeida.lottery.util.extensions.putString
 
 internal class PreferencesRepositoryImpl(
-    private val sharedPreferences: SharedPreferences,
-    private val crashlytics: FirebaseCrashlytics
+        private val sharedPreferences: SharedPreferences,
+        private val crashlytics: FirebaseCrashlytics
 ) : PreferencesRepository {
 
     override fun saveGame(game: UserGame) {
@@ -43,7 +43,7 @@ internal class PreferencesRepositoryImpl(
             return listOf()
 
         return try {
-            val type = object: TypeToken<List<UserGame>>(){}.type
+            val type = object : TypeToken<List<UserGame>>() {}.type
             Gson().fromJson(json, type)
         } catch (exception: Exception) {
             crashlytics.recordException(exception)

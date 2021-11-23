@@ -62,17 +62,7 @@ class GamesFilterBottomSheet(
 
     private fun initializeUI() {
         expandBottomSheet()
-
-        binding.spinnerLotteryType.setAdapter(getSpinnerAdapter())
-
-        with(sharedViewModel.getFilter()) {
-            if (lotteryType != null) {
-                binding.spinnerLotteryType.setText(lotteryType.toString())
-            }
-            if (contestNumber.isNotEmpty()) {
-                binding.editTextContestNumber.setText(contestNumber)
-            }
-        }
+        populateFields()
     }
 
     private fun expandBottomSheet() {
@@ -83,12 +73,26 @@ class GamesFilterBottomSheet(
             }
         }
     }
+    private fun populateFields() = with(binding) {
+        spinnerLotteryType.setAdapter(getSpinnerAdapter())
 
-    private fun setFilter() {
-        val type = binding.spinnerLotteryType.getLotteryType()
-        val number = binding.editTextContestNumber.text?.toString() ?: ""
+        with(sharedViewModel.getFilter()) {
+            if (lotteryType != null) {
+                spinnerLotteryType.setText(lotteryType.toString())
+            }
+            if (contestNumber.isNotEmpty()) {
+                editTextContestNumber.setText(contestNumber)
+            }
+            checkBoxHideOldGames.isChecked = hideOldNumbers
+        }
+    }
 
-        sharedViewModel.setFilter(GamesFilter(type, number))
+    private fun setFilter() = with(binding) {
+        val type = spinnerLotteryType.getLotteryType()
+        val number = editTextContestNumber.text?.toString() ?: ""
+        val hideOldNumbers = checkBoxHideOldGames.isChecked
+
+        sharedViewModel.setFilter(GamesFilter(type, number, hideOldNumbers))
     }
 
     private fun clearFilter() {

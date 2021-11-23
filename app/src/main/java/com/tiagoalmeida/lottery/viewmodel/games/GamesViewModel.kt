@@ -37,6 +37,12 @@ class GamesViewModel(
                                 (userGame.endContestNumber.isEmpty() || filter.contestNumber <= userGame.endContestNumber)
                     }
                 }
+                if (filter.hideOldNumbers) {
+                    games = games.filter { userGame ->
+                        val lastContestNumber = preferencesRepository.getLastSavedContestNumber(userGame.type)
+                        userGame.startContestNumber.toInt() >= lastContestNumber
+                    }
+                }
             }
 
             games = games.sortedByDescending { game -> game.getStartContestInt() }
@@ -67,18 +73,6 @@ class GamesViewModel(
             _viewState.postValue(state)
         }
     )
-
-    fun createFilterMessage(filter: GamesFilter): Pair<String, String> = with(filter) {
-        if (lotteryType != null && contestNumber.isNotEmpty()) {
-            Pair(lotteryType.lotteryName, contestNumber)
-        } else if (lotteryType != null) {
-            Pair(lotteryType.lotteryName, "")
-        } else if (contestNumber.isNotEmpty()) {
-            Pair("", contestNumber)
-        } else {
-            Pair("", "")
-        }
-    }
 
     fun setFilter(filter: GamesFilter) = _gamesFilter.postValue(filter)
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -144,25 +145,13 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
         bottomSheet?.dismissAllowingStateLoss()
         bottomSheet = null
 
-        with(binding) {
-            gamesViewModel.createFilterMessage(filter).let { filterMessage ->
-                if (filterMessage.first.isEmpty() && filterMessage.second.isEmpty()) {
-                    textViewFilter.gone()
-                } else {
-                    textViewFilter.visible()
-                    textViewFilter.text =
-                        if (filterMessage.first.isNotEmpty() && filterMessage.second.isNotEmpty()) {
-                            val formattedString = filterMessage.first + "(${filterMessage.second})"
-                            String.format(getString(R.string.filter_text), formattedString)
-                        } else if (filterMessage.first.isNotEmpty()) {
-                            String.format(getString(R.string.filter_text), filterMessage.first)
-                        } else if (filterMessage.second.isNotEmpty()) {
-                            String.format(getString(R.string.filter_text), filterMessage.second)
-                        } else {
-                            ""
-                        }
-                }
-
+        with(binding.layoutAddGame) {
+            if (filter.hasAnyFilterApplied()) {
+                imageViewFilter.setImageResource(R.drawable.icon_filter_applied)
+                cardFilter.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            } else {
+                imageViewFilter.setImageResource(R.drawable.icon_filter)
+                cardFilter.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
         }
 

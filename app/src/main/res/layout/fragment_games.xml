@@ -32,19 +32,6 @@
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/text_view_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/games_fragment_margin_bottom_between_toolbar_and_list"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_small"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:textAllCaps="true"
-                tools:text="Mostrando: Megasena, concurso 1234" />
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
