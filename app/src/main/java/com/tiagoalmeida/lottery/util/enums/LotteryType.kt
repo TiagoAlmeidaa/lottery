@@ -14,7 +14,8 @@ enum class LotteryType(
     MEGASENA("Megasena", "megasena",60, "15", "06", R.color.colorMegasena),
     LOTOFACIL("Lotofácil", "lotofacil",25, "18", "15", R.color.colorLotofacil),
     LOTOMANIA("Lotomania", "lotomania",100, "50", "50", R.color.colorLotomania),
-    QUINA("Quina", "quina",80, "15", "05", R.color.colorQuina);
+    QUINA("Quina", "quina",80, "15", "05", R.color.colorQuina),
+    TIMEMANIA("Timemania", "timemania", 80, "10", "10", R.color.colorTimemania);
 
     companion object {
 
@@ -23,6 +24,7 @@ enum class LotteryType(
             LOTOFACIL.lotteryName -> LOTOFACIL
             LOTOMANIA.lotteryName -> LOTOMANIA
             QUINA.lotteryName -> QUINA
+            TIMEMANIA.lotteryName -> TIMEMANIA
             else -> null
         }
 

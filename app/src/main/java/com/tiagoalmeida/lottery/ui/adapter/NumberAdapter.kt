@@ -10,7 +10,8 @@ import com.tiagoalmeida.lottery.util.extensions.toStringNumber
 class NumberAdapter(
     private val colorId: Int,
     private val numbers: List<Int>,
-    private val invertColors: Boolean = false
+    private val invertColors: Boolean = false,
+    private val textColor: Int = android.R.color.white
 ) : RecyclerView.Adapter<NumberAdapter.NumberViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
@@ -43,13 +44,13 @@ class NumberAdapter(
             return if (invertColors) {
                 colorId
             } else {
-                android.R.color.white
+                textColor
             }
         }
 
         private fun getBackgroundColor(): Int {
             return if (invertColors) {
-                android.R.color.white
+                textColor
             } else {
                 colorId
             }

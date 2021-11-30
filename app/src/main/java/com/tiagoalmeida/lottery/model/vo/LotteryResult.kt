@@ -25,7 +25,9 @@ data class LotteryResult(
             "MEGA-SENA" -> LotteryType.MEGASENA
             "LOTOFÁCIL" -> LotteryType.LOTOFACIL
             "QUINA" -> LotteryType.QUINA
-            else -> LotteryType.LOTOMANIA
+            "LOTOMANIA" -> LotteryType.LOTOMANIA
+            "TIMEMANIA" -> LotteryType.TIMEMANIA
+            else -> throw Exception("unknown lottery type: $name")
         }
     }
 }

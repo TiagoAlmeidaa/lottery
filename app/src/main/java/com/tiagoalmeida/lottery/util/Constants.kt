@@ -21,6 +21,7 @@ object Constants {
     const val SHARED_PREFERENCES_LAST_LOTOFACIL = "shared.preferences.last.lotofacil"
     const val SHARED_PREFERENCES_LAST_LOTOMANIA = "shared.preferences.last.lotomania"
     const val SHARED_PREFERENCES_LAST_QUINA = "shared.preferences.last.quina"
+    const val SHARED_PREFERENCES_LAST_TIMEMANIA = "shared.preferences.last.timemania"
 
     const val BOTTOM_SHEET_FILTER_ID = "bottom.sheet.filter"
 

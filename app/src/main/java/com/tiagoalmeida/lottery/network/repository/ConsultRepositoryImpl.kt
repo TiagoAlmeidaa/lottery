@@ -14,17 +14,10 @@ internal class ConsultRepositoryImpl(
     override suspend fun consultAll(): List<LotteryResult> {
         val results = mutableListOf<LotteryResult>()
 
-        executeParse(dataSource.consultContest(LotteryType.MEGASENA)) { response ->
-            results.add(response)
-        }
-        executeParse(dataSource.consultContest(LotteryType.LOTOFACIL)) { response ->
-            results.add(response)
-        }
-        executeParse(dataSource.consultContest(LotteryType.LOTOMANIA)) { response ->
-            results.add(response)
-        }
-        executeParse(dataSource.consultContest(LotteryType.QUINA)) { response ->
-            results.add(response)
+        LotteryType.values().forEach { lotteryType ->
+            executeParse(dataSource.consultContest(lotteryType)) { response ->
+                results.add(response)
+            }
         }
 
         return results

@@ -13,8 +13,8 @@ import com.tiagoalmeida.lottery.util.extensions.putInt
 import com.tiagoalmeida.lottery.util.extensions.putString
 
 internal class PreferencesRepositoryImpl(
-        private val sharedPreferences: SharedPreferences,
-        private val crashlytics: FirebaseCrashlytics
+    private val sharedPreferences: SharedPreferences,
+    private val crashlytics: FirebaseCrashlytics
 ) : PreferencesRepository {
 
     override fun saveGame(game: UserGame) {
@@ -53,27 +53,26 @@ internal class PreferencesRepositoryImpl(
     }
 
     override fun deleteAllGames() {
-        sharedPreferences.putString(Constants.SHARED_PREFERENCES_GAMES, Gson().toJson(listOf<UserGame>()))
+        sharedPreferences.putString(
+            Constants.SHARED_PREFERENCES_GAMES,
+            Gson().toJson(listOf<UserGame>())
+        )
     }
 
     override fun getLastSavedContestNumber(type: LotteryType): Int {
-        val key = when (type) {
-            LotteryType.MEGASENA -> Constants.SHARED_PREFERENCES_LAST_MEGASENA
-            LotteryType.LOTOFACIL -> Constants.SHARED_PREFERENCES_LAST_LOTOFACIL
-            LotteryType.LOTOMANIA -> Constants.SHARED_PREFERENCES_LAST_LOTOMANIA
-            LotteryType.QUINA -> Constants.SHARED_PREFERENCES_LAST_QUINA
-        }
-        return sharedPreferences.getInt(key)
+        return sharedPreferences.getInt(getKey(type))
     }
 
     override fun saveLastContestNumber(type: LotteryType, contestNumber: Int) {
-        val key = when (type) {
-            LotteryType.MEGASENA -> Constants.SHARED_PREFERENCES_LAST_MEGASENA
-            LotteryType.LOTOFACIL -> Constants.SHARED_PREFERENCES_LAST_LOTOFACIL
-            LotteryType.LOTOMANIA -> Constants.SHARED_PREFERENCES_LAST_LOTOMANIA
-            LotteryType.QUINA -> Constants.SHARED_PREFERENCES_LAST_QUINA
-        }
-        sharedPreferences.putInt(key, contestNumber)
+        sharedPreferences.putInt(getKey(type), contestNumber)
+    }
+
+    private fun getKey(type: LotteryType): String = when (type) {
+        LotteryType.MEGASENA -> Constants.SHARED_PREFERENCES_LAST_MEGASENA
+        LotteryType.LOTOFACIL -> Constants.SHARED_PREFERENCES_LAST_LOTOFACIL
+        LotteryType.LOTOMANIA -> Constants.SHARED_PREFERENCES_LAST_LOTOMANIA
+        LotteryType.QUINA -> Constants.SHARED_PREFERENCES_LAST_QUINA
+        LotteryType.TIMEMANIA -> Constants.SHARED_PREFERENCES_LAST_TIMEMANIA
     }
 
 }

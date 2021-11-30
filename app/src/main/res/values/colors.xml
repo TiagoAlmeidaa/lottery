@@ -8,11 +8,14 @@
     <color name="colorLotofacil">#8F0087</color>
     <color name="colorLotomania">#F1800E</color>
     <color name="colorQuina">#280083</color>
+    <color name="colorTimemania">#FFF600</color>
 
     <color name="colorBackgroundDefault">#FAFAFA</color>
 
     <color name="colorGhostCardBackground">#f5f5f5</color>
     <color name="colorGhostViews">#c2c2c2</color>
+
+    <color name="colorTimemaniaText">#049645</color>
 
     <color name="ic_launcher_background">#008577</color>
 </resources>

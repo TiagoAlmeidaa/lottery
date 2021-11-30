@@ -9,6 +9,7 @@ import com.tiagoalmeida.lottery.databinding.AdapterResultsBinding
 import com.tiagoalmeida.lottery.model.vo.LotteryAward
 import com.tiagoalmeida.lottery.model.vo.LotteryResult
 import com.tiagoalmeida.lottery.ui.adapter.NumberAdapter
+import com.tiagoalmeida.lottery.util.enums.LotteryType
 import com.tiagoalmeida.lottery.util.extensions.gone
 import com.tiagoalmeida.lottery.util.extensions.toAppDateString
 import com.tiagoalmeida.lottery.util.extensions.toCurrency
@@ -19,12 +20,32 @@ class ResultsViewHolder(
     private val binding: AdapterResultsBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private var chevronUp: Int = R.drawable.icon_chevron_up
+    private var chevronDown: Int = R.drawable.icon_chevron_down
+
     fun bind(result: LotteryResult, onHeaderClick: (Int) -> Unit) {
         val type = result.getLotteryType()
         val numbers = result.numbersDrawn.map { it.toInt() }
+        val numberAdapter: NumberAdapter
 
         with(binding) {
-            colorId = type.color
+            backColorId = type.color
+
+            if (type == LotteryType.TIMEMANIA) {
+                numberAdapter = NumberAdapter(type.color, numbers, textColor = R.color.colorTimemaniaText)
+                primaryColorId = R.color.colorTimemaniaText
+                secondaryColorId = R.color.colorTimemaniaText
+                chevronUp = R.drawable.icon_chevron_up_timemania
+                chevronDown = R.drawable.icon_chevron_down_timemania
+                imageViewClover.setImageResource(R.drawable.icon_clover_timemania)
+            } else {
+                numberAdapter = NumberAdapter(type.color, numbers)
+                primaryColorId = android.R.color.white
+                secondaryColorId = type.color
+                chevronUp = R.drawable.icon_chevron_up
+                chevronDown = R.drawable.icon_chevron_down
+                imageViewClover.setImageResource(R.drawable.icon_clover)
+            }
 
             textViewContest.text = type.toString()
             textViewContestNumber.text = formatContestNumber(result.contestNumber)
@@ -37,7 +58,7 @@ class ResultsViewHolder(
                 result.nextContestPrize.toCurrency()
             }
 
-            recyclerViewNumbers.adapter = NumberAdapter(type.color, numbers)
+            recyclerViewNumbers.adapter = numberAdapter
             recyclerViewNumbers.layoutManager = getFlexBoxLayoutManager()
 
             layoutHeader.setOnClickListener {
@@ -49,10 +70,10 @@ class ResultsViewHolder(
     fun showOrHideExpandableLayout(show: Boolean) {
         with(binding) {
             if (show) {
-                imageViewChevron.setImageResource(R.drawable.icon_chevron_up)
+                imageViewChevron.setImageResource(chevronUp)
                 expandableLayout.visible()
             } else {
-                imageViewChevron.setImageResource(R.drawable.icon_chevron_down)
+                imageViewChevron.setImageResource(chevronDown)
                 expandableLayout.gone()
             }
         }
