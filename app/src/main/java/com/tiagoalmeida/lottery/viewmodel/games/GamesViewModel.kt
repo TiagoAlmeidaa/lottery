@@ -26,15 +26,26 @@ class GamesViewModel(
             var games = preferencesRepository.getGames()
 
             gamesFilter.value?.let { filter ->
-                if (filter.lotteryType != null) {
-                    games = games.filter { userGame ->
-                        userGame.type == filter.lotteryType
+                with(filter) {
+                    if (lotteryType != null) {
+                        games = games.filter { userGame ->
+                            userGame.type == lotteryType
+                        }
                     }
-                }
-                if (filter.contestNumber.isNotEmpty()) {
-                    games = games.filter { userGame ->
-                        filter.contestNumber >= userGame.startContestNumber &&
-                                (userGame.endContestNumber.isEmpty() || filter.contestNumber <= userGame.endContestNumber)
+                    if (contestNumber.isNotEmpty()) {
+                        games = games.filter { userGame ->
+                            contestNumber >= userGame.startContestNumber &&
+                                    (userGame.endContestNumber.isEmpty() || contestNumber <= userGame.endContestNumber)
+                        }
+                    }
+                    if (filter.hideOldNumbers) {
+                        games = games.filter { userGame ->
+                            val lastContestNumber = preferencesRepository.getLastSavedContestNumber(userGame.type)
+
+                            lastContestNumber == 0
+                                    || userGame.isValidForFutureContests()
+                                    || userGame.getEndContestInt() >= lastContestNumber
+                        }
                     }
                 }
             }
@@ -67,18 +78,6 @@ class GamesViewModel(
             _viewState.postValue(state)
         }
     )
-
-    fun createFilterMessage(filter: GamesFilter): Pair<String, String> = with(filter) {
-        if (lotteryType != null && contestNumber.isNotEmpty()) {
-            Pair(lotteryType.lotteryName, contestNumber)
-        } else if (lotteryType != null) {
-            Pair(lotteryType.lotteryName, "")
-        } else if (contestNumber.isNotEmpty()) {
-            Pair("", contestNumber)
-        } else {
-            Pair("", "")
-        }
-    }
 
     fun setFilter(filter: GamesFilter) = _gamesFilter.postValue(filter)
 

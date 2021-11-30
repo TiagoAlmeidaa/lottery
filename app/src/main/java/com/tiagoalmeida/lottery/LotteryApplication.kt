@@ -65,7 +65,7 @@ class LotteryApplication : Application() {
 
         val timeEightThirtyPM = Calendar.getInstance(Locale.getDefault()).apply {
             time = Date()
-            set(Calendar.HOUR_OF_DAY, 20)
+            set(Calendar.HOUR_OF_DAY, 21)
             set(Calendar.MINUTE, 30)
         }
 

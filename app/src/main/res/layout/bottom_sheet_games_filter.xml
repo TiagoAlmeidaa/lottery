@@ -35,6 +35,21 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/bottom_sheet_login_padding_start_end" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_between_different_fields"
+            android:text="@string/filter"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/game_register_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/input_layout_spinner"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toTopOf="@id/guide_top"
+            app:textAllCaps="true" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_spinner"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -45,7 +60,7 @@
             app:layout_constraintBottom_toTopOf="@id/input_layout_contest_number"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
-            app:layout_constraintTop_toTopOf="@id/guide_top"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"
             app:startIconDrawable="@drawable/icon_clover">
 
             <AutoCompleteTextView
@@ -69,7 +84,7 @@
             android:layout_marginBottom="@dimen/space_between_fields"
             app:boxStrokeColor="@color/colorAccent"
             app:hintTextColor="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@id/button_filter"
+            app:layout_constraintBottom_toTopOf="@id/check_box_hide_old_games"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
             app:layout_constraintTop_toBottomOf="@id/input_layout_spinner"
@@ -89,6 +104,18 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/check_box_hide_old_games"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_different_fields"
+            android:text="@string/hide_old_games"
+            android:textSize="@dimen/game_register_check_text_size"
+            app:layout_constraintBottom_toTopOf="@id/button_filter"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_contest_number" />
+
         <com.tiagoalmeida.lottery.util.view.ButtonCardView
             android:id="@+id/button_filter"
             android:layout_width="0dp"
@@ -99,7 +126,7 @@
             app:layout_constraintBottom_toTopOf="@id/button_clear_filter"
             app:layout_constraintEnd_toStartOf="@id/guide_end"
             app:layout_constraintStart_toEndOf="@id/guide_start"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_contest_number"
+            app:layout_constraintTop_toBottomOf="@id/check_box_hide_old_games"
             app:setCenter="true"
             app:setHorizontal="true"
             app:title="@string/filter"
