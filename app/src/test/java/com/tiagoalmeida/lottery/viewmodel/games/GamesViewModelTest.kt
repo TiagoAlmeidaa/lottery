@@ -106,6 +106,232 @@ class GamesViewModelTest {
 
     // region method: findGames
 
+    // region findGames with LotteryType filter
+
+    @Test
+    fun `findGames with LotteryType filter should find the correct user game`() {
+        // Given
+        val fakeGames = mutableListOf(megasena, lotofacil, quina)
+
+        every {
+            preferencesRepository.getGames()
+        }.returns(fakeGames)
+
+        viewModel.setFilter(
+            GamesFilter(lotteryType = megasena.type)
+        )
+
+        // When
+        viewModel.findGames()
+
+        // Then
+        val state = viewModel.viewState.value as GamesState.GamesReceived
+
+        with(state) {
+            assertEquals(1, games.size)
+
+            assertEquals(megasena.startContestNumber, games[0].startContestNumber)
+            assertEquals(megasena.type, games[0].type)
+        }
+
+        verify(exactly = 1) { preferencesRepository.getGames() }
+    }
+
+    // endregion
+
+    // region findGames with ContestNumber filter
+
+    @Test
+    fun `findGames with ContestNumber filter should find the correct user game`() {
+        // Given
+        val fakeGames = mutableListOf(megasena, lotofacil, quina)
+
+        every {
+            preferencesRepository.getGames()
+        }.returns(fakeGames)
+
+        viewModel.setFilter(
+            GamesFilter(contestNumber = lotofacil.startContestNumber)
+        )
+
+        // When
+        viewModel.findGames()
+
+        // Then
+        val state = viewModel.viewState.value as GamesState.GamesReceived
+
+        with(state) {
+            assertEquals(1, games.size)
+
+            assertEquals(lotofacil.startContestNumber, games[0].startContestNumber)
+            assertEquals(lotofacil.type, games[0].type)
+        }
+
+        verify(exactly = 1) { preferencesRepository.getGames() }
+    }
+
+    // endregion
+
+    // region findGames with hideOldNumbers filter
+
+    @Test
+    fun `findGames should return all games when hideOldNumbers filter is active but the lastContestNumber is ZERO`() {
+        val validForFutureContestsGame = UserGame(
+            startContestNumber = "1500",
+            endContestNumber = ""
+        )
+        val oldSingleGame = UserGame(
+            startContestNumber = "1000",
+            endContestNumber = "1000",
+        )
+        val rangedContestGame = UserGame(
+            startContestNumber = "1510",
+            endContestNumber = "1525"
+        )
+        val fakeGames = listOf(
+            validForFutureContestsGame,
+            oldSingleGame,
+            rangedContestGame
+        )
+
+        every {
+            preferencesRepository.getGames()
+        }.returns(fakeGames)
+
+        every {
+            preferencesRepository.getLastSavedContestNumber(any())
+        }.returns(0)
+
+        viewModel.setFilter(GamesFilter(hideOldNumbers = true))
+
+        viewModel.findGames()
+
+        verify(exactly = 1) { preferencesRepository.getGames() }
+        verify(exactly = 3) { preferencesRepository.getLastSavedContestNumber(LotteryType.MEGASENA) }
+        val orderedExpectedList = listOf(rangedContestGame, validForFutureContestsGame, oldSingleGame)
+        val expectedState = GamesState.GamesReceived(orderedExpectedList)
+        verify(exactly = 1) { observerState.onChanged(expectedState) }
+    }
+
+    @Test
+    fun `findGames should return validForFutureContestGame and rangedContestGame when hideOldNumbers filter is active and lastContestNumber is 1510`() {
+        val validForFutureContestsGame = UserGame(
+            startContestNumber = "1500",
+            endContestNumber = ""
+        )
+        val oldSingleGame = UserGame(
+            startContestNumber = "1000",
+            endContestNumber = "1000",
+        )
+        val rangedContestGame = UserGame(
+            startContestNumber = "1510",
+            endContestNumber = "1525"
+        )
+        val fakeGames = listOf(
+            validForFutureContestsGame,
+            oldSingleGame,
+            rangedContestGame
+        )
+
+        every {
+            preferencesRepository.getGames()
+        }.returns(fakeGames)
+
+        every {
+            preferencesRepository.getLastSavedContestNumber(any())
+        }.returns(1510)
+
+        viewModel.setFilter(GamesFilter(hideOldNumbers = true))
+
+        viewModel.findGames()
+
+        verify(exactly = 1) { preferencesRepository.getGames() }
+        verify(exactly = 3) { preferencesRepository.getLastSavedContestNumber(LotteryType.MEGASENA) }
+        val orderedExpectedList = listOf(rangedContestGame, validForFutureContestsGame)
+        val expectedState = GamesState.GamesReceived(orderedExpectedList)
+        verify(exactly = 1) { observerState.onChanged(expectedState) }
+    }
+
+    @Test
+    fun `findGames should return validForFutureContestGame and rangedContestGame when hideOldNumbers filter is active and lastContestNumber is 1525`() {
+        val validForFutureContestsGame = UserGame(
+            startContestNumber = "1500",
+            endContestNumber = ""
+        )
+        val oldSingleGame = UserGame(
+            startContestNumber = "1000",
+            endContestNumber = "1000",
+        )
+        val rangedContestGame = UserGame(
+            startContestNumber = "1510",
+            endContestNumber = "1525"
+        )
+        val fakeGames = listOf(
+            validForFutureContestsGame,
+            oldSingleGame,
+            rangedContestGame
+        )
+
+        every {
+            preferencesRepository.getGames()
+        }.returns(fakeGames)
+
+        every {
+            preferencesRepository.getLastSavedContestNumber(any())
+        }.returns(1525)
+
+        viewModel.setFilter(GamesFilter(hideOldNumbers = true))
+
+        viewModel.findGames()
+
+        verify(exactly = 1) { preferencesRepository.getGames() }
+        verify(exactly = 3) { preferencesRepository.getLastSavedContestNumber(LotteryType.MEGASENA) }
+        val orderedExpectedList = listOf(rangedContestGame, validForFutureContestsGame)
+        val expectedState = GamesState.GamesReceived(orderedExpectedList)
+        verify(exactly = 1) { observerState.onChanged(expectedState) }
+    }
+
+    @Test
+    fun `findGames should return only validForFutureContestGame when hideOldNumbers filter is active and lastContestNumber is 1526`() {
+        val validForFutureContestsGame = UserGame(
+            startContestNumber = "1500",
+            endContestNumber = ""
+        )
+        val oldSingleGame = UserGame(
+            startContestNumber = "1000",
+            endContestNumber = "1000",
+        )
+        val rangedContestGame = UserGame(
+            startContestNumber = "1510",
+            endContestNumber = "1525"
+        )
+        val fakeGames = listOf(
+            validForFutureContestsGame,
+            oldSingleGame,
+            rangedContestGame
+        )
+
+        every {
+            preferencesRepository.getGames()
+        }.returns(fakeGames)
+
+        every {
+            preferencesRepository.getLastSavedContestNumber(any())
+        }.returns(1526)
+
+        viewModel.setFilter(GamesFilter(hideOldNumbers = true))
+
+        viewModel.findGames()
+
+        verify(exactly = 1) { preferencesRepository.getGames() }
+        verify(exactly = 3) { preferencesRepository.getLastSavedContestNumber(LotteryType.MEGASENA) }
+        val orderedExpectedList = listOf(validForFutureContestsGame)
+        val expectedState = GamesState.GamesReceived(orderedExpectedList)
+        verify(exactly = 1) { observerState.onChanged(expectedState) }
+    }
+
+    // endregion
+
     @Test
     fun `findGames with no filter should set state with the full list ordered by startContestNumber`() {
         // Given
@@ -138,7 +364,7 @@ class GamesViewModelTest {
     }
 
     @Test
-    fun `findGames with LotteryType filter should find the correct user game`() {
+    fun `findGames with full filters should find the correct user game`() {
         // Given
         val fakeGames = mutableListOf(megasena, lotofacil, quina)
 
@@ -146,68 +372,15 @@ class GamesViewModelTest {
             preferencesRepository.getGames()
         }.returns(fakeGames)
 
-        viewModel.setFilter(
-            GamesFilter(lotteryType = megasena.type)
-        )
-
-        // When
-        viewModel.findGames()
-
-        // Then
-        val state = viewModel.viewState.value as GamesState.GamesReceived
-
-        with(state) {
-            assertEquals(1, games.size)
-
-            assertEquals(megasena.startContestNumber, games[0].startContestNumber)
-            assertEquals(megasena.type, games[0].type)
-        }
-
-        verify(exactly = 1) { preferencesRepository.getGames() }
-    }
-
-    @Test
-    fun `findGames with no user and ContestNumber filter should find the correct user game`() {
-        // Given
-        val fakeGames = mutableListOf(megasena, lotofacil, quina)
-
         every {
-            preferencesRepository.getGames()
-        }.returns(fakeGames)
-
-        viewModel.setFilter(
-            GamesFilter(contestNumber = lotofacil.startContestNumber)
-        )
-
-        // When
-        viewModel.findGames()
-
-        // Then
-        val state = viewModel.viewState.value as GamesState.GamesReceived
-
-        with(state) {
-            assertEquals(1, games.size)
-
-            assertEquals(lotofacil.startContestNumber, games[0].startContestNumber)
-            assertEquals(lotofacil.type, games[0].type)
-        }
-
-        verify(exactly = 1) { preferencesRepository.getGames() }
-    }
-
-    @Test
-    fun `findGames with no user and full filter should find the correct user game`() {
-        // Given
-        val fakeGames = mutableListOf(megasena, lotofacil, quina)
-
-        every {
-            preferencesRepository.getGames()
-        }.returns(fakeGames)
+            preferencesRepository.getLastSavedContestNumber(LotteryType.MEGASENA)
+        }.returns(megasena.getStartContestInt() -1)
 
         viewModel.setFilter(
             GamesFilter(
                 lotteryType = megasena.type,
-                contestNumber = megasena.startContestNumber
+                contestNumber = megasena.startContestNumber,
+                hideOldNumbers = true
             )
         )
 
@@ -225,6 +398,7 @@ class GamesViewModelTest {
         }
 
         verify(exactly = 1) { preferencesRepository.getGames() }
+        verify(exactly = 1) { preferencesRepository.getLastSavedContestNumber(LotteryType.MEGASENA) }
     }
 
     @Test
@@ -310,70 +484,6 @@ class GamesViewModelTest {
         // Then
         verify(exactly = 1) { crashlytics.recordException(any()) }
         verify(exactly = 1) { observerState.onChanged(expectedState) }
-    }
-
-    // endregion
-
-    // region method: createFilterMessage
-
-    @Test
-    fun `createFilterMessage should return the correct message when the GamesFilter is full filled`() {
-        // Given
-        val expectedLotteryName = LotteryType.MEGASENA.lotteryName
-        val expectedContestNumber = "1234"
-        val filter = GamesFilter(lotteryType = LotteryType.MEGASENA, contestNumber = "1234")
-
-        // When
-        val result = viewModel.createFilterMessage(filter)
-
-        // Then
-        assertEquals(expectedLotteryName, result.first)
-        assertEquals(expectedContestNumber, result.second)
-    }
-
-    @Test
-    fun `createFilterMessage should return the correct message when the GamesFilter has only lottery type`() {
-        // Given
-        val expectedLotteryName = LotteryType.MEGASENA.lotteryName
-        val expectedContestNumber = ""
-        val filter = GamesFilter(lotteryType = LotteryType.MEGASENA)
-
-        // When
-        val result = viewModel.createFilterMessage(filter)
-
-        // Then
-        assertEquals(expectedLotteryName, result.first)
-        assertEquals(expectedContestNumber, result.second)
-    }
-
-    @Test
-    fun `createFilterMessage should return the correct message when the GamesFilter has only contest number`() {
-        // Given
-        val expectedLotteryName = ""
-        val expectedContestNumber = "1234"
-        val filter = GamesFilter(contestNumber = "1234")
-
-        // When
-        val result = viewModel.createFilterMessage(filter)
-
-        // Then
-        assertEquals(expectedLotteryName, result.first)
-        assertEquals(expectedContestNumber, result.second)
-    }
-
-    @Test
-    fun `createFilterMessage should return empty when the GamesFilter is empty`() {
-        // Given
-        val expectedLotteryName = ""
-        val expectedContestNumber = ""
-        val filter = GamesFilter()
-
-        // When
-        val result = viewModel.createFilterMessage(filter)
-
-        // Then
-        assertEquals(expectedLotteryName, result.first)
-        assertEquals(expectedContestNumber, result.second)
     }
 
     // endregion
