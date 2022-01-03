@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tiagoalmeida.lottery.databinding.AdapterNumbersBinding
+import com.tiagoalmeida.lottery.util.enums.LotteryType
 import com.tiagoalmeida.lottery.util.extensions.toStringNumber
 
 class NumberAdapter(
-    private val colorId: Int,
     private val numbers: List<Int>,
-    private val invertColors: Boolean = false,
-    private val textColor: Int = android.R.color.white
+    private val lotteryType: LotteryType,
+    private val invertColors: Boolean = false
 ) : RecyclerView.Adapter<NumberAdapter.NumberViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
@@ -29,31 +29,18 @@ class NumberAdapter(
     inner class NumberViewHolder(val binding: AdapterNumbersBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(numberReceived: Int) {
-            with(binding) {
-                val textColor = ContextCompat.getColor(root.context, getTextColor())
-                val backgroundColor = ContextCompat.getColor(root.context, getBackgroundColor())
-
-                root.background.setTint(backgroundColor)
-                textViewNumber.setTextColor(textColor)
-                number = numberReceived.toStringNumber()
-            }
-        }
-
-        private fun getTextColor(): Int {
-            return if (invertColors) {
-                colorId
+        fun bind(numberReceived: Int) = with(binding) {
+            primaryColorId = if (invertColors) {
+                lotteryType.secondaryColor
             } else {
-                textColor
+                lotteryType.primaryColor
             }
-        }
-
-        private fun getBackgroundColor(): Int {
-            return if (invertColors) {
-                textColor
+            secondaryColorId = if (invertColors) {
+                lotteryType.primaryColor
             } else {
-                colorId
+                lotteryType.secondaryColor
             }
+            lotteryNumber = numberReceived.toStringNumber()
         }
     }
 

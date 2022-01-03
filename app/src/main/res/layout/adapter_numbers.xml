@@ -3,9 +3,20 @@
 
     <data>
 
+        <import type="androidx.core.content.ContextCompat" />
+
         <variable
-            name="number"
+            name="lotteryNumber"
             type="String" />
+
+        <variable
+            name="primaryColorId"
+            type="Integer" />
+
+        <variable
+            name="secondaryColorId"
+            type="Integer" />
+
     </data>
 
     <LinearLayout
@@ -13,15 +24,16 @@
         android:layout_height="@dimen/adapter_number_size"
         android:layout_margin="@dimen/adapter_number_margin"
         android:background="@drawable/circle_shape"
+        android:backgroundTint="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{number}"
+            android:text="@{lotteryNumber}"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
             android:textSize="@dimen/adapter_number_text_size"
             android:textStyle="bold" />
 

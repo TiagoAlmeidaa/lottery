@@ -25,7 +25,7 @@ class DetailGameViewHolder(
         val hits = countHits(numbers)
 
         with(binding) {
-            colorId = type.color
+            lotteryType = type
 
             textViewContest.text = type.toString()
             textViewContestNumber.text = formatContestNumber(result.contestNumber)

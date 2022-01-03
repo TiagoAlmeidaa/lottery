@@ -89,15 +89,16 @@ class DetailGameActivity : AppCompatActivity() {
     }
 
     private fun initializeUI() {
-        window.statusBarColor = ContextCompat.getColor(this, viewModel.getColorId())
+        val type = viewModel.getLotteryType()
+        window.statusBarColor = ContextCompat.getColor(this, type.primaryColor)
 
         with(binding) {
             userGame = viewModel.getUserGame()
             textViewContestNumber.text = viewModel.getContestNumber()
 
             recyclerViewNumbers.adapter = NumberAdapter(
-                viewModel.getColorId(),
                 viewModel.getNumbers(),
+                type,
                 true
             )
             recyclerViewNumbers.layoutManager = getFlexBoxLayoutManager()

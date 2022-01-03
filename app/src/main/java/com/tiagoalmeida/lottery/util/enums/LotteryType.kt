@@ -8,26 +8,57 @@ enum class LotteryType(
     val total: Int,
     val maximum: String,
     val minimum: String,
-    val color: Int
+    val primaryColor: Int,
+    val secondaryColor: Int
 ) {
-
-    MEGASENA("Megasena", "megasena",60, "15", "06", R.color.colorMegasena),
-    LOTOFACIL("Lotofácil", "lotofacil",25, "18", "15", R.color.colorLotofacil),
-    LOTOMANIA("Lotomania", "lotomania",100, "50", "50", R.color.colorLotomania),
-    QUINA("Quina", "quina",80, "15", "05", R.color.colorQuina),
-    TIMEMANIA("Timemania", "timemania", 80, "10", "10", R.color.colorTimemania);
+    MEGASENA(
+        lotteryName = "Megasena",
+        url = "megasena",
+        total = 60,
+        maximum = "15",
+        minimum = "06",
+        primaryColor = R.color.colorMegasena,
+        secondaryColor = android.R.color.white
+    ),
+    LOTOFACIL(
+        lotteryName = "Lotofácil",
+        url = "lotofacil",
+        total = 25,
+        maximum = "18",
+        minimum = "15",
+        primaryColor = R.color.colorLotofacil,
+        secondaryColor = android.R.color.white
+    ),
+    LOTOMANIA(
+        lotteryName = "Lotomania",
+        url = "lotomania",
+        total = 100,
+        maximum = "50",
+        minimum = "50",
+        R.color.colorLotomania,
+        secondaryColor = android.R.color.white
+    ),
+    QUINA(
+        lotteryName = "Quina",
+        url = "quina",
+        total = 80,
+        maximum = "15",
+        minimum = "05",
+        primaryColor = R.color.colorQuina,
+        secondaryColor =android.R.color.white
+    ),
+    TIMEMANIA(
+        lotteryName = "Timemania",
+        url = "timemania",
+        total = 80,
+        maximum = "10",
+        minimum = "10",
+        primaryColor = R.color.colorTimemania,
+        secondaryColor = R.color.colorTimemaniaSecondary
+    );
 
     companion object {
-
-        fun getByName(name: String): LotteryType? = when (name) {
-            MEGASENA.lotteryName -> MEGASENA
-            LOTOFACIL.lotteryName -> LOTOFACIL
-            LOTOMANIA.lotteryName -> LOTOMANIA
-            QUINA.lotteryName -> QUINA
-            TIMEMANIA.lotteryName -> TIMEMANIA
-            else -> null
-        }
-
+        fun getByName(name: String): LotteryType? = values().find { it.lotteryName == name }
     }
 
     override fun toString(): String = lotteryName

@@ -5,6 +5,7 @@ import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.AdapterGamesBinding
 import com.tiagoalmeida.lottery.model.vo.UserGame
 import com.tiagoalmeida.lottery.ui.games.adapter.listener.GamesAdapterEvents
+import com.tiagoalmeida.lottery.util.enums.LotteryType
 
 class GamesViewHolder(
     private val binding: AdapterGamesBinding,
@@ -15,7 +16,9 @@ class GamesViewHolder(
         val type = userGame.type
 
         with(binding) {
-            colorId = type.color
+            primaryColorId = type.primaryColor
+            secondaryColorId = type.secondaryColor
+
             textViewContest.text = type.toString()
             textViewContestNumber.text = if (userGame.isSingleGame()) {
                 userGame.startContestNumber
@@ -29,11 +32,14 @@ class GamesViewHolder(
             root.setOnClickListener { events.onGameClicked(userGame, binding.card) }
             root.setOnLongClickListener { events.onGameLongClicked(userGame) }
         }
-
     }
 
     private fun formatContestNumber(startContest: String, endContest: String): String {
-        val endNumber =  if (endContest.isEmpty()) "∞" else endContest
-        return String.format(binding.root.context.getString(R.string.contest_start_to_end), startContest, endNumber)
+        val endNumber = if (endContest.isEmpty()) "∞" else endContest
+        return String.format(
+            binding.root.context.getString(R.string.contest_start_to_end),
+            startContest,
+            endNumber
+        )
     }
 }

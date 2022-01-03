@@ -416,19 +416,6 @@ class DetailGameViewModelTest {
 
     // endregion
 
-    // region method: getColorId
-
-    @Test
-    fun `getColorId should return the correct color id`() {
-        // When
-        val result = viewModel.getColorId()
-
-        // Then
-        assertEquals(LotteryType.QUINA.color, result)
-    }
-
-    // endregion
-
     // region method: getNumbers
 
     @Test

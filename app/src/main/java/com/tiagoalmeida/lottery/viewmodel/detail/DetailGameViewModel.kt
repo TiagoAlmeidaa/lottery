@@ -6,6 +6,7 @@ import com.tiagoalmeida.lottery.model.vo.LotteryResult
 import com.tiagoalmeida.lottery.model.vo.UserGame
 import com.tiagoalmeida.lottery.network.repository.ConsultRepository
 import com.tiagoalmeida.lottery.util.SingleLiveEvent
+import com.tiagoalmeida.lottery.util.enums.LotteryType
 import com.tiagoalmeida.lottery.viewmodel.base.BaseViewModel
 
 class DetailGameViewModel(
@@ -158,12 +159,12 @@ class DetailGameViewModel(
         }
     }
 
-    fun getColorId(): Int = userGame.type.color
-
     fun getNumbers(): List<Int> = userGame.numbers
 
     fun getUserGame(): UserGame = userGame
 
     fun isLoading(): Boolean = loading.value ?: false
+
+    fun getLotteryType(): LotteryType = userGame.type
 
 }

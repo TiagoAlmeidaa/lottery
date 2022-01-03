@@ -28,16 +28,19 @@ class NumberMatchedAdapter(
     inner class NumberViewHolder(val binding: AdapterNumbersBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(number: Int) {
-            val colorId = if (userGame.numbers.contains(number)) {
-                userGame.type.color
+        fun bind(number: Int) = with(binding) {
+            primaryColorId = if (userGame.numbers.contains(number)) {
+                userGame.type.primaryColor
             } else {
                 android.R.color.darker_gray
             }
-            val color = ContextCompat.getColor(binding.root.context, colorId)
+            secondaryColorId = if (userGame.numbers.contains(number)) {
+                userGame.type.secondaryColor
+            } else {
+                android.R.color.white
+            }
 
-            binding.root.background.setTint(color)
-            binding.number = number.toStringNumber()
+            lotteryNumber = number.toStringNumber()
         }
     }
 }

@@ -8,8 +8,8 @@
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
-            name="colorId"
-            type="Integer" />
+            name="lotteryType"
+            type="com.tiagoalmeida.lottery.util.enums.LotteryType" />
 
     </data>
 
@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{ContextCompat.getColor(context, safeUnbox(colorId))}"
+            android:background="@{ContextCompat.getColor(context, safeUnbox(lotteryType.primaryColor))}"
             tools:background="@android:color/black">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,13 +32,13 @@
                 app:layout_constraintBottom_toTopOf="@id/expandable_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@android:color/black">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image_view_clover"
                     android:layout_width="@dimen/size_icons"
                     android:layout_height="@dimen/size_icons"
+                    android:tint="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     app:layout_constraintBottom_toTopOf="@id/text_view_contest"
                     app:layout_constraintEnd_toEndOf="@id/text_view_contest"
                     app:layout_constraintStart_toStartOf="@id/text_view_contest"
@@ -52,14 +52,15 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     android:textSize="@dimen/adapter_detail_game_subtitle_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/text_view_hits"
                     app:layout_constraintEnd_toStartOf="@id/text_view_earnings"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_view_clover"
-                    tools:text="LOTOMANIA" />
+                    tools:text="LOTOMANIA"
+                    tools:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_hits"
@@ -67,13 +68,14 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     android:textSize="@dimen/adapter_detail_game_subtitle_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/text_view_earnings"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_contest"
-                    tools:text="15 acertos" />
+                    tools:text="15 acertos"
+                    tools:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_contest_number"
@@ -82,14 +84,15 @@
                     android:layout_marginEnd="@dimen/adapter_detail_game_margin_end"
                     android:gravity="end"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     android:textSize="@dimen/adapter_detail_game_subtitle_text_size"
                     app:layout_constraintBottom_toTopOf="@id/text_view_earnings"
                     app:layout_constraintEnd_toStartOf="@id/view_separator"
                     app:layout_constraintStart_toEndOf="@id/text_view_contest"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed"
-                    tools:text="Concurso 2222" />
+                    tools:text="Concurso 2222"
+                    tools:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_earnings"
@@ -98,14 +101,15 @@
                     android:layout_marginEnd="@dimen/adapter_detail_game_margin_end"
                     android:gravity="end"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     android:textSize="@dimen/adapter_detail_game_title_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/text_view_without_participation"
                     app:layout_constraintEnd_toStartOf="@id/view_separator"
                     app:layout_constraintStart_toEndOf="@id/text_view_contest"
                     app:layout_constraintTop_toBottomOf="@id/text_view_contest_number"
-                    tools:text="R$ 5,00" />
+                    tools:text="R$ 5,00"
+                    tools:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_without_participation"
@@ -115,23 +119,25 @@
                     android:gravity="end"
                     android:text="@string/detail_game_adapter_without_earnings"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     android:textSize="@dimen/adapter_detail_game_subtitle_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/view_separator"
                     app:layout_constraintStart_toEndOf="@id/text_view_contest"
-                    app:layout_constraintTop_toBottomOf="@id/text_view_earnings" />
+                    app:layout_constraintTop_toBottomOf="@id/text_view_earnings"
+                    tools:textColor="@android:color/white" />
 
                 <View
                     android:id="@+id/view_separator"
                     android:layout_width="@dimen/width_divider"
                     android:layout_height="0dp"
                     android:alpha="0.5"
-                    android:background="@android:color/white"
+                    android:background="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/image_view_chevron"
                     app:layout_constraintStart_toEndOf="@id/text_view_earnings"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image_view_chevron"
@@ -139,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/adapter_result_chevron_margin"
                     android:layout_marginEnd="@dimen/adapter_result_chevron_margin"
+                    android:tint="@{ContextCompat.getColor(context, safeUnbox(lotteryType.secondaryColor))}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/view_separator"

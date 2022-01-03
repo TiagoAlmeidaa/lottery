@@ -1,5 +1,6 @@
 package com.tiagoalmeida.lottery.ui.results.adapter.viewholder
 
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -29,23 +30,10 @@ class ResultsViewHolder(
         val numberAdapter: NumberAdapter
 
         with(binding) {
-            backColorId = type.color
+            numberAdapter = NumberAdapter(numbers, type)
 
-            if (type == LotteryType.TIMEMANIA) {
-                numberAdapter = NumberAdapter(type.color, numbers, textColor = R.color.colorTimemaniaText)
-                primaryColorId = R.color.colorTimemaniaText
-                secondaryColorId = R.color.colorTimemaniaText
-                chevronUp = R.drawable.icon_chevron_up_timemania
-                chevronDown = R.drawable.icon_chevron_down_timemania
-                imageViewClover.setImageResource(R.drawable.icon_clover_timemania)
-            } else {
-                numberAdapter = NumberAdapter(type.color, numbers)
-                primaryColorId = android.R.color.white
-                secondaryColorId = type.color
-                chevronUp = R.drawable.icon_chevron_up
-                chevronDown = R.drawable.icon_chevron_down
-                imageViewClover.setImageResource(R.drawable.icon_clover)
-            }
+            primaryColorId = type.primaryColor
+            secondaryColorId = type.secondaryColor
 
             textViewContest.text = type.toString()
             textViewContestNumber.text = formatContestNumber(result.contestNumber)
@@ -57,6 +45,17 @@ class ResultsViewHolder(
             } else {
                 result.nextContestPrize.toCurrency()
             }
+
+            val colorThatIsReadable = if (type == LotteryType.TIMEMANIA) {
+                ContextCompat.getColor(root.context, type.secondaryColor)
+            } else {
+                ContextCompat.getColor(root.context, type.primaryColor)
+            }
+
+            textViewNextContest.setTextColor(colorThatIsReadable)
+            textViewNextContestDate.setTextColor(colorThatIsReadable)
+            textViewNextContestPrize.setTextColor(colorThatIsReadable)
+            divider.setBackgroundColor(colorThatIsReadable)
 
             recyclerViewNumbers.adapter = numberAdapter
             recyclerViewNumbers.layoutManager = getFlexBoxLayoutManager()

@@ -21,7 +21,7 @@
             android:id="@+id/constraint_layout_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{ContextCompat.getColor(context, safeUnbox(userGame.type.color))}"
+            android:background="@{ContextCompat.getColor(context, safeUnbox(userGame.type.primaryColor))}"
             android:transitionName="background"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_contests"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +37,7 @@
                 android:layout_marginStart="@dimen/detail_game_top_icons_margin_start_end"
                 android:layout_marginTop="@dimen/detail_game_top_icons_margin_top_bottom"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 app:layout_constraintBottom_toTopOf="@id/image_view_clover"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -44,11 +45,12 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/button_compare"
-                android:layout_marginEnd="@dimen/detail_game_button_compare_margin_end"
                 android:layout_width="@dimen/detail_game_search_icon_size"
                 android:layout_height="@dimen/detail_game_search_icon_size"
                 android:layout_marginStart="@dimen/detail_game_top_icons_margin_start_end"
+                android:layout_marginEnd="@dimen/detail_game_button_compare_margin_end"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_delete"
                 app:layout_constraintEnd_toStartOf="@id/image_view_delete"
                 app:layout_constraintTop_toTopOf="@id/image_view_delete"
@@ -60,6 +62,7 @@
                 android:layout_height="@dimen/detail_game_search_icon_size"
                 android:layout_marginEnd="@dimen/detail_game_top_icons_margin_start_end"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/image_view_back"
@@ -69,6 +72,7 @@
                 android:id="@+id/image_view_clover"
                 android:layout_width="@dimen/detail_game_clover_icon_size"
                 android:layout_height="@dimen/detail_game_clover_icon_size"
+                android:tint="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 app:layout_constraintBottom_toTopOf="@id/text_view_lottery_type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,26 +86,28 @@
                 android:layout_height="wrap_content"
                 android:text="@{userGame.type.toString()}"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:textColor="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 android:textSize="@dimen/detail_game_title_text_size"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/text_view_contest_number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_view_clover"
-                tools:text="MEGASENA" />
+                tools:text="MEGASENA"
+                tools:textColor="@android:color/white" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_view_contest_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
+                android:textColor="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 android:textSize="@dimen/detail_game_subtitle_text_size"
                 app:layout_constraintBottom_toTopOf="@id/recycler_view_numbers"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_lottery_type"
-                tools:text="1111" />
+                tools:text="1111"
+                tools:textColor="@android:color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_numbers"
@@ -122,17 +128,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/detail_game_button_search_height"
                 android:text="@string/clear_filter"
-                android:textColor="@android:color/white"
+                android:textColor="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 android:textSize="@dimen/detail_game_button_search_text_size"
                 android:visibility="invisible"
                 app:icon="@drawable/icon_close"
                 app:iconSize="@dimen/detail_game_button_search_icon_size"
-                app:iconTint="@android:color/white"
+                app:iconTint="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}"
                 app:layout_constraintBottom_toTopOf="@id/space_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recycler_view_numbers"
-                app:strokeColor="@android:color/white" />
+                app:strokeColor="@{ContextCompat.getColor(context, safeUnbox(userGame.type.secondaryColor))}" />
 
             <View
                 android:id="@+id/space_bottom"

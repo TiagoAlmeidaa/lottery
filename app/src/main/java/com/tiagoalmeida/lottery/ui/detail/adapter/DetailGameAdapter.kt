@@ -53,7 +53,7 @@ class DetailGameAdapter(
                     changeItemClickedVisibility(position)
                 }
             }
-            is DetailGameLoadingViewHolder -> holder.bind(userGame.type.color)
+            is DetailGameLoadingViewHolder -> holder.bind(userGame.type.primaryColor)
             is DetailGameGhostViewHolder -> holder.bind(position)
         }
     }

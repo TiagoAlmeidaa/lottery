@@ -8,16 +8,13 @@
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
-            name="backColorId"
-            type="Integer" />
-
-        <variable
             name="primaryColorId"
             type="Integer" />
 
         <variable
             name="secondaryColorId"
             type="Integer" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -28,7 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{ContextCompat.getColor(context, safeUnbox(backColorId))}"
+            android:background="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
             tools:background="@android:color/black">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,12 +41,13 @@
                     android:id="@+id/image_view_clover"
                     android:layout_width="@dimen/size_icons"
                     android:layout_height="@dimen/size_icons"
+                    android:tint="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     app:layout_constraintBottom_toTopOf="@id/text_view_contest"
                     app:layout_constraintEnd_toEndOf="@id/text_view_contest"
                     app:layout_constraintStart_toStartOf="@id/text_view_contest"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed"
-                    app:srcCompat="@drawable/icon_clover"/>
+                    app:srcCompat="@drawable/icon_clover" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_contest"
@@ -57,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_subtitle_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +70,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAllCaps="true"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_title_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/text_view_contest_winners"
@@ -87,7 +85,7 @@
                     android:id="@+id/text_view_contest_winners"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_subtitle_text_size"
                     app:layout_constraintBottom_toTopOf="@id/text_view_contest_date"
                     app:layout_constraintEnd_toStartOf="@id/view_separator"
@@ -100,7 +98,7 @@
                     android:id="@+id/text_view_contest_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
+                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_subtitle_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/view_separator"
@@ -114,7 +112,7 @@
                     android:layout_width="1dp"
                     android:layout_height="0dp"
                     android:alpha="0.5"
-                    android:background="@{ContextCompat.getColor(context, safeUnbox(primaryColorId))}"
+                    android:background="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/image_view_chevron"
                     app:layout_constraintStart_toEndOf="@id/text_view_contest_number"
@@ -126,6 +124,7 @@
                     android:layout_height="@dimen/size_icons"
                     android:layout_marginStart="@dimen/adapter_result_chevron_margin"
                     android:layout_marginEnd="@dimen/adapter_result_chevron_margin"
+                    android:tint="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/view_separator"
@@ -163,7 +162,6 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/adapter_results_default_margin_top_bottom"
                     android:alpha="0.5"
-                    android:background="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     app:layout_constraintBottom_toTopOf="@id/text_view_next_contest"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +175,6 @@
                     android:layout_marginTop="@dimen/adapter_results_default_margin_top_bottom"
                     android:text="@string/next_contest"
                     android:textAllCaps="true"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_subtitle_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/text_view_next_contest_date"
@@ -190,7 +187,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/adapter_results_default_margin_top_bottom"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_subtitle_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/text_view_next_contest"
@@ -205,7 +201,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/adapter_results_default_margin_start_end"
                     android:gravity="center"
-                    android:textColor="@{ContextCompat.getColor(context, safeUnbox(secondaryColorId))}"
                     android:textSize="@dimen/adapter_results_title_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/text_view_next_contest_date"
