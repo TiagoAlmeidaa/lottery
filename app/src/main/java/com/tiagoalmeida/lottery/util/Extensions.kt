@@ -105,6 +105,10 @@ fun isSDKVersionBiggerThanO(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
 }
 
+fun isSDKVersionBiggerThanM(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+}
+
 fun View.gone() {
     visibility = View.GONE
 }

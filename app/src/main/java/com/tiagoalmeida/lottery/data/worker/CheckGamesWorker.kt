@@ -1,8 +1,9 @@
-package com.tiagoalmeida.lottery.data
+package com.tiagoalmeida.lottery.data.worker
 
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
@@ -12,6 +13,7 @@ import com.tiagoalmeida.lottery.data.repository.ConsultRepositoryImpl
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.ui.main.MainActivity
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanM
 import com.tiagoalmeida.lottery.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -52,9 +54,8 @@ class CheckGamesWorker(
     private suspend fun checkGame(type: LotteryType): Boolean {
         val savedContestNumber = preferencesRepository.getLastSavedContestNumber(type)
         if (savedContestNumber > 0) {
-            consultRepository.consultLatestContest(type)?.let { lastContest ->
-                return lastContest.contestNumber.toInt() > savedContestNumber
-            }
+            val result = consultRepository.consultLatestContest(type)
+            return result.contestNumber.toInt() > savedContestNumber
         }
         return false
     }
@@ -65,7 +66,11 @@ class CheckGamesWorker(
             applicationContext,
             NOTIFICATION_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT
+            if (isSDKVersionBiggerThanM()) {
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
         )
 
         val notification = NotificationCompat

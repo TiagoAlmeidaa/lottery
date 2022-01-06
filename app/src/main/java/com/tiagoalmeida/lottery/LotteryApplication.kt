@@ -8,7 +8,7 @@ import android.content.SharedPreferences
 import androidx.work.*
 import com.google.firebase.FirebaseApp
 import com.tiagoalmeida.lottery.di.LotteryModules
-import com.tiagoalmeida.lottery.data.CheckGamesWorker
+import com.tiagoalmeida.lottery.data.worker.CheckGamesWorker
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.Constants.NOTIFICATION_CHANNEL_ID
 import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanO
