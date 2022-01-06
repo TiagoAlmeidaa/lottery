@@ -7,6 +7,7 @@ import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.repository.ConsultRepository
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.domain.ConsultLatestResultsUseCase
 import com.tiagoalmeida.lottery.ui.main.MainViewModel
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
@@ -26,18 +27,16 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class MainViewModelTest {
 
-    // region variables
-
     private val dispatcher = TestCoroutineDispatcher()
 
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
 
     @MockK
-    lateinit var consultRepository: ConsultRepository
+    lateinit var preferencesRepository: PreferencesRepository
 
     @MockK
-    lateinit var preferencesRepository: PreferencesRepository
+    lateinit var consultLatestResultsUseCase: ConsultLatestResultsUseCase
 
     @MockK(relaxed = true)
     lateinit var observerResults: Observer<List<LotteryResult>>
@@ -47,10 +46,6 @@ class MainViewModelTest {
 
     private lateinit var viewModel: MainViewModel
 
-    // endregion
-
-    // region method: setup
-
     @Before
     fun setup() {
         MockKAnnotations.init(this)
@@ -59,8 +54,8 @@ class MainViewModelTest {
 
         viewModel = MainViewModel(
             crashlytics,
-            consultRepository,
-            preferencesRepository
+            preferencesRepository,
+            consultLatestResultsUseCase
         )
 
         with(viewModel) {
@@ -79,50 +74,35 @@ class MainViewModelTest {
         dispatcher.cleanupTestCoroutines()
     }
 
-    // endregion
-
-    // region method: consultLastResults
-
     @Test
     fun `consultLastResults should be executed successfully`() {
-        // Given
         val games = listOf<LotteryResult>()
 
         coEvery {
-            consultRepository.consultAll()
+            consultLatestResultsUseCase()
         }.returns(games)
 
-        // When
         viewModel.consultLastResults()
 
-        // Then
         verify(exactly = 1) { observerResults.onChanged(games) }
     }
 
     @Test
     fun `consultLastResults when exception is thrown should register in crashlytics`() {
-        // Given
         val exception = Exception()
 
         coEvery {
-            consultRepository.consultAll()
+            consultLatestResultsUseCase()
         }.throws(exception)
 
-        // When
         viewModel.consultLastResults()
 
-        // Then
         verify(exactly = 1) { crashlytics.recordException(any()) }
         verify(exactly = 1) { observerResults.onChanged(listOf()) }
     }
 
-    // endregion
-
-    // region method: updateLastGamesContestNumbers
-
     @Test
     fun `updateLastGamesContestNumbers should be executed correctly`() {
-        // Given
         val megasenaResult = mockk<LotteryResult>()
         val lotofacilResult = mockk<LotteryResult>()
 
@@ -152,17 +132,14 @@ class MainViewModelTest {
 
         val list = listOf(megasenaResult, lotofacilResult)
 
-        // When
         viewModel.updateLastGamesContestNumbers(list)
 
-        // Then
         verify(exactly = 1) { preferencesRepository.saveLastContestNumber(LotteryType.MEGASENA, 1) }
         verify(exactly = 1) { preferencesRepository.saveLastContestNumber(LotteryType.LOTOFACIL, 2) }
     }
 
     @Test
     fun `updateLastGamesContestNumbers should not be executed`() {
-        // Given
         val megasenaResult = mockk<LotteryResult>()
         val lotofacilResult = mockk<LotteryResult>()
 
@@ -192,14 +169,9 @@ class MainViewModelTest {
 
         val list = listOf(megasenaResult, lotofacilResult)
 
-        // When
         viewModel.updateLastGamesContestNumbers(list)
 
-        // Then
         verify(exactly = 0) { preferencesRepository.saveLastContestNumber(LotteryType.MEGASENA, 1) }
         verify(exactly = 0) { preferencesRepository.saveLastContestNumber(LotteryType.LOTOFACIL, 2) }
     }
-
-    // endregion
-
 }

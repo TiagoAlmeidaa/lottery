@@ -21,7 +21,7 @@ object Versions {
     const val jUnit = "4.13.2"
     const val coreTesting = "2.1.0"
     const val mockK = "1.12.2"
-    const val coroutines = "1.6.0"
+    const val coroutines = "1.5.1"
     const val runner = "1.4.0"
     const val espresso = "3.4.0"
     const val koin = "3.1.4"

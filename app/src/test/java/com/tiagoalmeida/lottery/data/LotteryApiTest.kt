@@ -14,16 +14,10 @@ import retrofit2.Retrofit
 @RunWith(JUnit4::class)
 class LotteryApiTest {
 
-    // region variables
-
     @MockK(relaxed = true)
     lateinit var retrofit: Retrofit
 
     private lateinit var appRetrofit: LotteryApi
-
-    // endregion
-
-    // region method: setup
 
     @Before
     fun setup() {
@@ -32,25 +26,16 @@ class LotteryApiTest {
         appRetrofit = LotteryApi(retrofit)
     }
 
-    // endregion
-
-    // region method: getService
-
     @Test
     fun `getService should return the correct service`() {
-        // Given
         val expectedService = mockk<LotteryApiService>()
 
         every {
             retrofit.create(LotteryApiService::class.java)
         }.returns(expectedService)
 
-        // When
         val result = appRetrofit.getService()
 
-        // Then
         assertEquals(expectedService, result)
     }
-
-    // endregion
 }

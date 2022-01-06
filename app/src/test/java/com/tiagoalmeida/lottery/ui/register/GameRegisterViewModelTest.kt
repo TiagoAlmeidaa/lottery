@@ -20,8 +20,6 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class GameRegisterViewModelTest {
 
-    // region variables
-
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
 
@@ -35,10 +33,6 @@ class GameRegisterViewModelTest {
     val executorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: GameRegisterViewModel
-
-    // endregion
-
-    // region method: setup
 
     @Before
     fun setup() {
@@ -56,20 +50,13 @@ class GameRegisterViewModelTest {
         viewModel.viewState.removeObserver(observer)
     }
 
-    // endregion
-
-    // region method: validateLotteryType
-
     @Test
     fun `validateLotteryType should set state to LotteryTypeOk`() {
-        // Given
         val lotteryType = LotteryType.MEGASENA
         val state = GameRegisterState.LotteryTypeOk
 
-        // When
         viewModel.validateLotteryType(lotteryType)
 
-        // Then
         verify(exactly = 1) { observer.onChanged(state) }
 
         val userGame = viewModel.userGame.value!!
@@ -78,46 +65,33 @@ class GameRegisterViewModelTest {
 
     @Test
     fun `validateLotteryType should set state to LotteryTypeInvalid`() {
-        // Given
         val state = GameRegisterState.LotteryTypeInvalid
 
-        // When
         viewModel.validateLotteryType(null)
 
-        // Then
         verify(exactly = 1) { observer.onChanged(state) }
     }
 
-    // endregion
-
-    // region method: validateContest
-
     @Test
     fun `validateContest when userGame is null should set state ContestWithError`() {
-        // Given
         val expectedState = GameRegisterState.ContestWithError()
 
         viewModel.userGame.value = null
 
-        // When
         viewModel.validateContest()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
     }
 
     @Test
     fun `validateContest when userGame only has endContestNumber should set state ContestWithError with start contest empty message`() {
-        // Given
         val expectedState = GameRegisterState.ContestWithError(R.string.game_register_error_start_contest_empty)
         val userGame = UserGame().apply { endContestNumber = "1111" }
 
         viewModel.userGame.value = userGame
 
-        // When
         viewModel.validateContest()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
 
         val state = viewModel.viewState.value as GameRegisterState.ContestWithError
@@ -126,16 +100,13 @@ class GameRegisterViewModelTest {
 
     @Test
     fun `validateContest when userGame only has startContestNumber should set state ContestWithError with end contest empty message`() {
-        // Given
         val expectedState = GameRegisterState.ContestWithError(R.string.game_register_error_end_contest_empty)
         val userGame = UserGame().apply { startContestNumber = "1111" }
 
         viewModel.userGame.value = userGame
 
-        // When
         viewModel.validateContest()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
 
         val state = viewModel.viewState.value as GameRegisterState.ContestWithError
@@ -144,7 +115,6 @@ class GameRegisterViewModelTest {
 
     @Test
     fun `validateContest when validForAllFutureContests are true when endContestNumber is empty should set state to ContestOk`() {
-        // Given
         val expectedState = GameRegisterState.ContestOk
         val userGame = UserGame().apply { startContestNumber = "1111" }
 
@@ -152,16 +122,13 @@ class GameRegisterViewModelTest {
 
         viewModel.validForAllFutureContests.value = true
 
-        // When
         viewModel.validateContest()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
     }
 
     @Test
     fun `validateContest when userGame startContestNumber is bigger than endContestNumber should set state ContestWithError with blocking message`() {
-        // Given
         val expectedState = GameRegisterState.ContestWithError(R.string.game_register_error_start_bigger_than_end)
         val userGame = UserGame().apply {
             startContestNumber = "1112"
@@ -170,10 +137,8 @@ class GameRegisterViewModelTest {
 
         viewModel.userGame.value = userGame
 
-        // When
         viewModel.validateContest()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
 
         val state = viewModel.viewState.value as GameRegisterState.ContestWithError
@@ -182,7 +147,6 @@ class GameRegisterViewModelTest {
 
     @Test
     fun `validateContest when userGame is ok`() {
-        // Given
         val expectedState = GameRegisterState.ContestOk
         val userGame = UserGame().apply {
             startContestNumber = "1111"
@@ -191,152 +155,100 @@ class GameRegisterViewModelTest {
 
         viewModel.userGame.value = userGame
 
-        // When
         viewModel.validateContest()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
     }
 
-    // endregion
-
-    // region method: shouldValidateEndContest
-
     @Test
     fun `shouldValidateEndContest should be false when validForAllFutureContest is true`() {
-        // Given
         viewModel.validForAllFutureContests.postValue(true)
 
-        // When
         val result = viewModel.shouldValidateEndContest()
 
-        //
         assertFalse(result)
     }
 
     @Test
     fun `shouldValidateEndContest should be false when singleGame is true`() {
-        // Given
         viewModel.singleGame.postValue(true)
 
-        // When
         val result = viewModel.shouldValidateEndContest()
 
-        //
         assertFalse(result)
     }
 
     @Test
     fun `shouldValidateEndContest should be true in natural state`() {
-        // When
         val result = viewModel.shouldValidateEndContest()
 
-        //
         assertTrue(result)
     }
-
-    // endregion
-
-    // region method: clearNumbers
 
     @Test
     fun `clearNumbers should clear all user games numbers`() {
         with(viewModel.userGame.value!!) {
-            // Given
             numbers = mutableListOf(10, 40, 30)
 
-            // When
             viewModel.clearNumbers()
 
-            // Then
             assertTrue(numbers.isEmpty())
         }
     }
 
-    // endregion
-
-    // region method: containsNumber
-
     @Test
     fun `containsNumber should return true when the list contains the number searched`() {
-        // Given
         viewModel.userGame.value!!.apply {
             numbers = mutableListOf(10, 40, 30)
         }
 
-        // When
         val result = viewModel.containsNumber(40)
 
-        // Then
         assertTrue(result)
     }
 
     @Test
     fun `containsNumber should return false when the list not contains the number searched`() {
-        // Given
         viewModel.userGame.value!!.apply {
             numbers = mutableListOf(10, 40, 30)
         }
 
-        // When
         val result = viewModel.containsNumber(4)
 
-        // Then
         assertFalse(result)
     }
 
-    // endregion
-
-    // region method: getLotteryType
-
     @Test
     fun `getLotteryType should be returned correctly`() {
-        // Given
         val expectedLotteryType = LotteryType.QUINA
 
         viewModel.validateLotteryType(expectedLotteryType)
 
-        // When
         val result = viewModel.getLotteryType()
 
-        // Then
         assertEquals(expectedLotteryType, result)
     }
 
-    // endregion
-
-    // region method: getNumbersCount
-
     @Test
     fun `getNumbersCount should return the correct count of numbers`() {
-        // Given
         val expectedNumbers = mutableListOf(10, 40, 30)
 
         viewModel.userGame.value!!.apply {
             numbers = expectedNumbers
         }
 
-        // When
         val result = viewModel.getNumbersCount()
 
-        // Then
         assertEquals(expectedNumbers.size, result)
     }
 
-    // endregion
-
-    // region method: onNumberPicked
-
     @Test
     fun `onNumberPicked should add the number ten`() {
-        // Given
         val expectedSize = 1
         val expectedNumber = 10
 
-        // When
         viewModel.onNumberPicked(expectedNumber)
 
-        // Then
         val result = viewModel.userGame.value!!.numbers
 
         assertEquals(expectedSize, result.size)
@@ -345,7 +257,6 @@ class GameRegisterViewModelTest {
 
     @Test
     fun `onNumberPicked should remove the number ten`() {
-        // Given
         val numberToBeRemoved = 10
         val expectedNumbers = mutableListOf(numberToBeRemoved, 40, 30)
 
@@ -359,10 +270,8 @@ class GameRegisterViewModelTest {
         assertEquals(40, expectedNumbers[1])
         assertEquals(30, expectedNumbers[2])
 
-        // When
         viewModel.onNumberPicked(numberToBeRemoved)
 
-        // Then
         val result = viewModel.userGame.value!!.numbers
 
         assertEquals(2, result.size)
@@ -373,7 +282,6 @@ class GameRegisterViewModelTest {
 
     @Test
     fun `onNumberPicked should not add number in full numbers list and should set state NumbersWithError with message`() {
-        // Given
         val expectedState = GameRegisterState.NumbersWithError(R.string.game_register_error_maximum)
         val expectedNumbers = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 
@@ -400,10 +308,8 @@ class GameRegisterViewModelTest {
         assertEquals(14, expectedNumbers[13])
         assertEquals(15, expectedNumbers[14])
 
-        // When
         viewModel.onNumberPicked(16)
 
-        // Then
         val result = viewModel.userGame.value!!.numbers
 
         assertEquals(15, expectedNumbers.size)
@@ -430,13 +336,8 @@ class GameRegisterViewModelTest {
         verify(exactly = 1) { observer.onChanged(expectedState) }
     }
 
-    // endregion
-
-    // region method: validateNumbers
-
     @Test
     fun `validateNumbers should set state to ProceedToSaveNumbers`() {
-        // Given
         val state = GameRegisterState.ProceedToSaveNumbers(viewModel.userGame.value!!)
 
         viewModel.userGame.value!!.apply {
@@ -444,16 +345,13 @@ class GameRegisterViewModelTest {
             numbers = mutableListOf(1, 2, 3, 4, 5, 6)
         }
 
-        // When
         viewModel.validateNumbers()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(state) }
     }
 
     @Test
     fun `validateNumbers should set the state to NumbersWithError`() {
-        // Given
         val expectedNumbers = mutableListOf(1, 2, 3, 4)
         val expectedState = GameRegisterState.NumbersWithError(R.string.game_register_error_minimum)
 
@@ -462,23 +360,16 @@ class GameRegisterViewModelTest {
             numbers = expectedNumbers
         }
 
-        // When
         viewModel.validateNumbers()
 
-        // Then
         verify(exactly = 1) { observer.onChanged(expectedState) }
 
         val state = viewModel.viewState.value as GameRegisterState.NumbersWithError
         assertEquals(R.string.game_register_error_minimum, state.messageId)
     }
 
-    // endregion
-
-    // region method: saveNumbers
-
     @Test
     fun `saveNumbers should be executed successfully`() {
-        // Given
         val state = GameRegisterState.GameUpdated
         val userGame = mockk<UserGame>()
 
@@ -486,17 +377,14 @@ class GameRegisterViewModelTest {
             preferencesRepository.saveGame(userGame)
         }.just(runs)
 
-        // When
         viewModel.saveNumbers(userGame)
 
-        // Then
         verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
         verify(exactly = 1) { observer.onChanged(state) }
     }
 
     @Test
     fun `saveNumbers should set state to NumbersWithError`() {
-        // Given
         val exception = Exception()
         val state = GameRegisterState.NumbersWithError()
         val userGame = mockk<UserGame>()
@@ -505,17 +393,14 @@ class GameRegisterViewModelTest {
             preferencesRepository.saveGame(userGame)
         }.throws(exception)
 
-        // When
         viewModel.saveNumbers(userGame)
 
-        // Then
         verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
         verify(exactly = 1) { observer.onChanged(state) }
     }
 
     @Test
     fun `saveNumbers should set the startNumberContest as endNumberContest when singleGame is true`() {
-        // Given
         val contestNumber = "1001"
         val expectedUserGame = UserGame(
             contestNumber,
@@ -527,23 +412,17 @@ class GameRegisterViewModelTest {
             startContestNumber = contestNumber
         )
 
-
         every {
             preferencesRepository.saveGame(userGame)
         }.just(runs)
 
         viewModel.singleGame.postValue(true)
 
-        // When
         viewModel.saveNumbers(userGame)
 
-        // Then
         verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
         verify(exactly = 1) { observer.onChanged(state) }
 
         assertEquals(expectedUserGame, userGame)
     }
-
-    // endregion
-
 }

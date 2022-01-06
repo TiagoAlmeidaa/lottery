@@ -29,8 +29,6 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class GamesViewModelTest {
 
-    // region variables
-
     private val dispatcher = TestCoroutineDispatcher()
 
     @get:Rule
@@ -71,10 +69,6 @@ class GamesViewModelTest {
         numbers = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
     )
 
-    // endregion
-
-    // region method: setup
-
     @Before
     fun setup() {
         MockKAnnotations.init(this)
@@ -104,15 +98,8 @@ class GamesViewModelTest {
         dispatcher.cleanupTestCoroutines()
     }
 
-    // endregion
-
-    // region method: findGames
-
-    // region findGames with LotteryType filter
-
     @Test
     fun `findGames with LotteryType filter should find the correct user game`() {
-        // Given
         val fakeGames = mutableListOf(megasena, lotofacil, quina)
 
         every {
@@ -123,10 +110,8 @@ class GamesViewModelTest {
             GamesFilter(lotteryType = megasena.type)
         )
 
-        // When
         viewModel.findGames()
 
-        // Then
         val state = viewModel.viewState.value as GamesState.GamesReceived
 
         with(state) {
@@ -139,13 +124,8 @@ class GamesViewModelTest {
         verify(exactly = 1) { preferencesRepository.getGames() }
     }
 
-    // endregion
-
-    // region findGames with ContestNumber filter
-
     @Test
     fun `findGames with ContestNumber filter should find the correct user game`() {
-        // Given
         val fakeGames = mutableListOf(megasena, lotofacil, quina)
 
         every {
@@ -156,10 +136,8 @@ class GamesViewModelTest {
             GamesFilter(contestNumber = lotofacil.startContestNumber)
         )
 
-        // When
         viewModel.findGames()
 
-        // Then
         val state = viewModel.viewState.value as GamesState.GamesReceived
 
         with(state) {
@@ -171,10 +149,6 @@ class GamesViewModelTest {
 
         verify(exactly = 1) { preferencesRepository.getGames() }
     }
-
-    // endregion
-
-    // region findGames with hideOldNumbers filter
 
     @Test
     fun `findGames should return all games when hideOldNumbers filter is active but the lastContestNumber is ZERO`() {
@@ -332,21 +306,16 @@ class GamesViewModelTest {
         verify(exactly = 1) { observerState.onChanged(expectedState) }
     }
 
-    // endregion
-
     @Test
     fun `findGames with no filter should set state with the full list ordered by startContestNumber`() {
-        // Given
         val fakeGames = mutableListOf(megasena, lotofacil, quina)
 
         every {
             preferencesRepository.getGames()
         }.returns(fakeGames)
 
-        // When
         viewModel.findGames()
 
-        // Then
         val state = viewModel.viewState.value as GamesState.GamesReceived
 
         with(state) {
@@ -367,7 +336,6 @@ class GamesViewModelTest {
 
     @Test
     fun `findGames with full filters should find the correct user game`() {
-        // Given
         val fakeGames = mutableListOf(megasena, lotofacil, quina)
 
         every {
@@ -386,10 +354,8 @@ class GamesViewModelTest {
             )
         )
 
-        // When
         viewModel.findGames()
 
-        // Then
         val state = viewModel.viewState.value as GamesState.GamesReceived
 
         with(state) {
@@ -405,27 +371,19 @@ class GamesViewModelTest {
 
     @Test
     fun `findGames when preferencesRepository throws an Exception should register in crashlytics`() {
-        // Given
         val exception = mockk<Exception>()
 
         every {
             preferencesRepository.getGames()
         }.throws(exception)
 
-        // When
         viewModel.findGames()
 
-        // Then
         verify(exactly = 1) { crashlytics.recordException(any()) }
     }
 
-    // endregion
-
-    // region method: removeGames
-
     @Test
     fun `removeGame when user is null should remove user game from preferences`() {
-        // Given
         val userGame = mockk<UserGame>()
 
         val expectedState = GamesState.GameRemoved
@@ -434,17 +392,14 @@ class GamesViewModelTest {
             preferencesRepository.removeGame(userGame)
         }.just(runs)
 
-        // When
         viewModel.removeGame(userGame)
 
-        // Then
         coVerify(exactly = 1) { preferencesRepository.removeGame(userGame) }
         verify(exactly = 1) { observerState.onChanged(expectedState) }
     }
 
     @Test
     fun `removeGame should set InternalError state when an Exception is thrown`() {
-        // Given
         val userGame = mockk<UserGame>()
         val exception = mockk<Exception>()
         val exceptionMessage = "fakeMessage"
@@ -459,10 +414,8 @@ class GamesViewModelTest {
             preferencesRepository.removeGame(userGame)
         }.throws(exception)
 
-        // When
         viewModel.removeGame(userGame)
 
-        // Then
         verify(exactly = 1) { crashlytics.recordException(any()) }
         coVerify(exactly = 1) { preferencesRepository.removeGame(userGame) }
         verify(exactly = 1) { observerState.onChanged(expectedState) }
@@ -470,7 +423,6 @@ class GamesViewModelTest {
 
     @Test
     fun `removeGame should set Timeout state when an TimeoutCancellationException is thrown`() {
-        // Given
         val exception = mockk<TimeoutCancellationException>(relaxed = true)
         val userGame = mockk<UserGame>()
 
@@ -480,65 +432,42 @@ class GamesViewModelTest {
             preferencesRepository.removeGame(userGame)
         }.throws(exception)
 
-        // When
         viewModel.removeGame(userGame)
 
-        // Then
         verify(exactly = 1) { crashlytics.recordException(any()) }
         verify(exactly = 1) { observerState.onChanged(expectedState) }
     }
 
-    // endregion
-
-    // region method: setFilter
-
     @Test
     fun `setFilter should set filter correctly`() {
-        // Given
         val filter = mockk<GamesFilter>()
 
-        // When
         viewModel.setFilter(filter)
 
-        // Then
         verify(exactly = 1) { observerFilter.onChanged(filter) }
     }
 
-    // endregion
-
-    // region method: getFilter
-
     @Test
     fun `getFilter should set filter correctly`() {
-        // Given
         val expectedFilter = mockk<GamesFilter>()
 
         viewModel.setFilter(expectedFilter)
 
-        // When
         val result = viewModel.getFilter()
 
-        // Then
         assertEquals(expectedFilter, result)
     }
 
-    // endregion
-
-    // region method: hasGamesInPreferences
-
     @Test
     fun `hasGamesInPreferences should return true when games is not empty`() {
-        // Given
         val games = mutableListOf(megasena)
 
         coEvery {
             preferencesRepository.getGames()
         }.returns(games)
 
-        // When
         val result = viewModel.hasGamesInPreferences()
 
-        // Then
         coVerify(exactly = 1) { preferencesRepository.getGames() }
 
         assertTrue(result)
@@ -546,40 +475,27 @@ class GamesViewModelTest {
 
     @Test
     fun `hasGamesInPreferences should return false when games is empty`() {
-        // Given
         val games = mutableListOf<UserGame>()
 
         coEvery {
             preferencesRepository.getGames()
         }.returns(games)
 
-        // When
         val result = viewModel.hasGamesInPreferences()
 
-        // Then
         coVerify(exactly = 1) { preferencesRepository.getGames() }
 
         assertFalse(result)
     }
 
-    // endregion
-
-    // region method: deleteAllGamesInPreferences
-
     @Test
     fun `deleteAllGamesInPreferences should be executed successfully`() {
-        // Given
         coEvery {
             preferencesRepository.deleteAllGames()
         }.just(runs)
 
-        // When
         viewModel.deleteAllGamesInPreferences()
 
-        // Then
         coVerify(exactly = 1) { preferencesRepository.deleteAllGames() }
     }
-
-    // endregion
-
 }

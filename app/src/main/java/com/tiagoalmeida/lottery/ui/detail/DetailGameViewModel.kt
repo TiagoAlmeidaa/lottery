@@ -45,7 +45,7 @@ class DetailGameViewModel(
 
                     val difference = contestNumber - getStartContestInt()
                     if (difference > 0) {
-                        val result = calculateLastContestNumber(contestNumber, difference)
+                        val result = calculateRange(contestNumber, difference)
 
                         results.addAll(
                             consultRangedResultsUseCase(
@@ -81,7 +81,7 @@ class DetailGameViewModel(
             with(userGame) {
                 val difference = lastDownloadedContestNumber - getStartContestInt()
                 if (difference > 0) {
-                    val result = calculateLastContestNumber(lastDownloadedContestNumber, difference)
+                    val result = calculateRange(lastDownloadedContestNumber, difference)
 
                     results.addAll(
                         consultRangedResultsUseCase(
@@ -105,15 +105,14 @@ class DetailGameViewModel(
     fun consultContest(contestNumber: Int) = runWithCoroutines(
         handleLoadingAutomatically = true,
         doInBackground = {
-            consultRepository.consultContestByNumber(userGame.type, contestNumber)?.let { result ->
-                val state = if (contestNumber == result.contestNumber.toInt()) {
-                    DetailGameState.ContestFiltered(result)
-                } else {
-                    DetailGameState.ContestNotFound(contestNumber.toString())
-                }
-
-                _viewState.postValue(state)
+            val result = consultRepository.consultContestByNumber(userGame.type, contestNumber)
+            val state = if (contestNumber == result.contestNumber.toInt()) {
+                DetailGameState.ContestFiltered(result)
+            } else {
+                DetailGameState.ContestNotFound(contestNumber.toString())
             }
+
+            _viewState.postValue(state)
         },
         doWhenErrorOccurs = { exception ->
             logError(exception, "consultContest()")
@@ -133,7 +132,7 @@ class DetailGameViewModel(
         }
     }
 
-    fun calculateLastContestNumber(contestNumber: Int, difference: Int): RangedLottery {
+    fun calculateRange(contestNumber: Int, difference: Int): RangedLottery {
         val end = contestNumber - 1
         val start = if (difference > 10) {
             end - 9
