@@ -38,7 +38,7 @@ object Firebase {
 
 object Retrofit {
     const val core = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val converter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
+    const val converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val logging = "com.squareup.okhttp3:logging-interceptor:${Versions.logging}"
 }
 

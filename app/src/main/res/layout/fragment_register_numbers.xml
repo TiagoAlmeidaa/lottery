@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorBackgroundDefault"
         android:orientation="vertical"
-        tools:context=".ui.register.game.GameRegisterActivity">
+        tools:context=".ui.register.GameRegisterActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_top"
@@ -178,7 +178,7 @@
             app:layout_constraintTop_toBottomOf="@id/card_view_information"
             app:spanCount="7" />
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_back"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_vertical_button"
@@ -200,7 +200,7 @@
             app:layout_constraintEnd_toStartOf="@id/button_save"
             app:layout_constraintBottom_toTopOf="@id/guide_bottom"/>
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_save"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_vertical_button"
@@ -213,7 +213,7 @@
             app:title="@string/save_game"
             app:titleColor="@android:color/white" />
 
-        <com.tiagoalmeida.lottery.util.view.LoadingOrErrorView
+        <com.tiagoalmeida.lottery.ui.custom.CustomLoadingOrErrorView
             android:id="@+id/loading_or_error_view"
             android:layout_width="0dp"
             android:layout_height="0dp"

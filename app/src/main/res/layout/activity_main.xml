@@ -37,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_results"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_vertical_button"
@@ -57,7 +57,7 @@
             app:layout_constraintStart_toEndOf="@id/button_results"
             app:layout_constraintTop_toBottomOf="@id/pager" />
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_games"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_vertical_button"

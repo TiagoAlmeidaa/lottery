@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentRegisterContest"
-        android:name="com.tiagoalmeida.lottery.ui.register.game.GameRegisterContestFragment"
+        android:name="com.tiagoalmeida.lottery.ui.register.GameRegisterContestFragment"
         android:label="FragmentRegisterContest"
         tools:layout="@layout/fragment_register_contest">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/fragmentRegisterNumbers"
-        android:name="com.tiagoalmeida.lottery.ui.register.game.GameRegisterNumbersFragment"
+        android:name="com.tiagoalmeida.lottery.ui.register.GameRegisterNumbersFragment"
         android:label="FragmentRegisterNumbers"
         tools:layout="@layout/fragment_register_numbers" />
 

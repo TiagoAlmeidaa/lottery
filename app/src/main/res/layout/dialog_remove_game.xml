@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_remove"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_horizontal_button"
@@ -52,7 +52,7 @@
             app:title="@string/remove"
             app:titleColor="@android:color/white" />
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_cancel"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_horizontal_button"

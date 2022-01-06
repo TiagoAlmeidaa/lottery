@@ -2,7 +2,6 @@ package com.tiagoalmeida.lottery.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -10,19 +9,15 @@ import androidx.lifecycle.Observer
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.gson.Gson
 import com.tiagoalmeida.lottery.databinding.ActivityDetailGameBinding
-import com.tiagoalmeida.lottery.model.mapper.UserGameParser
-import com.tiagoalmeida.lottery.model.vo.LotteryResult
-import com.tiagoalmeida.lottery.ui.adapter.NumberAdapter
-import com.tiagoalmeida.lottery.ui.detail.adapter.DetailGameAdapter
+import com.tiagoalmeida.lottery.data.model.LotteryResult
+import com.tiagoalmeida.lottery.data.model.UserGame
+import com.tiagoalmeida.lottery.extensions.*
+import com.tiagoalmeida.lottery.ui.common.NumberAdapter
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.buildFilterGameDialog
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
-import com.tiagoalmeida.lottery.util.extensions.invisible
-import com.tiagoalmeida.lottery.util.extensions.onBottomReached
-import com.tiagoalmeida.lottery.util.extensions.visible
-import com.tiagoalmeida.lottery.viewmodel.detail.DetailGameState
-import com.tiagoalmeida.lottery.viewmodel.detail.DetailGameViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -32,7 +27,9 @@ class DetailGameActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private val viewModel: DetailGameViewModel by viewModel(parameters = {
-        parametersOf(UserGameParser.from(getUserGameJson()))
+        parametersOf(
+            Gson().fromJson(getUserGameJson(), UserGame::class.java)
+        )
     })
 
     private val adapter: DetailGameAdapter by lazy {

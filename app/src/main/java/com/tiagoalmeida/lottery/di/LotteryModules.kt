@@ -2,25 +2,26 @@ package com.tiagoalmeida.lottery.di
 
 import android.content.SharedPreferences
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.tiagoalmeida.lottery.model.mapper.LotteryResultParser
-import com.tiagoalmeida.lottery.network.LotteryApi
-import com.tiagoalmeida.lottery.network.datasource.ConsultDataSource
-import com.tiagoalmeida.lottery.network.datasource.ConsultDataSourceImpl
-import com.tiagoalmeida.lottery.network.repository.ConsultRepository
-import com.tiagoalmeida.lottery.network.repository.ConsultRepositoryImpl
-import com.tiagoalmeida.lottery.network.repository.PreferencesRepository
-import com.tiagoalmeida.lottery.network.repository.PreferencesRepositoryImpl
-import com.tiagoalmeida.lottery.viewmodel.MainViewModel
-import com.tiagoalmeida.lottery.viewmodel.detail.DetailGameViewModel
-import com.tiagoalmeida.lottery.viewmodel.games.GamesViewModel
-import com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterViewModel
+import com.tiagoalmeida.lottery.data.LotteryApi
+import com.tiagoalmeida.lottery.data.source.ConsultDataSource
+import com.tiagoalmeida.lottery.data.source.ConsultDataSourceImpl
+import com.tiagoalmeida.lottery.data.repository.ConsultRepository
+import com.tiagoalmeida.lottery.data.repository.ConsultRepositoryImpl
+import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
+import com.tiagoalmeida.lottery.data.repository.PreferencesRepositoryImpl
+import com.tiagoalmeida.lottery.domain.ConsultLatestResultsUseCase
+import com.tiagoalmeida.lottery.domain.ConsultRangedResultsUseCase
+import com.tiagoalmeida.lottery.ui.main.MainViewModel
+import com.tiagoalmeida.lottery.ui.detail.DetailGameViewModel
+import com.tiagoalmeida.lottery.ui.games.GamesViewModel
+import com.tiagoalmeida.lottery.ui.register.GameRegisterViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 object LotteryModules {
 
@@ -28,20 +29,21 @@ object LotteryModules {
         single { FirebaseCrashlytics.getInstance() }
     }
 
-    val parsers: Module = module {
-        single { LotteryResultParser() }
-    }
-
     val dataSource: Module = module {
         single<ConsultDataSource> { ConsultDataSourceImpl(get()) }
     }
 
     val repository: Module = module {
-        single<ConsultRepository> { ConsultRepositoryImpl(get(), get()) }
+        single<ConsultRepository> { ConsultRepositoryImpl(get()) }
+    }
+
+    val useCases: Module = module {
+        single { ConsultLatestResultsUseCase(get()) }
+        single { ConsultRangedResultsUseCase(get()) }
     }
 
     val viewModel: Module = module {
-        viewModel { params -> DetailGameViewModel(get(), params.get(), get()) }
+        viewModel { params -> DetailGameViewModel(get(), params.get(), get(), get()) }
         viewModel { GameRegisterViewModel(get(), get()) }
         viewModel { MainViewModel(get(), get(), get()) }
         viewModel { GamesViewModel(get(), get()) }
@@ -59,7 +61,7 @@ object LotteryModules {
         return Retrofit.Builder()
             .baseUrl("https://apiloterias.com.br/app/")
             .client(createOkHttpClient())
-            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 

@@ -8,10 +8,10 @@ import android.content.SharedPreferences
 import androidx.work.*
 import com.google.firebase.FirebaseApp
 import com.tiagoalmeida.lottery.di.LotteryModules
-import com.tiagoalmeida.lottery.util.CheckGamesWorker
+import com.tiagoalmeida.lottery.data.CheckGamesWorker
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.Constants.NOTIFICATION_CHANNEL_ID
-import com.tiagoalmeida.lottery.util.extensions.isSDKVersionBiggerThanO
+import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanO
 import org.koin.core.context.startKoin
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -32,10 +32,10 @@ class LotteryApplication : Application() {
             with(LotteryModules) {
                 modules(firebase)
                 modules(sharedPreferences(getPreferences()))
-                modules(parsers)
                 modules(retrofit)
                 modules(dataSource)
                 modules(repository)
+                modules(useCases)
                 modules(viewModel)
             }
         }
