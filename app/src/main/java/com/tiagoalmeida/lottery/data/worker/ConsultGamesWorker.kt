@@ -13,23 +13,24 @@ import com.tiagoalmeida.lottery.data.repository.ConsultRepositoryImpl
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.ui.main.MainActivity
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.data.repository.ConsultRepository
 import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanM
 import com.tiagoalmeida.lottery.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class CheckGamesWorker(
+class ConsultGamesWorker(
     context: Context,
     workerParameters: WorkerParameters
 ) : CoroutineWorker(context, workerParameters), KoinComponent {
 
     companion object {
-        const val WORK_REQUEST_NAME = "CheckGamesWorker"
+        const val WORK_REQUEST_NAME = "ConsultGamesWorker"
         const val NOTIFICATION_ID = 100
         const val NOTIFICATION_REQUEST_CODE = 101
     }
 
-    private val consultRepository: ConsultRepositoryImpl by inject()
+    private val consultRepository: ConsultRepository by inject()
 
     private val preferencesRepository: PreferencesRepository by inject()
 
