@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.FragmentRegisterNumbersBinding
 import com.tiagoalmeida.lottery.extensions.gone
@@ -98,8 +99,14 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
     private fun getOnBackPressedCallback(): OnBackPressedCallback {
         return object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (!binding.loadingOrErrorView.isVisible)
-                    findNavController().popBackStack()
+                _binding?.let {
+                    if (!it.loadingOrErrorView.isVisible) {
+                        findNavController().popBackStack()
+                    }
+                } ?: kotlin.run {
+                    val exception = Throwable("GameRegisterNumbersFragment onBackPressed failed because binding is null")
+                    FirebaseCrashlytics.getInstance().recordException(exception)
+                }
             }
         }
     }

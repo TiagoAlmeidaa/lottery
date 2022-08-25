@@ -31,7 +31,7 @@ class DetailGameViewHolder(
             textViewHits.text = formatHits(hits)
             textViewEarnings.text = formatEarnings(result.awards, hits)
 
-            if (isGameForTheContest(result.contestNumber.toInt())) {
+            if (isGameForTheContest(result.contestNumber)) {
                 textViewWithoutParticipation.gone()
             } else {
                 textViewWithoutParticipation.visible()
@@ -76,12 +76,16 @@ class DetailGameViewHolder(
         }
     }
 
-    private fun isGameForTheContest(contestNumber: Int): Boolean {
-        val startContest = userGame.startContestNumber.toInt()
-        val endContest =
-            if (userGame.endContestNumber.isNotEmpty()) userGame.endContestNumber.toInt() else 0
+    private fun isGameForTheContest(contestNumberString: String): Boolean {
+        val contestNumber = if (contestNumberString.isNotEmpty()) contestNumberString.toInt() else -1
+        val startContest = if (userGame.startContestNumber.isNotEmpty()) userGame.startContestNumber.toInt() else -1
+        val endContest = if (userGame.endContestNumber.isNotEmpty()) userGame.endContestNumber.toInt() else 0
 
-        return startContest <= contestNumber && (endContest == 0 || endContest >= contestNumber)
+        return if (startContest == -1 || contestNumber == -1) {
+            true
+        } else {
+            startContest <= contestNumber && (endContest == 0 || endContest >= contestNumber)
+        }
     }
 
     private fun getFlexBoxLayoutManager() = FlexboxLayoutManager(binding.root.context).apply {
