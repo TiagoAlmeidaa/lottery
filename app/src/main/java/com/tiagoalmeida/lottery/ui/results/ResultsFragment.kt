@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.tiagoalmeida.lottery.databinding.FragmentResultsBinding
-import com.tiagoalmeida.lottery.model.vo.LotteryResult
-import com.tiagoalmeida.lottery.ui.results.adapter.ResultsAdapter
-import com.tiagoalmeida.lottery.util.decoration.ResultsItemDecoration
-import com.tiagoalmeida.lottery.util.extensions.gone
-import com.tiagoalmeida.lottery.util.extensions.visible
-import com.tiagoalmeida.lottery.viewmodel.MainViewModel
+import com.tiagoalmeida.lottery.data.model.LotteryResult
+import com.tiagoalmeida.lottery.extensions.gone
+import com.tiagoalmeida.lottery.extensions.visible
+import com.tiagoalmeida.lottery.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ResultsFragment : Fragment() {

@@ -7,7 +7,7 @@
 
         <variable
             name="gameRegisterViewModel"
-            type="com.tiagoalmeida.lottery.viewmodel.register.game.GameRegisterViewModel" />
+            type="com.tiagoalmeida.lottery.ui.register.GameRegisterViewModel" />
 
     </data>
 
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorBackgroundDefault"
             android:orientation="vertical"
-            tools:context=".ui.register.game.GameRegisterActivity">
+            tools:context=".ui.register.GameRegisterActivity">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guide_top"
@@ -187,7 +187,7 @@
                 app:layout_constraintStart_toStartOf="@id/guide_start"
                 app:layout_constraintTop_toBottomOf="@id/check_box_unlimited_contests" />
 
-            <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
                 android:id="@+id/button_back"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_vertical_button"
@@ -209,7 +209,7 @@
                 app:layout_constraintStart_toEndOf="@id/button_back"
                 app:layout_constraintTop_toBottomOf="@id/view_empty" />
 
-            <com.tiagoalmeida.lottery.util.view.ButtonCardView
+            <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
                 android:id="@+id/button_next"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_vertical_button"

@@ -25,7 +25,6 @@ object Constants {
     const val BOTTOM_SHEET_FILTER_ID = "bottom.sheet.filter"
 
     const val NOTIFICATION_CHANNEL_ID = "747"
-    const val NOTIFICATION_ID = 1
 
     const val WORKER_PERIODICITY_ONE_DAY = 24L
     const val WORKER_BACK_OFF_POLICY_THIRTY_MINUTES = 30L

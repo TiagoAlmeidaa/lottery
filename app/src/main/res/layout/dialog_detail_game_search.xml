@@ -65,7 +65,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_compare"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_horizontal_button"
@@ -81,7 +81,7 @@
             app:title="@string/compare"
             app:titleColor="@android:color/white" />
 
-        <com.tiagoalmeida.lottery.util.view.ButtonCardView
+        <com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
             android:id="@+id/button_cancel"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_horizontal_button"

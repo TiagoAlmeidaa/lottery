@@ -14,7 +14,7 @@ object Android {
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    const val lifecycleExtensions = "android.arch.lifecycle:extensions:${Versions.lifecycleExtensions}"
+    const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
     const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKtx}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
     const val workManager = "androidx.work:work-runtime-ktx:${Versions.workManager}"
@@ -38,7 +38,7 @@ object Firebase {
 
 object Retrofit {
     const val core = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val converter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
+    const val converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val logging = "com.squareup.okhttp3:logging-interceptor:${Versions.logging}"
 }
 
