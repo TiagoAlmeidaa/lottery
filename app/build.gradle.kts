@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isUseWorkerApi
+import java.util.Properties
+
 plugins {
     id(Plugin.ANDROID_APPLICATION)
     id(Plugin.KOTLIN_ANDROID)
@@ -19,8 +23,14 @@ android {
         minSdk = AndroidConfig.MIN_SDK_VERSION
         targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
-        versionCode = AndroidConfig.VERSION_CODE
-        versionName = AndroidConfig.VERSION_NAME
+        val versionProperties = Properties().apply {
+            file("../app_version.properties").inputStream().use {fis ->
+                load(fis)
+            }
+        }
+
+        versionCode = (versionProperties["appVersionCode"] as String).toInt()
+        versionName = versionProperties["appVersionName"] as String
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
     }
     buildTypes {
