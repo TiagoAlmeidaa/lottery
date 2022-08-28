@@ -8,10 +8,10 @@ import android.content.SharedPreferences
 import androidx.work.*
 import com.google.firebase.FirebaseApp
 import com.tiagoalmeida.lottery.di.LotteryModules
-import com.tiagoalmeida.lottery.util.CheckGamesWorker
+import com.tiagoalmeida.lottery.data.worker.ConsultGamesWorker
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.Constants.NOTIFICATION_CHANNEL_ID
-import com.tiagoalmeida.lottery.util.extensions.isSDKVersionBiggerThanO
+import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanO
 import org.koin.core.context.startKoin
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -32,10 +32,10 @@ class LotteryApplication : Application() {
             with(LotteryModules) {
                 modules(firebase)
                 modules(sharedPreferences(getPreferences()))
-                modules(parsers)
                 modules(retrofit)
                 modules(dataSource)
                 modules(repository)
+                modules(useCases)
                 modules(viewModel)
             }
         }
@@ -75,21 +75,15 @@ class LotteryApplication : Application() {
             0L
         }
 
-        val constraints = Constraints
-            .Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val workRequest = PeriodicWorkRequestBuilder<CheckGamesWorker>(Constants.WORKER_PERIODICITY_ONE_DAY, TimeUnit.HOURS)
+        val workRequest = PeriodicWorkRequestBuilder<ConsultGamesWorker>(Constants.WORKER_PERIODICITY_ONE_DAY, TimeUnit.HOURS)
             .setBackoffCriteria(BackoffPolicy.LINEAR, Constants.WORKER_BACK_OFF_POLICY_THIRTY_MINUTES, TimeUnit.MINUTES)
             .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-            .setConstraints(constraints)
             .build()
 
         WorkManager
             .getInstance(this)
             .enqueueUniquePeriodicWork(
-                CheckGamesWorker.WORK_REQUEST_NAME,
+                ConsultGamesWorker.WORK_REQUEST_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,
                 workRequest
             )

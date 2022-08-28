@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,20 +15,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.FragmentGamesBinding
-import com.tiagoalmeida.lottery.model.vo.GamesFilter
-import com.tiagoalmeida.lottery.model.vo.UserGame
+import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.ui.detail.DetailGameActivity
-import com.tiagoalmeida.lottery.ui.games.adapter.GamesAdapter
-import com.tiagoalmeida.lottery.ui.games.adapter.listener.GamesAdapterEvents
-import com.tiagoalmeida.lottery.ui.register.game.GameRegisterActivity
+import com.tiagoalmeida.lottery.ui.register.GameRegisterActivity
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
-import com.tiagoalmeida.lottery.util.decoration.GamesItemDecoration
-import com.tiagoalmeida.lottery.util.extensions.gone
-import com.tiagoalmeida.lottery.util.extensions.showToast
-import com.tiagoalmeida.lottery.util.extensions.visible
-import com.tiagoalmeida.lottery.viewmodel.games.GamesState
-import com.tiagoalmeida.lottery.viewmodel.games.GamesViewModel
+import com.tiagoalmeida.lottery.extensions.gone
+import com.tiagoalmeida.lottery.extensions.showToast
+import com.tiagoalmeida.lottery.extensions.visible
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class GamesFragment : Fragment(), GamesAdapterEvents {
@@ -144,25 +139,13 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
         bottomSheet?.dismissAllowingStateLoss()
         bottomSheet = null
 
-        with(binding) {
-            gamesViewModel.createFilterMessage(filter).let { filterMessage ->
-                if (filterMessage.first.isEmpty() && filterMessage.second.isEmpty()) {
-                    textViewFilter.gone()
-                } else {
-                    textViewFilter.visible()
-                    textViewFilter.text =
-                        if (filterMessage.first.isNotEmpty() && filterMessage.second.isNotEmpty()) {
-                            val formattedString = filterMessage.first + "(${filterMessage.second})"
-                            String.format(getString(R.string.filter_text), formattedString)
-                        } else if (filterMessage.first.isNotEmpty()) {
-                            String.format(getString(R.string.filter_text), filterMessage.first)
-                        } else if (filterMessage.second.isNotEmpty()) {
-                            String.format(getString(R.string.filter_text), filterMessage.second)
-                        } else {
-                            ""
-                        }
-                }
-
+        with(binding.layoutAddGame) {
+            if (filter.hasAnyFilterApplied()) {
+                imageViewFilter.setImageResource(R.drawable.icon_filter_applied)
+                cardFilter.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            } else {
+                imageViewFilter.setImageResource(R.drawable.icon_filter)
+                cardFilter.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
         }
 

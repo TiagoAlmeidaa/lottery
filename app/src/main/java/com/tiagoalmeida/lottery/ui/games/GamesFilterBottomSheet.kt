@@ -11,12 +11,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.BottomSheetGamesFilterBinding
-import com.tiagoalmeida.lottery.model.vo.GamesFilter
-import com.tiagoalmeida.lottery.ui.adapter.LotteryTypeAdapter
-import com.tiagoalmeida.lottery.util.enums.LotteryType
-import com.tiagoalmeida.lottery.util.extensions.getLotteryType
-import com.tiagoalmeida.lottery.util.extensions.hideKeyboard
-import com.tiagoalmeida.lottery.viewmodel.games.GamesViewModel
+import com.tiagoalmeida.lottery.ui.common.LotteryTypeAdapter
+import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.extensions.getLotteryType
+import com.tiagoalmeida.lottery.extensions.hideKeyboard
 
 class GamesFilterBottomSheet(
     private val sharedViewModel: GamesViewModel // TODO porque não tá funcionando com Koin? sharedViewModel
@@ -62,17 +60,7 @@ class GamesFilterBottomSheet(
 
     private fun initializeUI() {
         expandBottomSheet()
-
-        binding.spinnerLotteryType.setAdapter(getSpinnerAdapter())
-
-        with(sharedViewModel.getFilter()) {
-            if (lotteryType != null) {
-                binding.spinnerLotteryType.setText(lotteryType.toString())
-            }
-            if (contestNumber.isNotEmpty()) {
-                binding.editTextContestNumber.setText(contestNumber)
-            }
-        }
+        populateFields()
     }
 
     private fun expandBottomSheet() {
@@ -83,12 +71,26 @@ class GamesFilterBottomSheet(
             }
         }
     }
+    private fun populateFields() = with(binding) {
+        spinnerLotteryType.setAdapter(getSpinnerAdapter())
 
-    private fun setFilter() {
-        val type = binding.spinnerLotteryType.getLotteryType()
-        val number = binding.editTextContestNumber.text?.toString() ?: ""
+        with(sharedViewModel.getFilter()) {
+            if (lotteryType != null) {
+                spinnerLotteryType.setText(lotteryType.toString())
+            }
+            if (contestNumber.isNotEmpty()) {
+                editTextContestNumber.setText(contestNumber)
+            }
+            checkBoxHideOldGames.isChecked = hideOldNumbers
+        }
+    }
 
-        sharedViewModel.setFilter(GamesFilter(type, number))
+    private fun setFilter() = with(binding) {
+        val type = spinnerLotteryType.getLotteryType()
+        val number = editTextContestNumber.text?.toString() ?: ""
+        val hideOldNumbers = checkBoxHideOldGames.isChecked
+
+        sharedViewModel.setFilter(GamesFilter(type, number, hideOldNumbers))
     }
 
     private fun clearFilter() {
