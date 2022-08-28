@@ -11,8 +11,10 @@ object Plugin {
 object AndroidConfig {
     const val APPLICATION_ID = "com.tiagoalmeida.lottery"
     const val COMPILE_SDK_VERSION = 31
-    const val MIN_SDK_VERSION = 21
+    const val MIN_SDK_VERSION = 22
     const val TARGET_SDK_VERSION = 31
+    const val VERSION_CODE = 3
+    const val VERSION_NAME = "1.0.2"
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
     const val CMAKE_PATH = "CMakeLists.txt"
 }

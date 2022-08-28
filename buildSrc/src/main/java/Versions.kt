@@ -1,7 +1,7 @@
 object Versions {
     const val gradle = "7.0.3"
     const val kotlin = "1.6.10"
-    const val navigation = "2.5.1"
+    const val navigation = "2.3.5"
     const val crashlyticsGradle = "2.8.1"
     const val appCompat = "1.4.0"
     const val coreKtx = "1.7.0"
