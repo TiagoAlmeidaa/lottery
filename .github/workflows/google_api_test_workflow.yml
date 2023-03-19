@@ -3,7 +3,7 @@ name: Testing Auth on Python Script
 on:
   push:
     branches:
-      - main
+      - main, dev
 
 jobs:
   build:
