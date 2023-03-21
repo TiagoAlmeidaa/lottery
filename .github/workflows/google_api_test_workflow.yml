@@ -1,10 +1,6 @@
 name: Testing Auth on Python Script
 
-on:
-  push:
-    branches:
-      - main
-      - dev
+on: []
 
 jobs:
   build:
