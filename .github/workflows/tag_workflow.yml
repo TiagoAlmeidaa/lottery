@@ -11,16 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Getting TAG
-        env:
-          CURRENT_TAG: ${GITHUB_REF#refs/tags/}
-        run:
-          echo ">>>" + ${GITHUB_REF#refs/tags/} + "<<<"
-          echo ">>>" + $CURRENT_TAG + "<<<"
-
       - uses: actions/checkout@v3
         with:
-          ref: $CURRENT_TAG
+          ref: main
           token: ${{ secrets.BOT_TOKEN_API }}
 
       - name: Setting up Python
@@ -28,10 +21,16 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Execute Python Script
+      - name: Checkout TAG
         run: |
-          echo "TAG AGAIN:" + ${GITHUB_REF#refs/tags/}
-          VERSION_TAG=${GITHUB_REF#refs/tags/} python3 increment_version.py
+          echo "Checking out TAG:" + ${GITHUB_REF#refs/tags/}
+          git checkout ${GITHUB_REF#refs/tags/}
+
+      - name: Increment Version
+        env:
+          VERSION_TAG: ${GITHUB_REF#refs/tags/}
+        run: |
+          python3 increment_version.py
 
       - name: Commit
         run: |
