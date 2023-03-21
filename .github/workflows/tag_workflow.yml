@@ -20,12 +20,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Checkout TAG
-        run: |
-          git show-ref
-          echo "Checking out TAG:" + ${GITHUB_REF#refs/tags/}
-          git checkout refs/tags/2023.0.2
-
       - name: Increment version
         env:
           VERSION_TAG: ${GITHUB_REF#refs/tags/}
