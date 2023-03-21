@@ -1,7 +1,5 @@
 name: Testing Auth on Python Script
 
-on: []
-
 jobs:
   build:
 
