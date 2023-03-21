@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: dev
+          ref: refs/tags/2023.0.1
           token: ${{ secrets.BOT_TOKEN_API }}
 
       - name: Setting up python
@@ -25,7 +25,7 @@ jobs:
         run: |
           git show-ref
           echo "Checking out TAG:" + ${GITHUB_REF#refs/tags/}
-          git checkout refs/tags/2023.0.1
+          git checkout refs/tags/2023.0.2
 
       - name: Increment version
         env:
