@@ -19,8 +19,8 @@ android {
         minSdk = AndroidConfig.MIN_SDK_VERSION
         targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
-        versionCode = AndroidConfig.VERSION_CODE
-        versionName = AndroidConfig.VERSION_NAME
+        versionCode = AppVersion.VERSION_CODE
+        versionName = AppVersion.VERSION_NAME
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
     }
     buildTypes {
