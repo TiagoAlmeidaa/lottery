@@ -24,7 +24,7 @@ jobs:
       - name: Checkout TAG
         run: |
           echo "Checking out TAG:" + ${GITHUB_REF#refs/tags/}
-          git checkout refs/tags/${GITHUB_REF#refs/tags/}
+          git checkout refs/tags/2023.0.1
 
       - name: Increment version
         env:
