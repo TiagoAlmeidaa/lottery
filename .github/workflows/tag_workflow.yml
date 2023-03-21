@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: refs/tags/${GITHUB_REF#refs/tags/}
           token: ${{ secrets.BOT_TOKEN_API }}
 
       - name: Setting up python
