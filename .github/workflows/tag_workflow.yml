@@ -23,6 +23,7 @@ jobs:
 
       - name: Checkout TAG
         run: |
+          git show-ref
           echo "Checking out TAG:" + ${GITHUB_REF#refs/tags/}
           git checkout refs/tags/2023.0.1
 
