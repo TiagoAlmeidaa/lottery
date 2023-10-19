@@ -47,10 +47,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 if (binding.buttonResults.isSelected)
                     binding.pager.setCurrentItem(1, true)
             }
-            textViewVersion.text = String.format(
-                getString(R.string.version),
-                BuildConfig.VERSION_NAME
-            )
+            textViewVersion.text = BuildConfig.VERSION_NAME
         }
     }
 

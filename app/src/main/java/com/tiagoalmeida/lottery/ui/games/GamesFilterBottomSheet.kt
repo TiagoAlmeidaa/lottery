@@ -66,7 +66,7 @@ class GamesFilterBottomSheet(
     private fun expandBottomSheet() {
         val bottom = dialog as BottomSheetDialog
         bottom.setOnShowListener {
-            bottom.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.apply {
+            bottom.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.apply {
                 BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
             }
         }

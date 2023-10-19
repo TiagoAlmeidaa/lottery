@@ -117,6 +117,7 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
             is GameRegisterState.ProceedToSaveNumbers -> sharedViewModel.saveNumbers(state.game)
             is GameRegisterState.GameUpdated -> finishProcess()
             is GameRegisterState.Timeout -> proceedTimeout(state.messageId)
+            else -> {}
         }
     }
 

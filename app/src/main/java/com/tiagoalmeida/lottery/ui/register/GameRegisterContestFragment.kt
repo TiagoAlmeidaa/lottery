@@ -86,6 +86,7 @@ class GameRegisterContestFragment : Fragment() {
             is GameRegisterState.LotteryTypeOk -> viewModel.validateContest()
             is GameRegisterState.ContestWithError -> handleError(state.messageId)
             is GameRegisterState.ContestOk -> navigate(R.id.contest_to_numbers_fragment)
+            else -> {}
         }
     }
 

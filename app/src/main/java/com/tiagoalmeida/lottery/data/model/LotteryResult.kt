@@ -15,7 +15,7 @@ data class LotteryResult(
 ) : BaseDetailGame {
 
     companion object {
-        const val LAYOUT_ID = R.layout.adapter_detail_game
+        val LAYOUT_ID = R.layout.adapter_detail_game
     }
 
     override fun getLayoutId(): Int = LAYOUT_ID

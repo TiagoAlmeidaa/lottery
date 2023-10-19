@@ -12,7 +12,7 @@ tasks.register<JacocoReport>("jacocoTestReport") {
     reports {
         with(html) {
             isEnabled = true
-            destination = file(Jacoco.getDestinationPath(project))
+            // destination = file(Jacoco.getDestinationPath(project))
         }
     }
 

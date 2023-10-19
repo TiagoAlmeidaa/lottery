@@ -13,7 +13,9 @@ jacoco {
 }
 
 android {
+    namespace = AndroidConfig.APPLICATION_ID
     compileSdk = AndroidConfig.COMPILE_SDK_VERSION
+
     defaultConfig {
         applicationId = AndroidConfig.APPLICATION_ID
         minSdk = AndroidConfig.MIN_SDK_VERSION
@@ -23,6 +25,7 @@ android {
         versionName = AppVersion.VERSION_NAME
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
     }
+
     buildTypes {
         getByName(BuildType.DEBUG) {
             isTestCoverageEnabled = true
@@ -32,21 +35,27 @@ android {
             proguardFiles(ProGuard.TXT, ProGuard.PRO)
         }
     }
+
     buildFeatures {
         dataBinding = true
+        buildConfig = true
     }
+
     testOptions {
         unitTests.isReturnDefaultValues = true
     }
+
     externalNativeBuild {
         cmake {
             path(AndroidConfig.CMAKE_PATH)
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
