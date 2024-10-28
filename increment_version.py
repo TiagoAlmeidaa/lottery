@@ -1,4 +1,4 @@
-import os
+import sys
 
 new_line = "\n"
 equals_sign = "="
@@ -25,9 +25,10 @@ def override_file_content(content):
     file.writelines(content)
     file.close()
 
-def increment_version(tag):
+def increment_version():
+    tag = sys.argv[1]
     print("Version increment - New Tag: " + tag + "\n")
     override_file_content(generate_file_content(tag))
     print("Version increment - Finished!\n")
 
-increment_version(os.getenv('VERSION_TAG'))
+increment_version()
