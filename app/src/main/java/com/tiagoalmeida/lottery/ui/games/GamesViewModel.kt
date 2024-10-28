@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
-import com.tiagoalmeida.lottery.util.SingleLiveEvent
 import com.tiagoalmeida.lottery.ui.BaseViewModel
+import com.tiagoalmeida.lottery.util.SingleLiveEvent
 import kotlinx.coroutines.TimeoutCancellationException
 
 class GamesViewModel(

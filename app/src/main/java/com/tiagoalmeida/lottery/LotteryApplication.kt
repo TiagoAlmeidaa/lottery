@@ -5,15 +5,20 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.work.*
+import androidx.work.BackoffPolicy
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.firebase.FirebaseApp
-import com.tiagoalmeida.lottery.di.LotteryModules
 import com.tiagoalmeida.lottery.data.worker.ConsultGamesWorker
+import com.tiagoalmeida.lottery.di.LotteryModules
+import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanO
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.Constants.NOTIFICATION_CHANNEL_ID
-import com.tiagoalmeida.lottery.extensions.isSDKVersionBiggerThanO
 import org.koin.core.context.startKoin
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class LotteryApplication : Application() {

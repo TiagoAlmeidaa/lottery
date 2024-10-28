@@ -2,8 +2,8 @@ package com.tiagoalmeida.lottery.ui.games
 
 import androidx.recyclerview.widget.RecyclerView
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.databinding.AdapterGamesBinding
 import com.tiagoalmeida.lottery.data.model.UserGame
+import com.tiagoalmeida.lottery.databinding.AdapterGamesBinding
 
 class GamesViewHolder(
     private val binding: AdapterGamesBinding,

@@ -5,10 +5,10 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.databinding.AdapterDetailGameBinding
 import com.tiagoalmeida.lottery.data.model.LotteryAward
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.UserGame
+import com.tiagoalmeida.lottery.databinding.AdapterDetailGameBinding
 import com.tiagoalmeida.lottery.extensions.gone
 import com.tiagoalmeida.lottery.extensions.toCurrency
 import com.tiagoalmeida.lottery.extensions.visible

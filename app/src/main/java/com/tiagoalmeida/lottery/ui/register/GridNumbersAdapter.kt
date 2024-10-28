@@ -3,8 +3,8 @@ package com.tiagoalmeida.lottery.ui.register
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tiagoalmeida.lottery.databinding.AdapterGridNumberBinding
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.databinding.AdapterGridNumberBinding
 
 class GridNumbersAdapter(
     private val lotteryType: LotteryType,

@@ -4,19 +4,23 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
+import com.tiagoalmeida.lottery.data.model.LotteryType
 import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.data.repository.ConsultRepository
-import com.tiagoalmeida.lottery.data.model.LotteryType
 import com.tiagoalmeida.lottery.domain.ConsultRangedResultsUseCase
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,7 +31,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class DetailGameViewModelTest {
 
-    private val dispatcher = TestCoroutineDispatcher()
+    private val dispatcher = UnconfinedTestDispatcher()
 
     @get:Rule
     val executorRule = InstantTaskExecutorRule()
@@ -72,10 +76,6 @@ class DetailGameViewModelTest {
     @After
     fun finish() {
         viewModel.viewState.removeObserver(observerState)
-
-        Dispatchers.resetMain()
-
-        dispatcher.cleanupTestCoroutines()
     }
 
     @Test

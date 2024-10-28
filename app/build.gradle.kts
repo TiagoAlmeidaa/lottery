@@ -1,38 +1,38 @@
-plugins {
-    id(Plugin.ANDROID_APPLICATION)
-    id(Plugin.KOTLIN_ANDROID)
-    id(Plugin.KOTLIN_KAPT)
-    id(Plugin.GOOGLE_SERVICES)
-    id(Plugin.JACOCO)
-    id(Plugin.FIREBASE_CRASHLYTICS)
-    id(Plugin.SAFE_ARGS)
-}
+import java.util.Properties
 
-jacoco {
-    toolVersion = "0.8.7"
+val appId = "com.tiagoalmeida.lottery"
+val appMaxSdk = 34
+val appMinSdk = 22
+val versionProperties: Properties = rootProject.extra.properties["versionProperties"] as Properties
+
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.navigation.safeargs)
 }
 
 android {
-    namespace = AndroidConfig.APPLICATION_ID
-    compileSdk = AndroidConfig.COMPILE_SDK_VERSION
+    namespace = appId
+    compileSdk = appMaxSdk
 
     defaultConfig {
-        applicationId = AndroidConfig.APPLICATION_ID
-        minSdk = AndroidConfig.MIN_SDK_VERSION
-        targetSdk = AndroidConfig.TARGET_SDK_VERSION
+        applicationId = appId
+        minSdk = appMinSdk
+        targetSdk = appMaxSdk
 
-        versionCode = AppVersion.VERSION_CODE
-        versionName = AppVersion.VERSION_NAME
-        testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
+        versionCode = versionProperties.getProperty("versionCode").toInt()
+        versionName = versionProperties.getProperty("versionName")
     }
 
     buildTypes {
-        getByName(BuildType.DEBUG) {
-            isTestCoverageEnabled = true
-        }
-        getByName(BuildType.RELEASE) {
+        debug {
             isMinifyEnabled = false
-            proguardFiles(ProGuard.TXT, ProGuard.PRO)
+        }
+        release {
+            isMinifyEnabled = false
         }
     }
 
@@ -42,60 +42,49 @@ android {
     }
 
     testOptions {
-        unitTests.isReturnDefaultValues = true
+        unitTests {
+            isReturnDefaultValues = true
+        }
     }
 
     externalNativeBuild {
         cmake {
-            path(AndroidConfig.CMAKE_PATH)
+            path("CMakeLists.txt")
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-    implementation(Jetbrains.kotlin)
-
-    implementation(Android.appCompat)
-    implementation(Android.coreKtx)
-    implementation(Android.material)
-    implementation(Android.constraintLayout)
-    implementation(Android.lifecycleExtensions)
-    implementation(Android.viewModelKtx)
-    implementation(Android.swipeRefreshLayout)
-    implementation(Android.workManager)
-
-    implementation(Navigation.ui)
-    implementation(Navigation.ktx)
-
-    implementation(Firebase.analytics)
-    implementation(Firebase.crashlytics)
-
-    implementation(Retrofit.core)
-    implementation(Retrofit.converter)
-    implementation(Retrofit.logging)
-
-    implementation(Google.gson)
-    implementation(Google.flexBox)
-
-    implementation(Coroutines.android)
-
-    implementation(Koin.android)
-
-    debugImplementation(LeakCanary.core)
-
-    testImplementation(Tests.jUnit)
-    testImplementation(Tests.coreTesting)
-    testImplementation(Tests.mockK)
-    testImplementation(Tests.coroutines)
-    androidTestImplementation(Tests.runner)
-    androidTestImplementation(Tests.espresso)
+    implementation(libs.appCompat)
+    implementation(libs.android.ktx)
+    implementation(libs.material)
+    implementation(libs.lifecycle.extensions)
+    implementation(libs.viewmodel.ktx)
+    implementation(libs.swipeRefresh)
+    implementation(libs.workManager)
+    implementation(libs.navigation.ui)
+    implementation(libs.navigation.fragment)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+    implementation(libs.okHttpLogging)
+    implementation(libs.gson)
+    implementation(libs.flexbox)
+    implementation(libs.coroutines)
+    implementation(libs.koin)
+    debugImplementation(libs.leakCanary)
+    testImplementation(libs.junit)
+    testImplementation(libs.coreTesting)
+    testImplementation(libs.mockK)
+    testImplementation(libs.coroutinesTest)
 }

@@ -10,10 +10,12 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.gson.Gson
-import com.tiagoalmeida.lottery.databinding.ActivityDetailGameBinding
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.UserGame
-import com.tiagoalmeida.lottery.extensions.*
+import com.tiagoalmeida.lottery.databinding.ActivityDetailGameBinding
+import com.tiagoalmeida.lottery.extensions.invisible
+import com.tiagoalmeida.lottery.extensions.onBottomReached
+import com.tiagoalmeida.lottery.extensions.visible
 import com.tiagoalmeida.lottery.ui.common.NumberAdapter
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.buildFilterGameDialog

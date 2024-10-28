@@ -4,13 +4,13 @@ import android.content.SharedPreferences
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tiagoalmeida.lottery.data.model.UserGame
-import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.extensions.getInt
 import com.tiagoalmeida.lottery.extensions.getString
 import com.tiagoalmeida.lottery.extensions.putInt
 import com.tiagoalmeida.lottery.extensions.putString
+import com.tiagoalmeida.lottery.util.Constants
 
 internal class PreferencesRepositoryImpl(
         private val sharedPreferences: SharedPreferences,

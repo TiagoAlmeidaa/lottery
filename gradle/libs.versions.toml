@@ -1,0 +1,60 @@
+[versions]
+gradle = "8.1.4"
+kotlin-android = "2.0.21"
+kotlin-kapt = "2.0.21"
+appCompat = "1.7.0"
+ktx = "1.13.1"
+material = "1.12.0"
+lifecycleExtensions = "2.2.0"
+viewModelKtx = "2.8.6"
+swipeRefreshLayout = "1.1.0"
+workManager = "2.9.1"
+navigation = "2.8.3"
+firebaseAnalytics = "22.1.2"
+firebaseCrashlytics = "19.2.1"
+firebase-crashlytics-plugin = "3.0.2"
+retrofit = "2.9.0"
+okHttpLogging = "4.12.0"
+gson = "2.10.1"
+flexbox = "3.0.0"
+coroutines = "1.9.0"
+koin = "4.0.0"
+leakCanary = "2.12"
+junit = "4.13.2"
+coreTesting = "2.2.0"
+mockK = "1.13.12"
+google-services = "4.4.2"
+navigation-safeargs-plugin = "2.8.3"
+
+[libraries]
+appCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
+android-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycleExtensions" }
+viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelKtx" }
+swipeRefresh = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayout" }
+workManager = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okHttpLogging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpLogging" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+flexbox = { group = "com.google.android.flexbox", name = "flexbox", version.ref = "flexbox" }
+coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutinesTest = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+leakCanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakCanary" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+coreTesting = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
+mockK = { group = "io.mockk", name = "mockk", version.ref = "mockK" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradle" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin-kapt" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
+navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation-safeargs-plugin" }

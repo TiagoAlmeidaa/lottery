@@ -14,23 +14,23 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.databinding.FragmentGamesBinding
 import com.tiagoalmeida.lottery.data.model.UserGame
+import com.tiagoalmeida.lottery.databinding.FragmentGamesBinding
+import com.tiagoalmeida.lottery.extensions.gone
+import com.tiagoalmeida.lottery.extensions.showToast
+import com.tiagoalmeida.lottery.extensions.visible
 import com.tiagoalmeida.lottery.ui.detail.DetailGameActivity
 import com.tiagoalmeida.lottery.ui.register.GameRegisterActivity
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
-import com.tiagoalmeida.lottery.extensions.gone
-import com.tiagoalmeida.lottery.extensions.showToast
-import com.tiagoalmeida.lottery.extensions.visible
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class GamesFragment : Fragment(), GamesAdapterEvents {
 
     private var _binding: FragmentGamesBinding? = null
     private val binding get() = _binding!!
 
-    private val gamesViewModel: GamesViewModel by sharedViewModel()
+    private val gamesViewModel: GamesViewModel by activityViewModel()
 
     private val gamesAdapter: GamesAdapter by lazy { GamesAdapter(this) }
 

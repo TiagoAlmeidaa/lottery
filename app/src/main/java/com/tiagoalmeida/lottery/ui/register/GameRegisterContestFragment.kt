@@ -8,18 +8,23 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.databinding.FragmentRegisterContestBinding
-import com.tiagoalmeida.lottery.ui.common.LotteryTypeAdapter
 import com.tiagoalmeida.lottery.data.model.LotteryType
-import com.tiagoalmeida.lottery.extensions.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.tiagoalmeida.lottery.databinding.FragmentRegisterContestBinding
+import com.tiagoalmeida.lottery.extensions.getLotteryType
+import com.tiagoalmeida.lottery.extensions.gone
+import com.tiagoalmeida.lottery.extensions.hideKeyboard
+import com.tiagoalmeida.lottery.extensions.navigate
+import com.tiagoalmeida.lottery.extensions.showToast
+import com.tiagoalmeida.lottery.extensions.visible
+import com.tiagoalmeida.lottery.ui.common.LotteryTypeAdapter
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class GameRegisterContestFragment : Fragment() {
 
     private var _binding: FragmentRegisterContestBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: GameRegisterViewModel by sharedViewModel()
+    private val viewModel: GameRegisterViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

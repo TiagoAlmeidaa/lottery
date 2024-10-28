@@ -3,8 +3,8 @@ package com.tiagoalmeida.lottery.ui.results
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tiagoalmeida.lottery.databinding.AdapterResultsBinding
 import com.tiagoalmeida.lottery.data.model.LotteryResult
+import com.tiagoalmeida.lottery.databinding.AdapterResultsBinding
 
 class ResultsAdapter : RecyclerView.Adapter<ResultsViewHolder>() {
 

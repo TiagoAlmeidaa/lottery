@@ -14,17 +14,17 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.FragmentRegisterNumbersBinding
 import com.tiagoalmeida.lottery.extensions.gone
-import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.extensions.toStringNumber
 import com.tiagoalmeida.lottery.extensions.visible
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.tiagoalmeida.lottery.util.Constants
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
 
     private var _binding: FragmentRegisterNumbersBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedViewModel: GameRegisterViewModel by sharedViewModel()
+    private val sharedViewModel: GameRegisterViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

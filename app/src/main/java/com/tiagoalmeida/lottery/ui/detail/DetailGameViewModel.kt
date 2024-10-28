@@ -7,8 +7,8 @@ import com.tiagoalmeida.lottery.data.model.RangedLottery
 import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.data.repository.ConsultRepository
 import com.tiagoalmeida.lottery.domain.ConsultRangedResultsUseCase
-import com.tiagoalmeida.lottery.util.SingleLiveEvent
 import com.tiagoalmeida.lottery.ui.BaseViewModel
+import com.tiagoalmeida.lottery.util.SingleLiveEvent
 
 class DetailGameViewModel(
     crashlytics: FirebaseCrashlytics,

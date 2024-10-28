@@ -3,22 +3,27 @@ package com.tiagoalmeida.lottery.ui.games
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.tiagoalmeida.lottery.ui.games.GamesFilter
+import com.tiagoalmeida.lottery.data.model.LotteryType
 import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
-import com.tiagoalmeida.lottery.data.model.LotteryType
-import com.tiagoalmeida.lottery.ui.games.GamesState
-import com.tiagoalmeida.lottery.ui.games.GamesViewModel
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,7 +34,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class GamesViewModelTest {
 
-    private val dispatcher = TestCoroutineDispatcher()
+    private val dispatcher = UnconfinedTestDispatcher()
 
     @get:Rule
     val executorRule = InstantTaskExecutorRule()
@@ -92,10 +97,6 @@ class GamesViewModelTest {
             viewState.removeObserver(observerState)
             gamesFilter.removeObserver(observerFilter)
         }
-
-        Dispatchers.resetMain()
-
-        dispatcher.cleanupTestCoroutines()
     }
 
     @Test

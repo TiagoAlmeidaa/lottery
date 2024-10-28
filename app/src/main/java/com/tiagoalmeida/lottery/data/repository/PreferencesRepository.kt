@@ -1,7 +1,7 @@
 package com.tiagoalmeida.lottery.data.repository
 
-import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.data.model.UserGame
 
 interface PreferencesRepository {
     fun saveGame(game: UserGame)

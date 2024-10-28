@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.tiagoalmeida.lottery.databinding.FragmentResultsBinding
 import com.tiagoalmeida.lottery.data.model.LotteryResult
+import com.tiagoalmeida.lottery.databinding.FragmentResultsBinding
 import com.tiagoalmeida.lottery.extensions.gone
 import com.tiagoalmeida.lottery.extensions.visible
 import com.tiagoalmeida.lottery.ui.main.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ResultsFragment : Fragment() {
 
     private var _binding: FragmentResultsBinding? = null
     private val binding get() = _binding!!
 
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val mainViewModel: MainViewModel by activityViewModel()
 
     private val resultsAdapter: ResultsAdapter by lazy { ResultsAdapter() }
 

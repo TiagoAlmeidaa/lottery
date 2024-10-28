@@ -1,8 +1,8 @@
 package com.tiagoalmeida.lottery.data.repository
 
 import com.tiagoalmeida.lottery.data.model.LotteryResult
-import com.tiagoalmeida.lottery.data.source.ConsultDataSource
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.data.source.ConsultDataSource
 
 internal class ConsultRepositoryImpl(
     private val dataSource: ConsultDataSource

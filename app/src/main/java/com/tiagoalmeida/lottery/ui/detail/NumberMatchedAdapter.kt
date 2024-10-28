@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.tiagoalmeida.lottery.databinding.AdapterNumbersBinding
 import com.tiagoalmeida.lottery.data.model.UserGame
+import com.tiagoalmeida.lottery.databinding.AdapterNumbersBinding
 import com.tiagoalmeida.lottery.extensions.toStringNumber
 
 class NumberMatchedAdapter(

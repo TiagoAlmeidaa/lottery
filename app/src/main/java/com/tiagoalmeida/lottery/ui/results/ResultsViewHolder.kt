@@ -5,15 +5,15 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.databinding.AdapterResultsBinding
 import com.tiagoalmeida.lottery.data.model.LotteryAward
 import com.tiagoalmeida.lottery.data.model.LotteryResult
-import com.tiagoalmeida.lottery.ui.common.NumberAdapter
+import com.tiagoalmeida.lottery.databinding.AdapterResultsBinding
 import com.tiagoalmeida.lottery.extensions.gone
 import com.tiagoalmeida.lottery.extensions.toAppDateString
 import com.tiagoalmeida.lottery.extensions.toCurrency
 import com.tiagoalmeida.lottery.extensions.visible
-import java.util.*
+import com.tiagoalmeida.lottery.ui.common.NumberAdapter
+import java.util.Date
 
 class ResultsViewHolder(
     private val binding: AdapterResultsBinding

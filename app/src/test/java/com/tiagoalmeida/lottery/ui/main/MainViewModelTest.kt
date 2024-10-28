@@ -4,17 +4,20 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
-import com.tiagoalmeida.lottery.data.repository.ConsultRepository
-import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.domain.ConsultLatestResultsUseCase
-import com.tiagoalmeida.lottery.ui.main.MainViewModel
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
@@ -27,7 +30,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class MainViewModelTest {
 
-    private val dispatcher = TestCoroutineDispatcher()
+    private val dispatcher = UnconfinedTestDispatcher()
 
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
@@ -68,10 +71,6 @@ class MainViewModelTest {
         with(viewModel) {
             results.removeObserver(observerResults)
         }
-
-        Dispatchers.resetMain()
-
-        dispatcher.cleanupTestCoroutines()
     }
 
     @Test

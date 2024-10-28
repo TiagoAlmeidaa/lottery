@@ -1,30 +1,24 @@
 package com.tiagoalmeida.lottery.extensions
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.textfield.TextInputEditText
-import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.data.model.LotteryType
-import com.tiagoalmeida.lottery.ui.custom.CustomButtonCardView
 import com.tiagoalmeida.lottery.util.Brazil
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 fun AutoCompleteTextView.getLotteryType(): LotteryType? =
     LotteryType

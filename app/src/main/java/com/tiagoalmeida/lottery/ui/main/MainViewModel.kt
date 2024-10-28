@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
-import com.tiagoalmeida.lottery.data.repository.ConsultRepository
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
 import com.tiagoalmeida.lottery.domain.ConsultLatestResultsUseCase
 import com.tiagoalmeida.lottery.ui.BaseViewModel

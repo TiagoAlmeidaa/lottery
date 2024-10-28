@@ -2,12 +2,11 @@ package com.tiagoalmeida.lottery.data.source
 
 import com.tiagoalmeida.lottery.data.LotteryApi
 import com.tiagoalmeida.lottery.data.model.LotteryResult
-import com.tiagoalmeida.lottery.util.Keys
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.util.Keys
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 internal class ConsultDataSourceImpl(
     private val retrofit: LotteryApi,

@@ -10,11 +10,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tiagoalmeida.lottery.R
-import com.tiagoalmeida.lottery.databinding.BottomSheetGamesFilterBinding
-import com.tiagoalmeida.lottery.ui.common.LotteryTypeAdapter
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.databinding.BottomSheetGamesFilterBinding
 import com.tiagoalmeida.lottery.extensions.getLotteryType
 import com.tiagoalmeida.lottery.extensions.hideKeyboard
+import com.tiagoalmeida.lottery.ui.common.LotteryTypeAdapter
 
 class GamesFilterBottomSheet(
     private val sharedViewModel: GamesViewModel // TODO porque não tá funcionando com Koin? sharedViewModel

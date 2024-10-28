@@ -3,8 +3,8 @@ package com.tiagoalmeida.lottery.data.datasource
 import com.tiagoalmeida.lottery.data.LotteryApi
 import com.tiagoalmeida.lottery.data.LotteryApiService
 import com.tiagoalmeida.lottery.data.model.LotteryResult
-import com.tiagoalmeida.lottery.data.source.ConsultDataSourceImpl
 import com.tiagoalmeida.lottery.data.model.LotteryType
+import com.tiagoalmeida.lottery.data.source.ConsultDataSourceImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -12,20 +12,20 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
-import org.junit.After
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import retrofit2.Response
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
 class ConsultDataSourceImplTest {
 
-    private val dispatcher = TestCoroutineDispatcher()
+    private val dispatcher = UnconfinedTestDispatcher()
 
     @MockK
     internal lateinit var retrofit: LotteryApi
@@ -52,15 +52,8 @@ class ConsultDataSourceImplTest {
         dataSource = ConsultDataSourceImpl(retrofit, fakeToken, dispatcher)
     }
 
-    @After
-    fun finish() {
-        Dispatchers.resetMain()
-
-        dispatcher.cleanupTestCoroutines()
-    }
-
     @Test
-    fun `consultContest should be executed successfully`() = runBlockingTest {
+    fun `consultContest should be executed successfully`() = runTest {
         val lotteryType = LotteryType.MEGASENA
         val expectedResult = mockk<LotteryResult>()
 
@@ -74,7 +67,7 @@ class ConsultDataSourceImplTest {
     }
 
     @Test
-    fun `consultContestByNumber should be executed successfully`() = runBlockingTest {
+    fun `consultContestByNumber should be executed successfully`() = runTest {
         val contestNumber = 1234
         val lotteryType = LotteryType.MEGASENA
         val expectedResult = mockk<LotteryResult>()
