@@ -22,16 +22,9 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Print
-        run: |
-          echo ${GITHUB_REF#refs/tags/}
-          echo ${{ github.ref_name }}
-
       - name: Increment version
-        env:
-          VERSION_TAG: ${GITHUB_REF#refs/tags/}
         run: |
-          python3 increment_version.py
+          python3 increment_version.py ${{ github.ref_name }}
 
       - name: Commit version update
         run: |
