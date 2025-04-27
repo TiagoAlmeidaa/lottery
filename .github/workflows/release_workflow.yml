@@ -2,15 +2,14 @@ name: Release Workflow
 
 on:
   workflow_run:
-    workflows: tag_workflow.yml
+    workflows: [Version Increment Workflow]
     types:
       - completed
 
 jobs:
-  build:
-
+  on-success:
     runs-on: ubuntu-latest
-
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
         with:
