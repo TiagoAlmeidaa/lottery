@@ -12,6 +12,8 @@ import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.google.gson.Gson
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.data.model.UserGame
@@ -23,6 +25,7 @@ import com.tiagoalmeida.lottery.ui.detail.DetailGameActivity
 import com.tiagoalmeida.lottery.ui.register.GameRegisterActivity
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class GamesFragment : Fragment(), GamesAdapterEvents {
@@ -35,6 +38,8 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
     private val gamesAdapter: GamesAdapter by lazy { GamesAdapter(this) }
 
     private var bottomSheet: BottomSheetDialogFragment? = null
+
+    private val analytics: FirebaseAnalytics by lazy { get() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +79,10 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
     }
 
     override fun onGameClicked(userGame: UserGame, view: View) {
+        analytics.logEvent("clicked_games_user_game") {
+            param("type", userGame.type.lotteryName)
+        }
+
         val intent = Intent(context, DetailGameActivity::class.java).apply {
             putExtra(Constants.BUNDLE_GAME_JSON, userGame.toJson())
         }
@@ -90,6 +99,9 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
     }
 
     override fun onGameLongClicked(userGame: UserGame): Boolean {
+        analytics.logEvent("long_clicked_games_user_game") {
+            param("type", userGame.type.lotteryName)
+        }
         buildRemoveGameDialog(requireContext(), view?.findViewById(android.R.id.content)) {
             gamesViewModel.removeGame(userGame)
         }.show()
@@ -99,9 +111,11 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
     private fun initializeEvents() {
         with(binding.layoutAddGame) {
             cardAddGame.setOnClickListener {
+                analytics.logEvent("clicked_games_add_user_game", null)
                 requestNewGame()
             }
             cardFilter.setOnClickListener {
+                analytics.logEvent("clicked_games_filter_user_game", null)
                 bottomSheet = GamesFilterBottomSheet(gamesViewModel)
                 bottomSheet?.show(parentFragmentManager, Constants.BOTTOM_SHEET_FILTER_ID)
             }

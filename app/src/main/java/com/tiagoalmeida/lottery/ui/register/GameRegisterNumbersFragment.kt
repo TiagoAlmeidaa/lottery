@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,7 +17,6 @@ import com.tiagoalmeida.lottery.databinding.FragmentRegisterNumbersBinding
 import com.tiagoalmeida.lottery.extensions.gone
 import com.tiagoalmeida.lottery.extensions.toStringNumber
 import com.tiagoalmeida.lottery.extensions.visible
-import com.tiagoalmeida.lottery.util.Constants
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
@@ -64,7 +64,7 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
                 findNavController().popBackStack()
             }
             buttonSave.setOnClickListener {
-                sharedViewModel.validateNumbers()
+                sharedViewModel.saveGame()
             }
         }
 
@@ -90,6 +90,8 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
                 sharedViewModel.getLotteryType(),
                 this@GameRegisterNumbersFragment
             )
+
+            buttonSave.isEnabled = false
         }
 
         sharedViewModel.clearNumbers()
@@ -113,10 +115,8 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
 
     private fun observeViewState() = Observer<GameRegisterState> { state ->
         when (state) {
-            is GameRegisterState.NumbersWithError -> proceedNumbersWithError(state.messageId)
-            is GameRegisterState.ProceedToSaveNumbers -> sharedViewModel.saveNumbers(state.game)
             is GameRegisterState.GameUpdated -> finishProcess()
-            is GameRegisterState.Timeout -> proceedTimeout(state.messageId)
+            is GameRegisterState.OnNumberPicked -> updateUiOnNumberPicked(state)
             else -> {}
         }
     }
@@ -132,33 +132,19 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
         }
     }
 
-    private fun proceedNumbersWithError(messageId: Int) {
-        showError(Constants.THREE_SECONDS, messageId) {
-            binding.loadingOrErrorView.gone()
-        }
-    }
-
-    private fun proceedTimeout(messageId: Int) {
-        showError(Constants.SEVEN_SECONDS, messageId) {
-            finishProcess()
-        }
-    }
-
     private fun finishProcess() {
         activity?.setResult(Activity.RESULT_OK)
         activity?.finish()
         activity?.overridePendingTransition(R.anim.stay, R.anim.slide_top_to_bottom)
     }
 
-    private fun showError(millis: Long, messageId: Int, onFinish: () -> Unit) {
-        with(binding) {
-            loadingOrErrorView.visible()
-            loadingOrErrorView.setError(millis, getString(messageId), onFinish)
-        }
-    }
-
     private fun updateSelectedCounter() {
         binding.textViewSelected.text = sharedViewModel.getNumbersCount().toStringNumber()
     }
 
+    private fun updateUiOnNumberPicked(state: GameRegisterState.OnNumberPicked) = with(binding) {
+        textViewMessage.text = getString(state.messageId)
+        cardViewMessage.setCardBackgroundColor(ContextCompat.getColor(requireContext(), state.messageColorId))
+        buttonSave.isEnabled = state.isSaveButtonEnabled
+    }
 }

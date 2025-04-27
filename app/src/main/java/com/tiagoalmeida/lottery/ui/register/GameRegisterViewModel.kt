@@ -2,6 +2,8 @@ package com.tiagoalmeida.lottery.ui.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.data.model.LotteryType
@@ -12,8 +14,9 @@ import com.tiagoalmeida.lottery.util.SingleLiveEvent
 
 class GameRegisterViewModel(
     crashlytics: FirebaseCrashlytics,
+    private val analytics: FirebaseAnalytics,
     private val preferencesRepository: PreferencesRepository
-) : BaseViewModel(crashlytics) {
+) : BaseViewModel(crashlytics, analytics) {
 
     private val _viewState = SingleLiveEvent<GameRegisterState>()
     val viewState = _viewState as LiveData<GameRegisterState>
@@ -71,47 +74,64 @@ class GameRegisterViewModel(
 
     fun onNumberPicked(number: Int) {
         with(userGame.value!!) {
-            if (!containsNumber(number)) {
-                if (numbersCount() < getMaximum()) {
-                    addNumber(number)
-                } else {
-                    _viewState.postValue(GameRegisterState.NumbersWithError(R.string.game_register_error_maximum))
-                }
+            if (!containsNumber(number) && numbersCount() < getMaximum()) {
+                addNumber(number)
             } else {
                 removeNumber(number)
             }
-        }
-    }
 
-    fun validateNumbers() {
-        with(userGame.value!!) {
-            val state = if (numbersCount() >= getMinimum()) {
-                numbers = numbers.sorted().toMutableList()
-
-                GameRegisterState.ProceedToSaveNumbers(this)
+            val state = if (numbersCount() < getMinimum()) {
+                GameRegisterState.OnNumberPicked(
+                    messageId = R.string.game_register_select_minimum_numbers,
+                    messageColorId = R.color.colorWarning,
+                    isSaveButtonEnabled = false
+                )
+            } else if (numbersCount() >= getMinimum() && numbersCount() < getMaximum()) {
+                GameRegisterState.OnNumberPicked(
+                    messageId = R.string.game_register_minimum_numbers_selected,
+                    messageColorId = R.color.colorSuccess,
+                    isSaveButtonEnabled = true
+                )
             } else {
-                GameRegisterState.NumbersWithError(R.string.game_register_error_minimum)
+                GameRegisterState.OnNumberPicked(
+                    messageId = R.string.game_register_maximum_numbers_selected,
+                    messageColorId = R.color.colorWarning,
+                    isSaveButtonEnabled = true
+                )
             }
 
             _viewState.postValue(state)
         }
     }
 
-    fun saveNumbers(game: UserGame) {
-        startLoading()
+    fun saveGame() {
         try {
-            if (singleGame.value == true) {
-                game.endContestNumber = game.startContestNumber
+            startLoading()
+
+            with(userGame.value!!) {
+                val sortedNumbers = numbers.sorted().toMutableList()
+
+                if (singleGame.value == true) {
+                    endContestNumber = startContestNumber
+                }
+
+                preferencesRepository.saveGame(copy(numbers = sortedNumbers))
+
+                analytics.logEvent("register_game_saved") {
+                    param("type", type.name)
+                    param("start_contest", startContestNumber)
+                    param("end_contest", endContestNumber)
+                    param("numbers_selected", sortedNumbers.size.toString())
+                    param("single_game", (singleGame.value == true).toString())
+                    param("participate_all_future_contests", (validForAllFutureContests.value == true).toString())
+                }
+
+                _viewState.postValue(GameRegisterState.GameUpdated)
             }
-
-            preferencesRepository.saveGame(game)
-
-            _viewState.postValue(GameRegisterState.GameUpdated)
         } catch (exception: Exception) {
             finishLoading()
 
             _viewState.postValue(GameRegisterState.NumbersWithError())
         }
     }
-
 }

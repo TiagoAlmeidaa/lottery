@@ -115,10 +115,11 @@
     <dimen name="game_register_header_title_text_size">@dimen/text_size_very_small</dimen>
     <dimen name="game_register_header_subtitle_text_size">@dimen/text_size_small</dimen>
     <dimen name="game_register_header_margin_start_end">4dp</dimen>
+    <dimen name="game_register_header_margin_top_bottom">8dp</dimen>
     <dimen name="game_register_check_text_size">@dimen/text_size_small</dimen>
     <dimen name="game_register_edit_text_text_size">@dimen/text_size_small</dimen>
     <dimen name="game_register_numbers_grid_padding_start_end">44dp</dimen>
-    <dimen name="game_register_numbers_grid_padding_top_bottom">10dp</dimen>
+    <dimen name="game_register_numbers_grid_padding_top_bottom">15dp</dimen>
 
     <!-- Grid Numbers -->
     <dimen name="adapter_grid_numbers_size">35dp</dimen>

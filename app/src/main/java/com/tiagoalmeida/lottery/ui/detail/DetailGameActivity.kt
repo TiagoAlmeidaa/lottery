@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.google.gson.Gson
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.UserGame
@@ -20,6 +22,7 @@ import com.tiagoalmeida.lottery.ui.common.NumberAdapter
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.buildFilterGameDialog
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -37,6 +40,8 @@ class DetailGameActivity : AppCompatActivity() {
     private val adapter: DetailGameAdapter by lazy {
         DetailGameAdapter(viewModel.getUserGame())
     }
+
+    private val analytics: FirebaseAnalytics by lazy { get() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,15 +63,18 @@ class DetailGameActivity : AppCompatActivity() {
     private fun initializeEvents() {
         with(binding) {
             buttonCompare.setOnClickListener {
+                analytics.logEvent("clicked_details_compare", null)
                 showFilterDialog()
             }
             imageViewBack.setOnClickListener {
                 onBackPressed()
             }
             imageViewDelete.setOnClickListener {
+                analytics.logEvent("clicked_details_remove", null)
                 showDeleteDialog()
             }
             buttonClearFilter.setOnClickListener {
+                analytics.logEvent("clicked_details_clear_filter", null)
                 buttonClearFilter.invisible()
                 adapter.clear()
                 viewModel.resetLastDownloadedContestNumber()
@@ -74,6 +82,7 @@ class DetailGameActivity : AppCompatActivity() {
             }
             recyclerViewContests.onBottomReached {
                 if (!viewModel.isLoading()) {
+                    analytics.logEvent("details_loading_more_items", null)
                     viewModel.consultNextPage()
                 }
             }
@@ -152,6 +161,9 @@ class DetailGameActivity : AppCompatActivity() {
 
     private fun showFilterDialog() {
         buildFilterGameDialog(this, findViewById(android.R.id.content)) { contest ->
+            analytics.logEvent("details_comparing_with") {
+                param("contest", contest)
+            }
             if (contest.isNotEmpty()) {
                 val contestNumber = contest.toInt()
                 if (contestNumber > 0) {

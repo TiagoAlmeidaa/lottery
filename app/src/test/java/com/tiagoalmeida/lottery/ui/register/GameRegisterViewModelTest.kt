@@ -2,6 +2,7 @@ package com.tiagoalmeida.lottery.ui.register
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.data.model.LotteryType
@@ -30,6 +31,9 @@ class GameRegisterViewModelTest {
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
 
+    @MockK(relaxed = true)
+    lateinit var analytics: FirebaseAnalytics
+
     @MockK
     lateinit var preferencesRepository: PreferencesRepository
 
@@ -47,6 +51,7 @@ class GameRegisterViewModelTest {
 
         viewModel = GameRegisterViewModel(
             crashlytics,
+            analytics,
             preferencesRepository
         )
         viewModel.viewState.observeForever(observer)
@@ -288,8 +293,61 @@ class GameRegisterViewModelTest {
     }
 
     @Test
-    fun `onNumberPicked should not add number in full numbers list and should set state NumbersWithError with message`() {
-        val expectedState = GameRegisterState.NumbersWithError(R.string.game_register_error_maximum)
+    fun `onNumberPicked should send a minimum numbers required`() {
+        val expectedState = GameRegisterState.OnNumberPicked(
+            messageId = R.string.game_register_select_minimum_numbers,
+            messageColorId = R.color.colorWarning,
+            isSaveButtonEnabled = false
+        )
+
+        viewModel.userGame.value!!.apply {
+            type = LotteryType.LOTOFACIL
+            numbers = mutableListOf()
+        }
+
+        viewModel.onNumberPicked(1)
+
+        verify(exactly = 1) { observer.onChanged(expectedState) }
+    }
+
+    @Test
+    fun `onNumberPicked should send a minimum numbers selected`() {
+        val expectedState = GameRegisterState.OnNumberPicked(
+            messageId = R.string.game_register_minimum_numbers_selected,
+            messageColorId = R.color.colorSuccess,
+            isSaveButtonEnabled = true
+        )
+
+        viewModel.userGame.value!!.apply {
+            type = LotteryType.LOTOFACIL
+            numbers = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+        }
+
+        viewModel.onNumberPicked(15)
+
+        verify(exactly = 1) { observer.onChanged(expectedState) }
+    }
+
+    @Test
+    fun `onNumberPicked should send a maximum numbers selected`() {
+        val expectedState = GameRegisterState.OnNumberPicked(
+            messageId = R.string.game_register_maximum_numbers_selected,
+            messageColorId = R.color.colorWarning,
+            isSaveButtonEnabled = true
+        )
+
+        viewModel.userGame.value!!.apply {
+            type = LotteryType.LOTOFACIL
+            numbers = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
+        }
+
+        viewModel.onNumberPicked(18)
+
+        verify(exactly = 1) { observer.onChanged(expectedState) }
+    }
+
+    @Test
+    fun `onNumberPicked should not exceed the maximum allowed numbers`() {
         val expectedNumbers = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 
         viewModel.userGame.value!!.apply {
@@ -336,100 +394,66 @@ class GameRegisterViewModelTest {
         assertEquals(13, result[12])
         assertEquals(14, result[13])
         assertEquals(15, result[14])
-
-        val state = viewModel.viewState.value as GameRegisterState.NumbersWithError
-        assertEquals(R.string.game_register_error_maximum, state.messageId)
-
-        verify(exactly = 1) { observer.onChanged(expectedState) }
     }
 
     @Test
-    fun `validateNumbers should set state to ProceedToSaveNumbers`() {
-        val state = GameRegisterState.ProceedToSaveNumbers(viewModel.userGame.value!!)
-
-        viewModel.userGame.value!!.apply {
-            type = LotteryType.MEGASENA
-            numbers = mutableListOf(1, 2, 3, 4, 5, 6)
-        }
-
-        viewModel.validateNumbers()
-
-        verify(exactly = 1) { observer.onChanged(state) }
-    }
-
-    @Test
-    fun `validateNumbers should set the state to NumbersWithError`() {
-        val expectedNumbers = mutableListOf(1, 2, 3, 4)
-        val expectedState = GameRegisterState.NumbersWithError(R.string.game_register_error_minimum)
-
-        viewModel.userGame.value!!.apply {
-            type = LotteryType.MEGASENA
-            numbers = expectedNumbers
-        }
-
-        viewModel.validateNumbers()
-
-        verify(exactly = 1) { observer.onChanged(expectedState) }
-
-        val state = viewModel.viewState.value as GameRegisterState.NumbersWithError
-        assertEquals(R.string.game_register_error_minimum, state.messageId)
-    }
-
-    @Test
-    fun `saveNumbers should be executed successfully`() {
+    fun `saveGame should be executed successfully`() {
         val state = GameRegisterState.GameUpdated
-        val userGame = mockk<UserGame>()
 
         every {
-            preferencesRepository.saveGame(userGame)
+            preferencesRepository.saveGame(any())
         }.just(runs)
 
-        viewModel.saveNumbers(userGame)
+        viewModel.saveGame()
 
-        verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
+        verify(exactly = 1) { preferencesRepository.saveGame(any()) }
         verify(exactly = 1) { observer.onChanged(state) }
     }
 
     @Test
-    fun `saveNumbers should set state to NumbersWithError`() {
+    fun `saveGame should set state to NumbersWithError`() {
         val exception = Exception()
         val state = GameRegisterState.NumbersWithError()
-        val userGame = mockk<UserGame>()
 
         every {
-            preferencesRepository.saveGame(userGame)
+            preferencesRepository.saveGame(any())
         }.throws(exception)
 
-        viewModel.saveNumbers(userGame)
+        viewModel.saveGame()
 
-        verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
+        verify(exactly = 1) { preferencesRepository.saveGame(any()) }
         verify(exactly = 1) { observer.onChanged(state) }
     }
 
     @Test
-    fun `saveNumbers should set the startNumberContest as endNumberContest when singleGame is true`() {
+    fun `saveGame should set the startNumberContest as endNumberContest when singleGame is true`() {
         val contestNumber = "1001"
-        val expectedUserGame = UserGame(
-            contestNumber,
-            contestNumber
-        )
-
-        val state = GameRegisterState.GameUpdated
-        val userGame = UserGame(
-            startContestNumber = contestNumber
-        )
+        val expectedUserGame = UserGame(startContestNumber = contestNumber, endContestNumber = contestNumber)
+        val userGame = UserGame(startContestNumber = contestNumber)
 
         every {
-            preferencesRepository.saveGame(userGame)
+            preferencesRepository.saveGame(any())
         }.just(runs)
 
+        viewModel.userGame.value = userGame
         viewModel.singleGame.postValue(true)
-
-        viewModel.saveNumbers(userGame)
-
-        verify(exactly = 1) { preferencesRepository.saveGame(userGame) }
-        verify(exactly = 1) { observer.onChanged(state) }
+        viewModel.saveGame()
 
         assertEquals(expectedUserGame, userGame)
+    }
+
+    @Test
+    fun `saveGame should sort the numbers`() {
+        val expectedUserGame = UserGame(numbers = mutableListOf(1, 2, 3, 4, 5))
+        val userGame = UserGame(numbers = mutableListOf(5, 4, 3, 2, 1))
+
+        every {
+            preferencesRepository.saveGame(any())
+        }.just(runs)
+
+        viewModel.userGame.value = userGame
+        viewModel.saveGame()
+
+        verify(exactly = 1) { preferencesRepository.saveGame(expectedUserGame) }
     }
 }

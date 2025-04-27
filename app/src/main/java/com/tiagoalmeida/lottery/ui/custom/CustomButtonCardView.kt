@@ -1,6 +1,7 @@
 package com.tiagoalmeida.lottery.ui.custom
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.getColorOrThrow
 import com.tiagoalmeida.lottery.R
+import androidx.core.content.withStyledAttributes
 
 class CustomButtonCardView(
     context: Context,
@@ -30,6 +32,8 @@ class CustomButtonCardView(
         findViewById(R.id.layout_content)
     }
 
+    private var bgColor: Int? = null
+
     init {
         background = null
 
@@ -44,38 +48,38 @@ class CustomButtonCardView(
             R.attr.title,
             R.attr.titleColor
         )
-        val attrs = context.obtainStyledAttributes(attributeSet, sets)
 
-        val drawable = attrs.getDrawable(sets.indexOf(R.attr.icon))
-        if (drawable == null) {
-            icon.visibility = View.GONE
-        } else {
-            icon.visibility = View.VISIBLE
-            icon.setImageDrawable(drawable)
+        context.withStyledAttributes(attributeSet, sets) {
+            val drawable = getDrawable(sets.indexOf(R.attr.icon))
+            if (drawable == null) {
+                icon.visibility = View.GONE
+            } else {
+                icon.visibility = View.VISIBLE
+                icon.setImageDrawable(drawable)
+            }
+
+            val center = getBoolean(sets.indexOf(R.attr.setCenter), false)
+            if (center) {
+                content.gravity = Gravity.CENTER
+            }
+
+            val horizontal = getBoolean(sets.indexOf(R.attr.setHorizontal), false)
+            setOrientation(horizontal)
+
+            val stringTitle = getString(sets.indexOf(R.attr.title))
+            title.text = stringTitle
+
+            val defaultTitleColor = ContextCompat.getColor(context, android.R.color.white)
+            val titleColor = getColor(sets.indexOf(R.attr.titleColor), defaultTitleColor)
+            title.setTextColor(titleColor)
+
+            try {
+                bgColor = getColorOrThrow(sets.indexOf(R.attr.backColor))
+                content.setBackgroundColor(bgColor!!)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
-
-        val center = attrs.getBoolean(sets.indexOf(R.attr.setCenter), false)
-        if (center)
-            content.gravity = Gravity.CENTER
-
-        val horizontal = attrs.getBoolean(sets.indexOf(R.attr.setHorizontal), false)
-        setOrientation(horizontal)
-
-        val stringTitle = attrs.getString(sets.indexOf(R.attr.title))
-        title.text = stringTitle
-
-        val defaultTitleColor = ContextCompat.getColor(context, android.R.color.white)
-        val titleColor = attrs.getColor(sets.indexOf(R.attr.titleColor), defaultTitleColor)
-        title.setTextColor(titleColor)
-
-        try {
-            val backColor = attrs.getColorOrThrow(sets.indexOf(R.attr.backColor))
-            content.setBackgroundColor(backColor)
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-        }
-
-        attrs.recycle()
     }
 
     private fun setMarginOnText(left: Int = 0, top: Int = 0) {
@@ -85,7 +89,7 @@ class CustomButtonCardView(
         }
     }
 
-    fun setOrientation(horizontal: Boolean) {
+    private fun setOrientation(horizontal: Boolean) {
         content.orientation = if (horizontal) {
             setMarginOnText(left = 15)
             LinearLayout.HORIZONTAL
@@ -95,8 +99,12 @@ class CustomButtonCardView(
         }
     }
 
-    fun setTitle(text: String) {
-        title.text = text
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        if (enabled) {
+            bgColor?.let { content.setBackgroundColor(it) }
+        } else {
+            content.setBackgroundColor(ContextCompat.getColor(context, R.color.colorDisabled))
+        }
     }
-
 }

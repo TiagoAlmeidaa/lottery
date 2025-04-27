@@ -4,14 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.util.Constants
 import com.tiagoalmeida.lottery.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
+import java.util.Date
 
 abstract class BaseViewModel(
-    private val crashlytics: FirebaseCrashlytics
+    private val crashlytics: FirebaseCrashlytics,
+    private val analytics: FirebaseAnalytics
 ) : ViewModel() {
 
     private val _loading = SingleLiveEvent<Boolean>().apply { value = false }
@@ -21,12 +25,13 @@ abstract class BaseViewModel(
     protected fun finishLoading() = _loading.postValue(false)
 
     protected fun runWithCoroutines(
-        handleLoadingAutomatically: Boolean = false,
+        analyticsName: String,
         doInBackground: suspend () -> Unit,
         doWhenErrorOccurs: (Exception) -> Unit
     ) = viewModelScope.launch {
-        if (handleLoadingAutomatically)
-            startLoading()
+        val startTime = Date().time
+
+        startLoading()
 
         try {
             withTimeout(Constants.THIRTY_SECONDS) {
@@ -38,8 +43,15 @@ abstract class BaseViewModel(
             doWhenErrorOccurs(exception)
         }
 
-        if (handleLoadingAutomatically)
-            finishLoading()
+        finishLoading()
+
+        val endTime = Date().time
+        val duration = endTime - startTime
+
+        analytics.logEvent("request_execution_time") {
+            param("request", analyticsName)
+            param("duration", duration.toString())
+        }
     }
 
     protected fun logError(exception: Exception, methodName: String) {
