@@ -2,6 +2,8 @@ package com.tiagoalmeida.lottery.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
@@ -10,17 +12,22 @@ import com.tiagoalmeida.lottery.ui.BaseViewModel
 
 class MainViewModel(
     crashlytics: FirebaseCrashlytics,
+    private val analytics: FirebaseAnalytics,
     private val preferencesRepository: PreferencesRepository,
     private val consultLatestResultsUseCase: ConsultLatestResultsUseCase
-) : BaseViewModel(crashlytics) {
+) : BaseViewModel(crashlytics, analytics) {
 
     private val _results = MutableLiveData<List<LotteryResult>>()
     val results = _results as LiveData<List<LotteryResult>>
 
     fun consultLastResults() = runWithCoroutines(
-        handleLoadingAutomatically = true,
+        analyticsName = "consult_last_results",
         doInBackground = {
             val latestResults = consultLatestResultsUseCase()
+
+            analytics.logEvent("api_consult_last_results") {
+                param("types", latestResults.joinToString { it.name })
+            }
 
             _results.postValue(latestResults)
         },

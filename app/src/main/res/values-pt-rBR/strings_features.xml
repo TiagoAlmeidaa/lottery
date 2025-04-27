@@ -9,17 +9,17 @@
     <string name="games_removing_internal_error">Desculpe, ocorreu um erro ao tentar excluir o jogo, tente novamente mais tarde.</string>
 
     <!-- Game Register -->
-    <string name="game_register_error_minimum">Limite mínimo de números não foi alcançado</string>
-    <string name="game_register_error_maximum">Limite máximo de números já foi alcançado</string>
     <string name="game_register_error_contest_not_selected">Selecione um concurso</string>
     <string name="game_register_error_start_contest_empty">Informe o número do concurso inicial</string>
     <string name="game_register_error_end_contest_empty">Informe o número do concurso final</string>
     <string name="game_register_error_start_bigger_than_end">Não deve ser maior que o concurso final</string>
     <string name="game_register_error_internal">Desculpe, não foi possível criar um novo jogo, tente novamente mais tarde</string>
-    <string name="game_register_error_timeout">Sua conexão está instável, o jogo está sendo salvo e aparecerá assim que a internet voltar.</string>
     <string name="game_register_back_in">Voltando em</string>
     <string name="game_register_finishing_in">Finalizando em</string>
     <string name="game_register_error_timer_format">%s %d segundos</string>
+    <string name="game_register_select_minimum_numbers">Você deve selecionar a quantidade mínima de números.</string>
+    <string name="game_register_minimum_numbers_selected">Você pode salvar ou selecionar mais números.</string>
+    <string name="game_register_maximum_numbers_selected">Você não pode mais selecionar números.</string>
 
     <!-- Remove Game -->
     <string name="remove_game_dialog_title">Remover Jogo</string>

@@ -2,6 +2,7 @@ package com.tiagoalmeida.lottery.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.LotteryType
@@ -39,6 +40,9 @@ class DetailGameViewModelTest {
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
 
+    @MockK(relaxed = true)
+    lateinit var analytics: FirebaseAnalytics
+
     @MockK
     lateinit var consultRepository: ConsultRepository
 
@@ -65,6 +69,7 @@ class DetailGameViewModelTest {
 
         viewModel = DetailGameViewModel(
             crashlytics,
+            analytics,
             userGame,
             consultRepository,
             consultRangedResultsUseCase

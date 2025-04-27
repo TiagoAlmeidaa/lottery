@@ -1,7 +1,10 @@
 package com.tiagoalmeida.lottery.di
 
 import android.content.SharedPreferences
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
 import com.tiagoalmeida.lottery.data.LotteryApi
 import com.tiagoalmeida.lottery.data.repository.ConsultRepository
 import com.tiagoalmeida.lottery.data.repository.ConsultRepositoryImpl
@@ -27,6 +30,7 @@ object LotteryModules {
 
     val firebase: Module = module {
         single { FirebaseCrashlytics.getInstance() }
+        single { Firebase.analytics }
     }
 
     val dataSource: Module = module {
@@ -43,10 +47,10 @@ object LotteryModules {
     }
 
     val viewModel: Module = module {
-        viewModel { params -> DetailGameViewModel(get(), params.get(), get(), get()) }
-        viewModel { GameRegisterViewModel(get(), get()) }
-        viewModel { MainViewModel(get(), get(), get()) }
-        viewModel { GamesViewModel(get(), get()) }
+        viewModel { params -> DetailGameViewModel(get(), get(), params.get(), get(), get()) }
+        viewModel { GameRegisterViewModel(get(), get(), get()) }
+        viewModel { MainViewModel(get(), get(), get(), get()) }
+        viewModel { GamesViewModel(get(), get(), get()) }
     }
 
     val retrofit: Module = module {

@@ -2,6 +2,7 @@ package com.tiagoalmeida.lottery.ui.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.LotteryType
@@ -25,6 +26,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.Mock
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
@@ -34,6 +36,9 @@ class MainViewModelTest {
 
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
+
+    @MockK(relaxed = true)
+    lateinit var analytics: FirebaseAnalytics
 
     @MockK
     lateinit var preferencesRepository: PreferencesRepository
@@ -57,6 +62,7 @@ class MainViewModelTest {
 
         viewModel = MainViewModel(
             crashlytics,
+            analytics,
             preferencesRepository,
             consultLatestResultsUseCase
         )

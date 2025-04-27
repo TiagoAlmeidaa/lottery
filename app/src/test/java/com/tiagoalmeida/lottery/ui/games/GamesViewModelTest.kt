@@ -2,6 +2,7 @@ package com.tiagoalmeida.lottery.ui.games
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryType
 import com.tiagoalmeida.lottery.data.model.UserGame
@@ -41,6 +42,9 @@ class GamesViewModelTest {
 
     @MockK(relaxed = true)
     lateinit var crashlytics: FirebaseCrashlytics
+
+    @MockK(relaxed = true)
+    lateinit var analytics: FirebaseAnalytics
 
     @MockK
     lateinit var preferencesRepository: PreferencesRepository
@@ -82,6 +86,7 @@ class GamesViewModelTest {
 
         viewModel = GamesViewModel(
             crashlytics,
+            analytics,
             preferencesRepository
         )
 
@@ -386,6 +391,7 @@ class GamesViewModelTest {
     @Test
     fun `removeGame when user is null should remove user game from preferences`() {
         val userGame = mockk<UserGame>()
+        every { userGame.type } returns LotteryType.LOTOFACIL
 
         val expectedState = GamesState.GameRemoved
 

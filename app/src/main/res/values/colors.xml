@@ -15,4 +15,9 @@
     <color name="colorGhostViews">#c2c2c2</color>
 
     <color name="ic_launcher_background">#008577</color>
+
+    <color name="colorDisabled">#5F5F5F</color>
+
+    <color name="colorSuccess">#81C784</color>
+    <color name="colorWarning">#FFD54F</color>
 </resources>

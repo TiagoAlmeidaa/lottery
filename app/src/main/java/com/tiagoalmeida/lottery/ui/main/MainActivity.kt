@@ -2,10 +2,13 @@ package com.tiagoalmeida.lottery.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.tiagoalmeida.lottery.BuildConfig
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.ActivityMainBinding
 import com.tiagoalmeida.lottery.extensions.onPageChanged
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -14,6 +17,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding get() = _binding!!
 
     private val mainViewModel: MainViewModel by viewModel()
+
+    private val analytics: FirebaseAnalytics by lazy { get() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +45,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
             buttonResults.setOnClickListener {
-                if (binding.buttonGames.isSelected)
+                if (binding.buttonGames.isSelected) {
+                    analytics.logEvent("clicked_main_results_button", null)
                     binding.pager.setCurrentItem(0, true)
+                }
             }
             buttonGames.setOnClickListener {
-                if (binding.buttonResults.isSelected)
+                if (binding.buttonResults.isSelected) {
+                    analytics.logEvent("clicked_main_games_button", null)
                     binding.pager.setCurrentItem(1, true)
+                }
             }
             textViewVersion.text = BuildConfig.VERSION_NAME
         }

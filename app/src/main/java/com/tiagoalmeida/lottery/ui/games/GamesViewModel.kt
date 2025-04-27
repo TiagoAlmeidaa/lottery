@@ -1,6 +1,8 @@
 package com.tiagoalmeida.lottery.ui.games
 
 import androidx.lifecycle.LiveData
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.data.repository.PreferencesRepository
@@ -10,8 +12,9 @@ import kotlinx.coroutines.TimeoutCancellationException
 
 class GamesViewModel(
     crashlytics: FirebaseCrashlytics,
+    private val analytics: FirebaseAnalytics,
     private val preferencesRepository: PreferencesRepository
-) : BaseViewModel(crashlytics) {
+) : BaseViewModel(crashlytics, analytics) {
 
     private val _viewState = SingleLiveEvent<GamesState>()
     val viewState = _viewState as LiveData<GamesState>
@@ -20,7 +23,7 @@ class GamesViewModel(
     val gamesFilter = _gamesFilter as LiveData<GamesFilter>
 
     fun findGames() = runWithCoroutines(
-        handleLoadingAutomatically = true,
+        analyticsName = "find_games",
         doInBackground = {
             var games = preferencesRepository.getGames()
 
@@ -59,9 +62,13 @@ class GamesViewModel(
     )
 
     fun removeGame(userGame: UserGame) = runWithCoroutines(
-        handleLoadingAutomatically = true,
+        analyticsName = "remove_game",
         doInBackground = {
             preferencesRepository.removeGame(userGame)
+
+            analytics.logEvent("games_game_removed") {
+                param("type", userGame.type.lotteryName)
+            }
 
             _viewState.postValue(GamesState.GameRemoved)
         },

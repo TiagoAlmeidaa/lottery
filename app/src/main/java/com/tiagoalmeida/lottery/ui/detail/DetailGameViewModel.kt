@@ -1,6 +1,7 @@
 package com.tiagoalmeida.lottery.ui.detail
 
 import androidx.lifecycle.LiveData
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.RangedLottery
@@ -12,10 +13,11 @@ import com.tiagoalmeida.lottery.util.SingleLiveEvent
 
 class DetailGameViewModel(
     crashlytics: FirebaseCrashlytics,
+    analytics: FirebaseAnalytics,
     private val userGame: UserGame,
     private val consultRepository: ConsultRepository,
     private val consultRangedResultsUseCase: ConsultRangedResultsUseCase
-) : BaseViewModel(crashlytics) {
+) : BaseViewModel(crashlytics, analytics) {
 
     private val _viewState = SingleLiveEvent<DetailGameState>()
     val viewState = _viewState as LiveData<DetailGameState>
@@ -27,7 +29,7 @@ class DetailGameViewModel(
     }
 
     fun consultContestsForGame() = runWithCoroutines(
-        handleLoadingAutomatically = true,
+        analyticsName = "consult_contests_for_game",
         doInBackground = {
             val results = mutableListOf<LotteryResult>()
 
@@ -74,7 +76,7 @@ class DetailGameViewModel(
     )
 
     fun consultNextPage() = runWithCoroutines(
-        handleLoadingAutomatically = true,
+        analyticsName = "consult_next_page",
         doInBackground = {
             val results = mutableListOf<LotteryResult>()
 
@@ -103,7 +105,7 @@ class DetailGameViewModel(
     )
 
     fun consultContest(contestNumber: Int) = runWithCoroutines(
-        handleLoadingAutomatically = true,
+        analyticsName = "consult_contest",
         doInBackground = {
             val result = consultRepository.consultContestByNumber(userGame.type, contestNumber)
             val state = if (contestNumber == result.contestNumber.toInt()) {
