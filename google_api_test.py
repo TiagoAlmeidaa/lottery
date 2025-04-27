@@ -9,7 +9,6 @@ argparser = argparse.ArgumentParser(add_help=False)
 argparser.add_argument('package_name',
                        help='The package name. Example: com.android.sample')
 
-
 def main(argv):
     print()
     print("google_api_test.py Starting")
