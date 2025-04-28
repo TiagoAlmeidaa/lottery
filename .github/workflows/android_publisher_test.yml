@@ -35,9 +35,7 @@ jobs:
       - name: Upload APK
         env:
           APP_PACKAGE_NAME: ${{ secrets.PACKAGE_NAME }}
-          CLIENT_SECRETS: ${{ secrets.CLIENT_SECRETS }}
-          ANDROID_PUBLISHER: ${{ secrets.ANDROID_PUBLISHER }}
+          GOOGLE_PLAY_ANDROID_PUBLISHER: ${{ secrets.GOOGLE_PLAY_ANDROID_PUBLISHER }}
         run: |
-          echo $CLIENT_SECRETS > client_secrets.json
-          echo $ANDROID_PUBLISHER > androidpublisher.dat
+          echo $GOOGLE_PLAY_ANDROID_PUBLISHER > google_play_android_publisher.json
           python3 google_api_test.py $APP_PACKAGE_NAME

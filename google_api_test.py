@@ -1,59 +1,55 @@
 import argparse
 import sys
 
-from apiclient import sample_tools
-from oauth2client import client
+from google.oauth2 import service_account
+import googleapiclient.discovery
 
-# Declare command-line flags.
 argparser = argparse.ArgumentParser(add_help=False)
 argparser.add_argument('package_name',
                        help='The package name. Example: com.android.sample')
 
 def main(argv):
+    flags = argparser.parse_args(args=argv[1:])
+
     print()
     print("google_api_test.py Starting")
 
-    # Getting the androidpublisher v3 service
-    service, flags = sample_tools.init(
-        argv,
-        'androidpublisher',
-        'v3',
-        __doc__,
-        __file__,
-        parents=[argparser],
-        scope='https://www.googleapis.com/auth/androidpublisher')
+    credentials = service_account.Credentials.from_service_account_file(
+        'google_play_android_publisher.json',
+        scopes=['https://www.googleapis.com/auth/androidpublisher']
+    )
+
+    service = googleapiclient.discovery.build('androidpublisher', 'v3', credentials=credentials)
 
     package_name = flags.package_name
 
     try:
-        # Getting the edit id
         edit_request = service.edits().insert(body={}, packageName=package_name)
         result = edit_request.execute()
         edit_id = result['id']
 
-        # Requesting available tracks
         tracks_result = service.edits().tracks().list(
             packageName=package_name,
             editId=edit_id
         ).execute()
 
-        # Here I'll just print information about the available tracks
         tracks = tracks_result['tracks']
         for track in tracks:
             print()
             print("[INFORMATION] Track: %s" % track['track'])
-            releases = track['releases']
-            for release in releases:
-                print("[INFORMATION] Release: %s" % release)
+            try:
+                releases = track['releases']
+                for release in releases:
+                    print("[INFORMATION] Release: %s" % release)
+            except Exception as e:
+                print("[INFORMATION] Release not found")
 
-    except client.AccessTokenRefreshError:
-        print('The credentials have been revoked or expired, please re-run the '
-              'application to re-authorize')
+    except Exception as e:
+        print(f'An error occurred: {e}')
     finally:
         print()
         print("google_api_test.py Ending")
         print()
-
 
 if __name__ == '__main__':
     main(sys.argv)

@@ -1,8 +1,8 @@
 import argparse
 import sys
 
-from apiclient import sample_tools
-from oauth2client import client
+from google.oauth2 import service_account
+import googleapiclient.discovery
 
 TRACK = 'alpha'
 
@@ -14,16 +14,12 @@ def main(argv):
     print(argv)
     print("-> preparing to publish on: %s" % TRACK)
 
-    # Getting the Android Publisher API service
-    service, flags = sample_tools.init(
-        argv,
-        'androidpublisher',
-        'v3',
-        __doc__,
-        __file__,
-        parents=[argparse],
-        scope='https://www.googleapis.com/auth/androidpublisher'
+    credentials = service_account.Credentials.from_service_account_file(
+        'google_play_android_publisher.json',
+        scopes=['https://www.googleapis.com/auth/androidpublisher']
     )
+
+    service = googleapiclient.discovery.build('androidpublisher', 'v3', credentials=credentials)
 
     print("-> androidpublisher API initialized")
 
@@ -34,14 +30,12 @@ def main(argv):
     print("-> apk: %s" % apk_file)
 
     try:
-        # Create a new edit for the app
         edit_request = service.edits().insert(body={}, packageName=package_name)
         result = edit_request.execute()
         edit_id = result['id']
 
         print("-> app edit created")
 
-        # Upload the APK to the current edit
         apk_response = service.edits().apks().upload(
             editId=edit_id,
             packageName=package_name,
@@ -50,7 +44,6 @@ def main(argv):
 
         print("-> apk with version code %d uploaded" % apk_response['versionCode'])
 
-        # Updating release track information
         track_response = service.edits().tracks().update(
             editId=edit_id,
             track=TRACK,
@@ -64,7 +57,6 @@ def main(argv):
         print("-> track: %s" % track_response['track'])
         print("-> release: %s" % track_response['release'])
 
-        # Committing changes
         commit_request = service.edits.commit(
             editId=edit_id,
             packageName=package_name
@@ -72,8 +64,8 @@ def main(argv):
 
         print("-> changes has been commit (%s)" % commit_request['id'])
 
-    except client.AccessTokenRefreshError:
-        print("-> The credentials have been revoked or expired.")
+    except Exception as e:
+        print(f'An error occurred: {e}')
 
 
 if __name__ == '__main__':
