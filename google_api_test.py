@@ -4,12 +4,12 @@ import sys
 from google.oauth2 import service_account
 import googleapiclient.discovery
 
-argparser = argparse.ArgumentParser(add_help=False)
-argparser.add_argument('package_name',
+argparse = argparse.ArgumentParser(add_help=False)
+argparse.add_argument('package_name',
                        help='The package name. Example: com.android.sample')
 
 def main(argv):
-    flags = argparser.parse_args(args=argv[1:])
+    flags = argparse.parse_args(args=argv[1:])
 
     print()
     print("google_api_test.py Starting")

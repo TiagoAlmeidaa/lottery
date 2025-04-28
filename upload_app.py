@@ -11,7 +11,7 @@ argparse.add_argument('package_name', help='The app package name. Example: com.g
 argparse.add_argument('apk_file', nargs='?', help='The path to the APK file to upload.')
 
 def main(argv):
-    flags = argparser.parse_args(args=argv[1:])
+    flags = argparse.parse_args(args=argv[1:])
 
     print(argv)
     print("-> preparing to publish on: %s" % TRACK)
