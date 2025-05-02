@@ -49,9 +49,9 @@ jobs:
 
       - name: Decode keystore
         env:
-          ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          ANDROID_ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
         run: |
-          echo $ENCODED_KEYSTORE > keystore_base64.txt
+          echo $ANDROID_ENCODED_KEYSTORE > keystore_base64.txt
           base64 -d keystore_base64.txt > lottery-keystore.jks
 
       - name: Build release apk
