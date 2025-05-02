@@ -2,6 +2,7 @@ package com.tiagoalmeida.lottery.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -11,7 +12,9 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.logEvent
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
+import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.data.model.LotteryResult
 import com.tiagoalmeida.lottery.data.model.UserGame
 import com.tiagoalmeida.lottery.databinding.ActivityDetailGameBinding
@@ -24,23 +27,19 @@ import com.tiagoalmeida.lottery.util.buildFilterGameDialog
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
 class DetailGameActivity : AppCompatActivity() {
 
     private var _binding: ActivityDetailGameBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DetailGameViewModel by viewModel(parameters = {
-        parametersOf(
-            Gson().fromJson(getUserGameJson(), UserGame::class.java)
-        )
-    })
+    private val viewModel: DetailGameViewModel by viewModel()
 
     private val adapter: DetailGameAdapter by lazy {
         DetailGameAdapter(viewModel.getUserGame())
     }
 
+    private val crashlytics: FirebaseCrashlytics by lazy { get() }
     private val analytics: FirebaseAnalytics by lazy { get() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +47,20 @@ class DetailGameActivity : AppCompatActivity() {
         _binding = ActivityDetailGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initializeEvents()
-        initializeObservers()
-        initializeUI()
+        val json = getUserGameJson()
+        try {
+            val userGame = Gson().fromJson(json, UserGame::class.java)
+            viewModel.start(userGame)
+
+            initializeEvents()
+            initializeObservers()
+            initializeUI()
+        } catch (e: Exception) {
+            crashlytics.log("User game json: $json")
+            crashlytics.recordException(e)
+            Toast.makeText(this, getString(R.string.detail_game_user_game_not_found), Toast.LENGTH_LONG).show()
+            finish()
+        }
     }
 
     override fun onDestroy() {

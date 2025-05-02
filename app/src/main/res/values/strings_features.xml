@@ -33,6 +33,7 @@
     <string name="detail_game_adapter_hits">%d hits</string>
     <string name="detail_game_adapter_without_earnings">No participation</string>
     <string name="detail_game_adapter_ghost_text">No results found</string>
+    <string name="detail_game_user_game_not_found">There was a problem loading your game</string>
 
     <!-- Save Game In Preferences -->
     <string name="save_games_in_preferences_dialog_title">There are saved games</string>

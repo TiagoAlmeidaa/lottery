@@ -70,11 +70,11 @@ class DetailGameViewModelTest {
         viewModel = DetailGameViewModel(
             crashlytics,
             analytics,
-            userGame,
             consultRepository,
             consultRangedResultsUseCase
         )
 
+        viewModel.start(userGame)
         viewModel.viewState.observeForever(observerState)
     }
 

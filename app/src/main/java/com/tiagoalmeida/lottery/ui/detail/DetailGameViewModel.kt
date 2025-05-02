@@ -14,7 +14,6 @@ import com.tiagoalmeida.lottery.util.SingleLiveEvent
 class DetailGameViewModel(
     crashlytics: FirebaseCrashlytics,
     analytics: FirebaseAnalytics,
-    private val userGame: UserGame,
     private val consultRepository: ConsultRepository,
     private val consultRangedResultsUseCase: ConsultRangedResultsUseCase
 ) : BaseViewModel(crashlytics, analytics) {
@@ -23,6 +22,12 @@ class DetailGameViewModel(
     val viewState = _viewState as LiveData<DetailGameState>
 
     private var lastDownloadedContestNumber = 0
+
+    private lateinit var userGame: UserGame
+
+    fun start(userGame: UserGame) {
+        this.userGame = userGame
+    }
 
     fun resetLastDownloadedContestNumber() {
         lastDownloadedContestNumber = 0

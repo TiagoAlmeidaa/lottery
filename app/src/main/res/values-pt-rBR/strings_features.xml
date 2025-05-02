@@ -33,6 +33,7 @@
     <string name="detail_game_adapter_hits">%d acertos</string>
     <string name="detail_game_adapter_without_earnings">Sem participação</string>
     <string name="detail_game_adapter_ghost_text">Nenhum resultado encontrado</string>
+    <string name="detail_game_user_game_not_found">Aconteceu um erro tentando acessar este jogo</string>
 
     <!-- Save Game In Preferences -->
     <string name="save_games_in_preferences_dialog_title">Existem jogos salvos</string>

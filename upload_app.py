@@ -4,7 +4,7 @@ import sys
 from google.oauth2 import service_account
 import googleapiclient.discovery
 
-TRACK = 'alpha'
+TRACK = 'production'
 
 argparse = argparse.ArgumentParser(add_help=False)
 argparse.add_argument('package_name', help='The app package name. Example: com.github.example')
@@ -59,7 +59,7 @@ def main(argv):
         print("-> track: %s" % track_response['track'])
         print("-> release: %s" % track_response['release'])
 
-        commit_request = service.edits.commit(
+        commit_request = service.edits().commit(
             editId=edit_id,
             packageName=package_name
         ).execute()
