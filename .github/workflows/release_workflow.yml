@@ -60,7 +60,7 @@ jobs:
           APP_PACKAGE_NAME: ${{ secrets.PACKAGE_NAME }}
           GOOGLE_PLAY_ANDROID_PUBLISHER: ${{ secrets.GOOGLE_PLAY_ANDROID_PUBLISHER }}
         run: |
-          ls -lha
+          ls -lha app
           echo $GOOGLE_PLAY_ANDROID_PUBLISHER > google_play_android_publisher.json
           python3 upload_app.py $APP_PACKAGE_NAME app/release/app-release.apk
 
