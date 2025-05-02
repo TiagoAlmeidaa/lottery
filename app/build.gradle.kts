@@ -27,12 +27,22 @@ android {
         versionName = versionProperties.getProperty("versionName")
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("lottery-keystore.jks")
+            storePassword = System.getenv("ANDROID_STORE_PASSWORD")
+            keyAlias = System.getenv("ANDROID_STORE_KEY_ALIAS")
+            keyPassword = System.getenv("ANDROID_STORE_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false
         }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
