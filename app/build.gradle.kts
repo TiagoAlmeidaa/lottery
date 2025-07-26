@@ -1,7 +1,7 @@
 import java.util.Properties
 
 val appId = "com.tiagoalmeida.lottery"
-val appMaxSdk = 34
+val appMaxSdk = 36
 val appMinSdk = 22
 val versionProperties: Properties = rootProject.extra.properties["versionProperties"] as Properties
 
