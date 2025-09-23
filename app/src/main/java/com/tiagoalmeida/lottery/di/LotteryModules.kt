@@ -1,9 +1,9 @@
 package com.tiagoalmeida.lottery.di
 
 import android.content.SharedPreferences
-import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.ktx.Firebase
 import com.tiagoalmeida.lottery.data.LotteryApi
 import com.tiagoalmeida.lottery.data.repository.ConsultRepository
 import com.tiagoalmeida.lottery.data.repository.ConsultRepositoryImpl

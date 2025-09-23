@@ -2,7 +2,7 @@ import java.util.Properties
 
 val appId = "com.tiagoalmeida.lottery"
 val appMaxSdk = 36
-val appMinSdk = 22
+val appMinSdk = 24
 val versionProperties: Properties = rootProject.extra.properties["versionProperties"] as Properties
 
 plugins {
