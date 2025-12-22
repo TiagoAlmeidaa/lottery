@@ -23,6 +23,7 @@ import com.tiagoalmeida.lottery.extensions.onBottomReached
 import com.tiagoalmeida.lottery.extensions.visible
 import com.tiagoalmeida.lottery.ui.common.NumberAdapter
 import com.tiagoalmeida.lottery.util.Constants
+import com.tiagoalmeida.lottery.util.applyWindowInsets
 import com.tiagoalmeida.lottery.util.buildFilterGameDialog
 import com.tiagoalmeida.lottery.util.buildRemoveGameDialog
 import org.koin.android.ext.android.get
@@ -45,6 +46,7 @@ class DetailGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailGameBinding.inflate(layoutInflater)
+        binding.root.applyWindowInsets()
         setContentView(binding.root)
 
         val json = getUserGameJson()

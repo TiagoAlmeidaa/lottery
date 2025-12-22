@@ -96,7 +96,9 @@ dependencies {
     implementation(libs.flexbox)
     implementation(libs.coroutines)
     implementation(libs.koin)
+
     debugImplementation(libs.leakCanary)
+
     testImplementation(libs.junit)
     testImplementation(libs.coreTesting)
     testImplementation(libs.mockK)
