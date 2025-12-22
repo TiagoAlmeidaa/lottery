@@ -22,7 +22,7 @@ jobs:
 
       - name: Increment version
         run: |
-          python3 increment_version.py ${{ github.ref_name }}
+          python3 scripts/increment_version.py ${{ github.ref_name }}
 
       - name: Commit version update
         run: |
