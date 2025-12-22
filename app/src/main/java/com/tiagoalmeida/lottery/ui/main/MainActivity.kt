@@ -3,11 +3,11 @@ package com.tiagoalmeida.lottery.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.tiagoalmeida.lottery.BuildConfig
 import com.tiagoalmeida.lottery.R
 import com.tiagoalmeida.lottery.databinding.ActivityMainBinding
 import com.tiagoalmeida.lottery.extensions.onPageChanged
+import com.tiagoalmeida.lottery.util.applyWindowInsets
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.root.applyWindowInsets()
         setContentView(binding.root)
 
         setTheme(R.style.AppTheme)
@@ -56,7 +57,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     binding.pager.setCurrentItem(1, true)
                 }
             }
-            textViewVersion.text = BuildConfig.VERSION_NAME
         }
     }
 

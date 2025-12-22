@@ -38,4 +38,4 @@ jobs:
           GOOGLE_PLAY_ANDROID_PUBLISHER: ${{ secrets.GOOGLE_PLAY_ANDROID_PUBLISHER }}
         run: |
           echo $GOOGLE_PLAY_ANDROID_PUBLISHER > google_play_android_publisher.json
-          python3 google_api_test.py $APP_PACKAGE_NAME
+          python3 scripts/google_api_test.py $APP_PACKAGE_NAME

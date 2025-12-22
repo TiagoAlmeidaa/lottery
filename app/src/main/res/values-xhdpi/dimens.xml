@@ -51,7 +51,7 @@
     <!-- Main Activity -->
     <dimen name="main_view_margin">5dp</dimen>
     <dimen name="main_content_padding_start_end">36dp</dimen>
-    <dimen name="main_content_padding_top_bottom">24dp</dimen>
+    <dimen name="main_content_padding_top_bottom">8dp</dimen>
 
     <!-- Results Adapter -->
     <dimen name="adapter_result_contest_title_width">100dp</dimen>

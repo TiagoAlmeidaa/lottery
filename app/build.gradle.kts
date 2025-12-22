@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 val appId = "com.tiagoalmeida.lottery"
@@ -66,10 +67,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget("17")
     }
 }
 
@@ -92,7 +96,9 @@ dependencies {
     implementation(libs.flexbox)
     implementation(libs.coroutines)
     implementation(libs.koin)
+
     debugImplementation(libs.leakCanary)
+
     testImplementation(libs.junit)
     testImplementation(libs.coreTesting)
     testImplementation(libs.mockK)

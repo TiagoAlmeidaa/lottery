@@ -21,4 +21,4 @@ Some of the features are:
 
 > ### Current screens:
 
-<img src="screen_results.png" height=400/> <img src="screen_my_games.png" height=400/> <img src="screen_game_details.png" height=400/> <img src="screen_add_game.png" height=400/> <img src="screen_pick_numbers.png" height=400/> 
+<img src="screenshots/screen_results.png" height=400/> <img src="screenshots/screen_my_games.png" height=400/> <img src="screenshots/screen_game_details.png" height=400/> <img src="screenshots/screen_add_game.png" height=400/> <img src="screenshots/screen_pick_numbers.png" height=400/> 
