@@ -57,7 +57,7 @@ def main(argv):
             }]}).execute()
 
         print("-> track: %s" % track_response['track'])
-        print("-> release: %s" % track_response['release'])
+        print("-> releases: %s" % track_response['releases'])
 
         commit_request = service.edits().commit(
             editId=edit_id,
@@ -68,7 +68,7 @@ def main(argv):
 
     except Exception as e:
         print(f'An error occurred: {e}')
-
+        sys.exit(1)
 
 if __name__ == '__main__':
     main(sys.argv)
