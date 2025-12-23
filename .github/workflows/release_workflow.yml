@@ -69,5 +69,5 @@ jobs:
         run: |
           ls -lha app/build/outputs/apk/release
           echo $GOOGLE_PLAY_ANDROID_PUBLISHER > google_play_android_publisher.json
-          python3 scripts/upload_app.py $APP_PACKAGE_NAME app/build/outputs/apk/release/
+          python3 scripts/upload_app.py $APP_PACKAGE_NAME app/build/outputs/apk/release/app-release.apk
 
