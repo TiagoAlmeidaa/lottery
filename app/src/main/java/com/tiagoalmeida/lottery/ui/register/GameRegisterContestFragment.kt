@@ -59,7 +59,6 @@ class GameRegisterContestFragment : Fragment() {
         with(binding) {
             buttonBack.setOnClickListener {
                 activity?.finish()
-                activity?.overridePendingTransition(R.anim.stay, R.anim.slide_top_to_bottom)
             }
             buttonNext.setOnClickListener {
                 clearErrors()

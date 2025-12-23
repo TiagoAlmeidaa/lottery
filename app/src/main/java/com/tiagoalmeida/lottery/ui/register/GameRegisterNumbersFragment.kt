@@ -135,7 +135,6 @@ class GameRegisterNumbersFragment : Fragment(), GridNumberPickedEvents {
     private fun finishProcess() {
         activity?.setResult(Activity.RESULT_OK)
         activity?.finish()
-        activity?.overridePendingTransition(R.anim.stay, R.anim.slide_top_to_bottom)
     }
 
     private fun updateSelectedCounter() {

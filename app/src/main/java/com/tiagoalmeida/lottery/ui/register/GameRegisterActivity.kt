@@ -23,9 +23,4 @@ class GameRegisterActivity : AppCompatActivity() {
         WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.stay, R.anim.slide_top_to_bottom)
-    }
-
 }

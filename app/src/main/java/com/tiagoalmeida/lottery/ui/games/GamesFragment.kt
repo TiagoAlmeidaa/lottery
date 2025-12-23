@@ -190,7 +190,6 @@ class GamesFragment : Fragment(), GamesAdapterEvents {
         val intent = Intent(requireContext(), GameRegisterActivity::class.java)
 
         startActivityForResult(intent, Constants.REQUEST_CODE_NEW_GAME)
-        activity?.overridePendingTransition(R.anim.slide_bottom_to_top, R.anim.stay)
     }
 
 }
